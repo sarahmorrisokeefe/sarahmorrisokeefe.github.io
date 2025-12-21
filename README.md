@@ -2,16 +2,6 @@
 
 A modern, React + TypeScript personal website showcasing my experience, projects, and interests.
 
-## Features
-
-- ✅ Resume-first design - About page showcases background, skills, and personality
-- ✅ Experience page - Full work history with all roles
-- ✅ Projects page - Capstone projects (Brewify, Puptracker) and other work
-- ✅ Education section - Nashville Software School, Belmont University
-- ✅ Freelance page - Information about freelance services
-- ✅ Contact form - With options for both employment and freelance inquiries
-- ✅ Personal touch - "Beyond the Code" section with wine, music, and poetry interests
-
 ## Tech Stack
 
 - **React 18** - UI library
