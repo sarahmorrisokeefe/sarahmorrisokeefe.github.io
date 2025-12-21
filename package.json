@@ -1,41 +1,25 @@
 {
-  "name": "sarahmorris926.github.io",
-  "version": "1.0.0",
-  "description": "Personal Site 2.0",
-  "keywords": [
-    "css",
-    "sass",
-    "html",
-    "responsive"
-  ],
-  "main": "index.js",
+  "name": "sarahmorrisokeefe.github.io",
+  "version": "2.0.0",
+  "description": "Personal Site - React + TypeScript",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sarahmorris926/sarahmorris926.github.io.git"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "bootstrap": "^4.3.1",
-    "devicons": "^1.8.0",
-    "jquery": "3.5.0",
-    "popper.js": "^1.14.1",
-    "simple-line-icons": "^2.4.1"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.0"
   },
   "devDependencies": {
-    "browser-sync": "2.27.10",
-    "gulp": "^4.0.2",
-    "gulp-clean-css": "3.9.2",
-    "gulp-header": "2.0.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^3.1.0",
-    "gulp-uglify": "3.0.0"
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8"
   },
-  "author": "Sarah Morris",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sarahmorris926/sarahmorris926.github.io/issues"
-  },
-  "homepage": "https://github.com/sarahmorris926/sarahmorris926.github.io#readme"
+  "author": "Sarah O'Keefe",
+  "license": "ISC"
 }
