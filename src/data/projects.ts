@@ -7,7 +7,6 @@ export interface Project {
   description: string;
   githubUrl?: string;
   liveUrl?: string;
-  // TODO: replace PLACEHOLDER with your actual CodePen username
   codepenUrl?: string;
   // featured: true = shown in the large top card slot
   featured: boolean;
@@ -16,46 +15,41 @@ export interface Project {
   category: ProjectCategory;
 }
 
-// TODO: add your recent projects — the two placeholders are here for structure.
-// Replace or expand them with real work. The capstone projects (brewify, puptracker)
-// are kept as historical context.
 export const projects: Project[] = [
   {
-    id: "featured-placeholder",
-    name: "Your Featured Project",
-    // TODO: replace with a real recent project description
+    id: "pilot-path",
+    name: "Pilot Path",
     description:
-      "A placeholder for your most notable recent work. Describe what it does, the problem it solves, and what made it interesting to build. Two or three sentences works well — enough to give a reader a reason to click through.",
-    githubUrl: "https://github.com/sarahmorrisokeefe",
-    liveUrl: undefined,
-    codepenUrl: "https://codepen.io/sarahmorrisokeefe",
+      "A tool built out of personal necessity — I'm in pilot training, and I wanted something purpose-built for tracking progress, study sessions, and flight hours that didn't feel like a spreadsheet. A React + TypeScript app with a clean, focused UI that gets out of your way.",
+    githubUrl: "https://github.com/sarahmorrisokeefe/pilot-path",
+    liveUrl: "https://pilotpath.vercel.app",
     featured: true,
-    technologies: ["React", "TypeScript", "CSS"],
+    technologies: ["React", "TypeScript", "Tailwind CSS"],
     year: "2024",
     category: "work",
   },
   {
-    id: "experiment-placeholder",
-    name: "Side Project or Experiment",
-    // TODO: replace with a real side project, experiment, or open source contribution
+    id: "formula-one-data-vis",
+    name: "Formula One Data Visualization",
     description:
-      "A placeholder for a side project or creative coding experiment. This is a great spot to show work that lives outside your day job — a UI challenge, an open source contribution, a weekend project that got out of hand.",
-    githubUrl: "https://github.com/sarahmorrisokeefe",
+      "An interactive data visualization app exploring F1 race and driver statistics. I built this to dig into a dataset I found genuinely interesting and to practice building something visually expressive — charts that reward curiosity rather than just display numbers.",
+    githubUrl: "https://github.com/sarahmorrisokeefe/formula-one-data-vis",
+    liveUrl: "https://formula-one-data-vis.vercel.app",
     featured: false,
-    technologies: ["JavaScript", "CSS", "SVG"],
+    technologies: ["React", "TypeScript", "D3.js"],
     year: "2024",
     category: "experiment",
   },
   {
-    id: "brewify",
-    name: "Brewify",
+    id: "dashboard-codepen",
+    name: "Dashboard UI — Design Study",
     description:
-      "A front-end capstone project from Nashville Software School. Brewify pairs beers with music by combining the Spotify API and BreweryDB — because why not. Built with Angular and Firebase.",
-    githubUrl: "https://github.com/sarahmorrisokeefe/brewify",
+      "A CodePen dashboard component that's less about functionality and more about aesthetic: how data-heavy UI can still feel calm, considered, and human. This is the kind of design work I enjoy most — opinionated, detail-forward, and with a clear point of view.",
+    codepenUrl: "https://codepen.io/sarahmorrisokeefe/pen/LENezoW",
     featured: false,
-    technologies: ["Angular", "Firebase", "Spotify API", "BreweryDB"],
-    year: "2018",
-    category: "capstone",
+    technologies: ["HTML", "CSS", "JavaScript"],
+    year: "2024",
+    category: "experiment",
   },
   {
     id: "puptracker",
