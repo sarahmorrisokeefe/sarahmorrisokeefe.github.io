@@ -1,0 +1,99 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import { personalInfo } from '../../data/personalInfo';
+
+// Interests list — edit these directly to update the About section
+const interests = [
+  'Classical piano & trumpet',
+  'Pilot training',
+  'Rock climbing',
+  'Birdwatching',
+  'Language learning (German & Spanish)',
+  'Meditation & reading',
+  'Volunteer: Guardian ad Litem',
+  'Wine — WSET Level 2',
+];
+---
+
+<section id="about" class="bg-cream dark:bg-ink-dark py-20 md:py-28 px-6">
+  <div class="max-w-5xl mx-auto">
+    <SectionHeading
+      title="About"
+      subtitle="Engineer, musician, perpetual beginner."
+    />
+
+    <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+      <!-- Profile photo column -->
+      <div class="fade-up">
+        <div class="relative inline-block w-full max-w-xs mx-auto md:mx-0">
+          <!-- Decorative offset border -->
+          <div
+            class="absolute -bottom-3 -right-3 w-full h-full rounded-2xl border-2 border-sage/30 dark:border-sage/20"
+            aria-hidden="true"
+          >
+          </div>
+          <!-- Photo -->
+          <!--
+            TODO: swap profile.jpeg with your real photo.
+            The image should be at public/images/profile.jpeg.
+            Ideal size: square or portrait crop, at least 600px wide.
+          -->
+          <img
+            src={personalInfo.profileImage}
+            alt={`${personalInfo.name} — portrait`}
+            width="400"
+            height="500"
+            loading="lazy"
+            class="relative z-10 w-full rounded-2xl object-cover object-top shadow-xl"
+            style="aspect-ratio: 4/5"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <!-- Placeholder shown if image is missing -->
+          <div
+            class="hidden relative z-10 w-full rounded-2xl bg-cream-alt dark:bg-ink items-center justify-center text-ink/30 dark:text-cream/20 text-sm"
+            style="aspect-ratio: 4/5"
+          >
+            <span class="text-center px-4">
+              Photo goes here<br />
+              <code class="text-xs mt-1 block opacity-60">public/images/profile.jpeg</code>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bio + interests column -->
+      <div class="fade-up" style="transition-delay: 0.15s">
+        <!-- Bio paragraphs from data/personalInfo.ts -->
+        <div class="space-y-4 mb-10">
+          {
+            personalInfo.bio.map((paragraph) => (
+              <p class="text-ink dark:text-cream/70 leading-relaxed text-base">{paragraph}</p>
+            ))
+          }
+        </div>
+
+        <!-- Currently into -->
+        <div>
+          <h3
+            class="font-serif text-sm tracking-widest uppercase text-ink/40 dark:text-cream/30 mb-4"
+          >
+            Currently into
+          </h3>
+          <ul class="grid grid-cols-1 gap-2">
+            {
+              interests.map((interest) => (
+                <li class="flex items-center gap-2.5 text-sm text-ink dark:text-cream/60">
+                  <span
+                    class="w-1 h-1 rounded-full bg-sage-light shrink-0"
+                    aria-hidden="true"
+                  />
+                  {interest}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

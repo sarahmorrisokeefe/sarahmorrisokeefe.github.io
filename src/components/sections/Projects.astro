@@ -1,0 +1,53 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import ProjectCard from '../ui/ProjectCard.astro';
+import { projects } from '../../data/projects';
+
+const featured = projects.find((p) => p.featured);
+const rest = projects.filter((p) => !p.featured);
+---
+
+<section id="projects" class="bg-cream-alt dark:bg-ink-darker py-20 md:py-28 px-6">
+  <div class="max-w-5xl mx-auto">
+    <SectionHeading
+      title="Projects"
+      subtitle="A selection of things I've built — at work, for fun, and for learning."
+    />
+
+    <!-- Featured project (large card) -->
+    {
+      featured && (
+        <div class="mb-8 fade-up">
+          <ProjectCard project={featured} featured={true} />
+        </div>
+      )
+    }
+
+    <!-- Project grid -->
+    {
+      rest.length > 0 && (
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 fade-up-stagger">
+          {rest.map((project) => (
+            <ProjectCard project={project} />
+          ))}
+        </div>
+      )
+    }
+
+    <!-- CodePen link -->
+    <div class="mt-12 fade-up">
+      <p class="text-sm text-ink/50 dark:text-cream/30">
+        More experiments on{' '}
+        <a
+          href="https://codepen.io/sarahmorrisokeefe"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sage dark:text-sage-light hover:text-ink-dark dark:hover:text-cream underline underline-offset-2 decoration-sage/30 hover:decoration-ink-dark/50 transition-all"
+        >
+
+          CodePen →
+        </a>
+      </p>
+    </div>
+  </div>
+</section>

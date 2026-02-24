@@ -1,17 +1,25 @@
+export type SocialPlatform = 'github' | 'linkedin' | 'codepen' | 'twitter' | 'instagram';
+
 export interface SocialLink {
   name: string;
   url: string;
-  icon: string;
+  platform: SocialPlatform;
 }
 
 export interface PersonalInfo {
   name: string;
   firstName: string;
   lastName: string;
+  // TODO: update this tagline to your preferred one-liner — it appears large in the hero
+  tagline: string;
   title: string;
   location: string;
+  // TODO: verify this email address is still active before launching
   email: string;
-  bio: string;
+  // Array of paragraph strings — each entry renders as a <p> in the About section.
+  // TODO: replace these placeholder paragraphs with your own words in your own voice.
+  bio: string[];
+  // TODO: swap in your actual profile photo at public/images/profile.jpeg
   profileImage: string;
   socialLinks: SocialLink[];
 }
@@ -20,32 +28,38 @@ export const personalInfo: PersonalInfo = {
   name: "Sarah O'Keefe",
   firstName: "Sarah",
   lastName: "O'Keefe",
-  title: "Software Engineer + Developer Advocate",
-  location: "Charlotte, North Carolina",
+  tagline: "Front-end engineer. Classically trained pianist. Perpetual learner.",
+  title: "Front-End Software Engineer at iHeartRadio",
+  location: "Charlotte, NC",
   email: "hello@okeefesarah.com",
-  bio: "I am a front-end software engineer and developer advocate currently working with React and Typescript.",
-  profileImage: "/legacy/img/Optimized-fullsizeoutput_1900.jpeg",
+  profileImage: "/images/profile.jpeg",
+  bio: [
+    "I'm a front-end software engineer based in Charlotte, NC, currently building things at iHeartRadio with React and TypeScript. I care a lot about the craft of the interface — the small decisions that make an experience feel alive and intentional rather than just functional.",
+    "Before I was an engineer, I studied music business at Belmont University (I'm a classically trained pianist, also trumpet), spent a year in law school, worked in video production, and found my way to Nashville Software School. The circuitous path left me with an unusual mix: I think like a systems designer, I write like a storyteller, and I build like someone who's genuinely delighted by the web.",
+    "Outside of work, I'm in the middle of pilot training, working my way up climbing walls, birdwatching with way more enthusiasm than I expected, learning German and Spanish simultaneously (not recommended), meditating, and reading everything I can. I'm also a mom — my daughter Hollis and our dogs Samantha and Tyburn keep things lively.",
+    "This site is a small corner of the internet where I keep my work, my writing, and the occasional overshare. Welcome.",
+  ],
   socialLinks: [
     {
-      name: "Twitter",
-      url: "https://twitter.com/sarahmokeefe",
-      icon: "twitter"
+      name: "GitHub",
+      url: "https://github.com/sarahmorrisokeefe",
+      platform: "github",
     },
     {
       name: "LinkedIn",
       url: "https://linkedin.com/in/sarahmorrisokeefe",
-      icon: "linkedin"
+      platform: "linkedin",
     },
     {
-      name: "GitHub",
-      url: "https://www.github.com/sarahmorrisokeefe",
-      icon: "github"
+      name: "CodePen",
+      url: "https://codepen.io/sarahmorrisokeefe",
+      platform: "codepen",
     },
     {
-      name: "Blog",
-      url: "http://blog.okeefesarah.com",
-      icon: "medium"
-    }
-  ]
+      // TODO: verify this Twitter/X URL is still active
+      name: "Twitter",
+      url: "https://twitter.com/sarahmokeefe",
+      platform: "twitter",
+    },
+  ],
 };
-

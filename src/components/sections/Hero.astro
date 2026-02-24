@@ -1,0 +1,118 @@
+---
+import { personalInfo } from '../../data/personalInfo';
+---
+
+<section
+  id="hero"
+  class="relative min-h-screen flex items-center bg-ink-dark dark:bg-ink-darker overflow-hidden"
+>
+  <!-- Abstract decorative background shapes (CSS only, no images) -->
+  <div aria-hidden="true" class="absolute inset-0 pointer-events-none">
+    <!-- Large soft circle, top-right -->
+    <div
+      class="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full"
+      style="background: radial-gradient(circle, rgba(94,108,91,0.12) 0%, transparent 70%)"
+    >
+    </div>
+    <!-- Medium soft circle, bottom-left -->
+    <div
+      class="absolute -bottom-24 -left-24 w-[400px] h-[400px] rounded-full"
+      style="background: radial-gradient(circle, rgba(132,150,128,0.08) 0%, transparent 70%)"
+    >
+    </div>
+    <!-- Decorative SVG botanical arcs -->
+    <svg
+      class="absolute right-10 top-1/2 -translate-y-1/2 w-64 h-64 md:w-80 md:h-80 opacity-[0.07]"
+      viewBox="0 0 320 320"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <circle cx="160" cy="160" r="150" stroke="#849680" stroke-width="1.5"></circle>
+      <circle cx="200" cy="120" r="100" stroke="#5E6C5B" stroke-width="1.5"></circle>
+      <circle cx="120" cy="200" r="75" stroke="#849680" stroke-width="1"></circle>
+      <line
+        x1="60"
+        y1="260"
+        x2="260"
+        y2="60"
+        stroke="#5E6C5B"
+        stroke-width="0.75"></line>
+      <line
+        x1="60"
+        y1="60"
+        x2="260"
+        y2="260"
+        stroke="#849680"
+        stroke-width="0.5"></line>
+      <circle cx="160" cy="50" r="4" fill="#849680"></circle>
+      <circle cx="270" cy="160" r="3" fill="#5E6C5B"></circle>
+      <circle cx="50" cy="270" r="3.5" fill="#849680"></circle>
+      <circle cx="160" cy="270" r="2.5" fill="#5E6C5B"></circle>
+    </svg>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-5xl mx-auto px-6 py-24 md:py-32">
+    <!-- Eyebrow: location -->
+    <p
+      class="text-sage-light text-sm font-medium tracking-widest uppercase mb-6 fade-up"
+    >
+      Charlotte, NC
+    </p>
+
+    <!-- Name -->
+    <h1
+      class="font-serif text-5xl md:text-7xl text-cream leading-[1.05] mb-6 fade-up"
+      style="transition-delay: 0.1s"
+    >
+      {personalInfo.firstName}<br />
+      {personalInfo.lastName}
+    </h1>
+
+    <!-- Tagline -->
+    <p
+      class="text-sage-light text-lg md:text-xl font-medium mb-6 max-w-lg fade-up"
+      style="transition-delay: 0.2s"
+    >
+      {personalInfo.tagline}
+    </p>
+
+    <!-- Brief intro -->
+    <p
+      class="text-cream/60 text-base md:text-lg leading-relaxed max-w-md mb-10 fade-up"
+      style="transition-delay: 0.3s"
+    >
+      Front-end engineer at iHeartRadio. I build things that feel intentional.
+    </p>
+
+    <!-- CTAs -->
+    <div
+      class="flex flex-wrap gap-4 fade-up"
+      style="transition-delay: 0.4s"
+    >
+      <a
+        href="#projects"
+        class="inline-flex items-center gap-2 bg-sage hover:bg-sage-light text-cream font-medium text-sm px-6 py-3 rounded-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-sage/20"
+      >
+        See my work
+      </a>
+      <a
+        href="#contact"
+        class="inline-flex items-center gap-2 border border-cream/20 text-cream/80 hover:text-cream hover:border-cream/50 font-medium text-sm px-6 py-3 rounded-full transition-all duration-200 hover:-translate-y-0.5"
+      >
+        Say hello
+      </a>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div
+      class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 fade-up"
+      style="transition-delay: 0.7s"
+      aria-hidden="true"
+    >
+      <div class="w-px h-12 bg-gradient-to-b from-transparent to-cream/20"></div>
+      <div class="w-1.5 h-1.5 rounded-full bg-cream/20 animate-bounce"></div>
+    </div>
+  </div>
+</section>
