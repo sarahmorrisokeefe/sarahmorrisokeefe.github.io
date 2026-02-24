@@ -1,0 +1,42 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  // Use light=true when the section background is dark (hero, contact, footer)
+  light?: boolean;
+  class?: string;
+}
+
+const { title, subtitle, light = false, class: className = '' } = Astro.props;
+---
+
+<div class:list={['mb-12', className]}>
+  <h2
+    class:list={[
+      'font-serif text-3xl md:text-4xl leading-tight mb-3',
+      light ? 'text-cream' : 'text-ink-dark dark:text-cream',
+    ]}
+  >
+    {title}
+  </h2>
+  <!-- Decorative underline accent -->
+  <div
+    class:list={[
+      'w-10 h-0.5 mb-4',
+      light ? 'bg-sage-light' : 'bg-sage',
+    ]}
+  >
+  </div>
+  {
+    subtitle && (
+      <p
+        class:list={[
+          'text-base leading-relaxed max-w-xl',
+          light ? 'text-cream/60' : 'text-ink dark:text-cream/60',
+        ]}
+      >
+        {subtitle}
+      </p>
+    )
+  }
+</div>

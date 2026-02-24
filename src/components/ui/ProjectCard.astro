@@ -1,0 +1,93 @@
+---
+import TechTag from './TechTag.astro';
+import type { Project } from '../../data/projects';
+
+interface Props {
+  project: Project;
+  featured?: boolean;
+}
+
+const { project, featured = false } = Astro.props;
+---
+
+<article
+  class:list={[
+    'group rounded-xl border border-cream-alt dark:border-ink/30 bg-cream dark:bg-ink-dark',
+    'hover:shadow-lg dark:hover:shadow-ink-darker/50 hover:-translate-y-0.5 transition-all duration-300',
+    featured ? 'p-7 md:p-9' : 'p-6',
+  ]}
+>
+  <div class="flex items-start justify-between gap-4 mb-3">
+    <h3
+      class:list={[
+        'font-serif text-ink-dark dark:text-cream group-hover:text-sage dark:group-hover:text-sage-light transition-colors duration-200',
+        featured ? 'text-2xl' : 'text-xl',
+      ]}
+    >
+      {project.name}
+    </h3>
+    <span
+      class="text-xs text-ink/40 dark:text-cream/30 shrink-0 mt-1 font-medium tabular-nums"
+    >
+      {project.year}
+    </span>
+  </div>
+
+  <p class="text-sm leading-relaxed text-ink dark:text-cream/60 mb-5">
+    {project.description}
+  </p>
+
+  <!-- Tech tags -->
+  <div class="flex flex-wrap gap-1.5 mb-5">
+    {project.technologies.map((tech) => <TechTag label={tech} />)}
+  </div>
+
+  <!-- Links -->
+  <div class="flex flex-wrap gap-2">
+    {
+      project.githubUrl && (
+        <a
+          href={project.githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1 text-xs font-medium text-sage dark:text-sage-light hover:text-ink-dark dark:hover:text-cream border border-sage/25 dark:border-sage-light/20 hover:border-ink-dark/30 dark:hover:border-cream/30 px-3 py-1.5 rounded-full transition-all duration-200"
+        >
+          GitHub
+          <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M2 10L10 2M10 2H4M10 2v6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      )
+    }
+    {
+      project.liveUrl && (
+        <a
+          href={project.liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1 text-xs font-medium text-sage dark:text-sage-light hover:text-ink-dark dark:hover:text-cream border border-sage/25 dark:border-sage-light/20 hover:border-ink-dark/30 dark:hover:border-cream/30 px-3 py-1.5 rounded-full transition-all duration-200"
+        >
+          Live demo
+          <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M2 10L10 2M10 2H4M10 2v6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      )
+    }
+    {
+      project.codepenUrl && (
+        <a
+          href={project.codepenUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1 text-xs font-medium text-sage dark:text-sage-light hover:text-ink-dark dark:hover:text-cream border border-sage/25 dark:border-sage-light/20 hover:border-ink-dark/30 dark:hover:border-cream/30 px-3 py-1.5 rounded-full transition-all duration-200"
+        >
+          CodePen
+          <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M2 10L10 2M10 2H4M10 2v6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      )
+    }
+  </div>
+</article>
