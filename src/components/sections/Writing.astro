@@ -1,0 +1,66 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import PostCard from '../ui/PostCard.astro';
+import { posts } from '../../data/posts';
+
+// Only show non-draft posts
+const visiblePosts = posts.filter((p) => !p.draft).slice(0, 3);
+
+// TODO: update this URL to your blog once you have real posts ready
+const blogUrl = 'http://blog.okeefesarah.com';
+---
+
+<section id="writing" class="bg-cream dark:bg-ink-dark py-20 md:py-28 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+      <SectionHeading
+        title="Writing"
+        subtitle="Thoughts on code, music, and whatever I'm obsessed with this month."
+        class="mb-0"
+      />
+      <a
+        href={blogUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="shrink-0 text-sm font-medium text-sage dark:text-sage-light hover:text-ink-dark dark:hover:text-cream transition-colors duration-200 whitespace-nowrap flex items-center gap-1.5"
+      >
+        All posts
+        <svg
+          class="w-3.5 h-3.5"
+          viewBox="0 0 14 14"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          aria-hidden="true"
+        >
+          <path d="M2 7h10M8 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"
+          ></path>
+        </svg>
+      </a>
+    </div>
+
+    {
+      visiblePosts.length > 0 ? (
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 fade-up-stagger">
+          {visiblePosts.map((post) => (
+            <PostCard post={post} />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-16">
+          <p class="text-ink/40 dark:text-cream/30 text-sm">
+            Posts coming soon. In the meantime,{' '}
+            <a
+              href={blogUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-sage dark:text-sage-light hover:underline"
+            >
+              visit the blog →
+            </a>
+          </p>
+        </div>
+      )
+    }
+  </div>
+</section>

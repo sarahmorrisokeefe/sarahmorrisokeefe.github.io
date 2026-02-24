@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    { "source": "/experience",     "destination": "/#about",    "permanent": true },
+    { "source": "/projects",        "destination": "/#projects", "permanent": true },
+    { "source": "/contact",         "destination": "/#contact",  "permanent": true },
+    { "source": "/beyond-the-code", "destination": "/#about",    "permanent": true },
+    { "source": "/freelance",       "destination": "/#contact",  "permanent": true },
+    { "source": "/education",       "destination": "/#about",    "permanent": true }
+  ]
+}
