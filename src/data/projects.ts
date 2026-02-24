@@ -25,7 +25,7 @@ export const projects: Project[] = [
     liveUrl: "https://pilotpath.vercel.app",
     featured: true,
     technologies: ["React", "TypeScript", "Tailwind CSS"],
-    year: "2024",
+    year: "2026",
     category: "work",
   },
   {
@@ -37,7 +37,7 @@ export const projects: Project[] = [
     liveUrl: "https://formula-one-data-vis.vercel.app",
     featured: false,
     technologies: ["React", "TypeScript", "D3.js"],
-    year: "2024",
+    year: "2026",
     category: "experiment",
   },
   {
@@ -48,7 +48,7 @@ export const projects: Project[] = [
     codepenUrl: "https://codepen.io/sarahmorrisokeefe/pen/LENezoW",
     featured: false,
     technologies: ["HTML", "CSS", "JavaScript"],
-    year: "2024",
+    year: "2025",
     category: "experiment",
   },
   {
