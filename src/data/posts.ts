@@ -13,19 +13,19 @@ export interface Post {
 // To hide a post while keeping it for reference: set draft: true.
 export const posts: Post[] = [
   {
-    title: "Finding Purpose at Work",
+    title: "Finding Purpose At Work: A Follow-Up",
     description:
-      "On what it actually means to find meaning in your work — not the LinkedIn version, but the messier, more honest one.",
-    url: "https://sarahmorrisokeefe.medium.com/finding-purpose-at-work-ab10af9b0385",
-    pubDate: "2024-01-03",
+      "Some things I got right. Some things I didn’t know yet.",
+    url: "https://medium.com/the-insanity-journal/finding-purpose-at-work-a-follow-up-757c5f992738",
+    pubDate: "2026-03-13",
     draft: false,
   },
   {
-    title: "The Art of Code Review: Best Practices",
+    title: "I'm Still Figuring Out AI Coding Tools. That's Kind of the Point.",
     description:
-      "Code review done well is a form of mentorship. A look at the habits and mindsets that make reviews genuinely useful rather than just a rubber stamp.",
-    url: "https://medium.com/womenintechnology/the-art-of-code-review-best-practices-06e7260cc0a3",
-    pubDate: "2023-12-05",
+      "A front-end engineer’s honest take on what’s actually working, what isn’t, and why AI has made me excited about coding again.",
+    url: "https://levelup.gitconnected.com/im-still-figuring-out-ai-coding-tools-that-s-kind-of-the-point-489199baffda",
+    pubDate: "2026-03-12",
     draft: false,
   },
   {
