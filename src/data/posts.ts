@@ -13,6 +13,14 @@ export interface Post {
 // To hide a post while keeping it for reference: set draft: true.
 export const posts: Post[] = [
   {
+    title: "AI Didn’t Make Me a Better Engineer. It Made Me Remember Why I Became One.",
+    description:
+      "A mid-career front-end engineer on using AI to stop doing everything and start loving the job again.",
+    url: "https://medium.com/gitconnected/ai-didnt-make-me-a-better-engineer-it-made-me-remember-why-i-became-one-6faab0ba1979",
+    pubDate: "2026-03-16",
+    draft: false,
+  },
+  {
     title: "Finding Purpose At Work: A Follow-Up",
     description:
       "Some things I got right. Some things I didn’t know yet.",
@@ -34,6 +42,6 @@ export const posts: Post[] = [
       "Accessibility isn't a checklist — it's a way of thinking about who uses what you build. A practical, no-jargon primer for front-end engineers.",
     url: "https://levelup.gitconnected.com/a-short-guide-to-accessibility-in-front-end-engineering-f7577d00da48",
     pubDate: "2023-04-18",
-    draft: false,
+    draft: true,
   },
 ];
