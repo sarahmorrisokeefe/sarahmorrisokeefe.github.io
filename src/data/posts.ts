@@ -13,6 +13,13 @@ export interface Post {
 // To hide a post while keeping it for reference: set draft: true.
 export const posts: Post[] = [
   {
+    title: "5 Front-End Accessibility Patterns Worth Getting Right the First Time",
+    description: "These five patterns are not exotic. They're not edge cases. They're the things that make a real difference for real users.",
+    url: "https://levelup.gitconnected.com/5-front-end-accessibility-patterns-worth-getting-right-the-first-time-12af156c9297",
+    pubDate: "2026-03-30",
+    draft: false,
+  },
+  {
     title: "AI Didn’t Make Me a Better Engineer. It Made Me Remember Why I Became One.",
     description:
       "A mid-career front-end engineer on using AI to stop doing everything and start loving the job again.",
@@ -34,14 +41,6 @@ export const posts: Post[] = [
       "A front-end engineer’s honest take on what’s actually working, what isn’t, and why AI has made me excited about coding again.",
     url: "https://levelup.gitconnected.com/im-still-figuring-out-ai-coding-tools-that-s-kind-of-the-point-489199baffda",
     pubDate: "2026-03-12",
-    draft: false,
-  },
-  {
-    title: "A (Short) Guide to Accessibility in Front-End Engineering",
-    description:
-      "Accessibility isn't a checklist — it's a way of thinking about who uses what you build. A practical, no-jargon primer for front-end engineers.",
-    url: "https://levelup.gitconnected.com/a-short-guide-to-accessibility-in-front-end-engineering-f7577d00da48",
-    pubDate: "2023-04-18",
     draft: true,
   },
 ];
