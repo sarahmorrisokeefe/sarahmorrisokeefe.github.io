@@ -17,11 +17,11 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: "pilot-path",
-    name: "Pilot Path",
+    id: "cadence",
+    name: "Cadence",
     description:
       "A tool built out of personal necessity — I'm in pilot training, and I wanted something purpose-built for tracking progress, study sessions, and flight hours that didn't feel like a spreadsheet. A React + TypeScript app with a clean, focused UI that gets out of your way.",
-    githubUrl: "https://github.com/sarahmorrisokeefe/pilot-path",
+    githubUrl: "https://github.com/sarahmorrisokeefe/cadence",
     liveUrl: "https://pilotpath.vercel.app",
     featured: true,
     technologies: ["React", "TypeScript", "Tailwind CSS"],
