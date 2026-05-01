@@ -12,17 +12,20 @@ const formattedDate = new Date(post.pubDate).toLocaleDateString('en-US', {
   month: 'long',
   day: 'numeric',
 });
+
+const platformLabel = post.platform.charAt(0).toUpperCase() + post.platform.slice(1);
 ---
 
 <article
   class="group p-6 rounded-xl border border-cream-alt dark:border-ink/30 bg-cream dark:bg-ink-dark hover:shadow-md dark:hover:shadow-ink-darker/50 hover:-translate-y-0.5 transition-all duration-300 flex flex-col"
 >
-  <time
-    datetime={post.pubDate}
-    class="text-xs text-ink/40 dark:text-cream/30 mb-3 block font-medium tracking-wide uppercase"
+  <div
+    class="flex items-center gap-2 text-xs text-ink/40 dark:text-cream/30 mb-3 font-medium tracking-wide uppercase"
   >
-    {formattedDate}
-  </time>
+    <time datetime={post.pubDate}>{formattedDate}</time>
+    <span aria-hidden="true">·</span>
+    <span>{platformLabel}</span>
+  </div>
 
   <h3
     class="font-serif text-lg text-ink-dark dark:text-cream group-hover:text-sage dark:group-hover:text-sage-light transition-colors duration-200 mb-3 leading-snug"
