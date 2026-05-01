@@ -5,11 +5,12 @@ import { personalInfo } from '../../data/personalInfo';
 // Interests list — edit these directly to update the About section
 const interests = [
   'Classical piano & trumpet',
-  'Pilot training',
+  'Reading',
+  'Running',
   'Rock climbing',
   'Birdwatching',
   'Language learning (German & Spanish)',
-  'Meditation & reading',
+  'Meditation',
   'Volunteer: Guardian ad Litem',
   'Wine — WSET Level 2',
 ];
@@ -44,7 +45,7 @@ const interests = [
             width="400"
             height="500"
             loading="lazy"
-            class="relative z-10 w-full rounded-2xl object-cover object-top shadow-xl"
+            class="u-photo relative z-10 w-full rounded-2xl object-cover object-top shadow-xl"
             style="aspect-ratio: 4/5"
             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
           />
@@ -64,7 +65,7 @@ const interests = [
       <!-- Bio + interests column -->
       <div class="fade-up" style="transition-delay: 0.15s">
         <!-- Bio paragraphs from data/personalInfo.ts -->
-        <div class="space-y-4 mb-10">
+        <div class="space-y-4 mb-10 p-note">
           {
             personalInfo.bio.map((paragraph) => (
               <p class="text-ink dark:text-cream/70 leading-relaxed text-base">{paragraph}</p>
