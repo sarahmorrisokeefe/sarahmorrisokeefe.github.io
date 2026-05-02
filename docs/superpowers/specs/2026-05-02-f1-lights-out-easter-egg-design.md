@@ -42,7 +42,7 @@ Sarah's bio already mentions that she's "diving deep into the rabbit hole that i
 
 ### Game UI
 
-- Pixel font: `Press Start to Play` from Google Fonts (one weight; preconnect added to `<head>`).
+- Pixel font: `Press Start 2P` from Google Fonts (one weight; preconnect added to `<head>`). The "2P" is just the font's technical name and never appears in UI copy.
 - Color palette inside the takeover deliberately departs from the site's sage/cream:
   - Background: pure black `#000`.
   - Lights when on: neon red `#ff1f1f`.
