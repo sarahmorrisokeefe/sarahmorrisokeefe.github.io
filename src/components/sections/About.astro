@@ -8,8 +8,9 @@ const interests = [
   'Reading',
   'Running',
   'Rock climbing',
+  'Formula 1',
   'Birdwatching',
-  'Language learning (German & Spanish)',
+  'Language learning (German)',
   'Meditation',
   'Volunteer: Guardian ad Litem',
   'Wine — WSET Level 2',
@@ -20,7 +21,7 @@ const interests = [
   <div class="max-w-5xl mx-auto">
     <SectionHeading
       title="About"
-      subtitle="Engineer, musician, perpetual beginner."
+      subtitle="Music → law school → video → code."
     />
 
     <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
@@ -34,11 +35,6 @@ const interests = [
           >
           </div>
           <!-- Photo -->
-          <!--
-            TODO: swap profile.jpeg with your real photo.
-            The image should be at public/images/profile.jpeg.
-            Ideal size: square or portrait crop, at least 600px wide.
-          -->
           <img
             src={personalInfo.profileImage}
             alt={`${personalInfo.name} — portrait`}
@@ -56,7 +52,9 @@ const interests = [
           >
             <span class="text-center px-4">
               Photo goes here<br />
-              <code class="text-xs mt-1 block opacity-60">public/images/profile.jpeg</code>
+              <code class="text-xs mt-1 block opacity-60"
+                >public/images/profile.jpeg</code
+              >
             </span>
           </div>
         </div>
@@ -68,7 +66,9 @@ const interests = [
         <div class="space-y-4 mb-10 p-note">
           {
             personalInfo.bio.map((paragraph) => (
-              <p class="text-ink dark:text-cream/70 leading-relaxed text-base">{paragraph}</p>
+              <p class="text-ink dark:text-cream/70 leading-relaxed text-base">
+                {paragraph}
+              </p>
             ))
           }
         </div>
