@@ -23,7 +23,7 @@ Sarah's bio already mentions that she's "diving deep into the rabbit hole that i
 
 ## User flow
 
-1. Visitor scrolls to the footer and notices a small `🏁` glyph next to "Built with Astro + Tailwind."
+1. Visitor scrolls to the footer and notices a small `🏁` glyph centered in the bottom bar — exactly between the copyright text on the left and "Built with Astro + Tailwind" on the right. The deliberate center placement is itself the clue: there's no obvious functional reason for a checkered flag to live there, which invites curiosity.
 2. Hovering brightens the glyph; a `title="ready to race?"` tooltip hints at clickability.
 3. Clicking dispatches a `lights-out:open` custom event on `window`.
 4. A fullscreen overlay listens for that event and runs a "pixel takeover" animation: chunky black blocks rise from the bottom of the viewport in independent columns, fastest in the middle and slower at the edges, producing a naturally jagged leading edge. Total animation ~1.5s.
@@ -42,7 +42,7 @@ Sarah's bio already mentions that she's "diving deep into the rabbit hole that i
 
 ### Game UI
 
-- Pixel font: `Press Start 2P` from Google Fonts (one weight; preconnect added to `<head>`).
+- Pixel font: `Press Start to Play` from Google Fonts (one weight; preconnect added to `<head>`).
 - Color palette inside the takeover deliberately departs from the site's sage/cream:
   - Background: pure black `#000`.
   - Lights when on: neon red `#ff1f1f`.
@@ -71,7 +71,7 @@ Plus `jumpStart` as an interrupt from `arming` or `holding` that returns to `idl
 5. **result** — display reaction time in big chunky type. Compare to localStorage `lightsOut.bestMs`:
    - If new best: `NEW PERSONAL BEST!` flash; save the new value.
    - Otherwise: `BEST: 241 MS` shown below the current time.
-   Buttons: `RACE AGAIN` transitions directly to `arming` (auto-starts the next round, no need to "ready up" again). `EXIT` closes the overlay.
+     Buttons: `RACE AGAIN` transitions directly to `arming` (auto-starts the next round, no need to "ready up" again). `EXIT` closes the overlay.
 
 ### Input zones
 
@@ -84,6 +84,7 @@ This zoning makes intent unambiguous — clicking the black is "I'm playing"; cl
 ### Jump-start rule
 
 Any game input during `arming` or `holding` triggers `jumpStart`:
+
 - Red flash overlay (~150ms).
 - Big text: `🚨 JUMP START 🚨`.
 - 2-second forced cooldown — input ignored.
@@ -107,7 +108,7 @@ This is faithful to the F1 rule; visitors familiar with the sport will recognize
 - `src/components/lights-out/LightsOut.astro` — the overlay component. Includes:
   - Markup for the takeover container, light gantry, prompt/result text, control buttons.
   - A single `<script>` block (vanilla TypeScript) implementing the state machine, animation, input handling, sound, and localStorage interaction.
-- `src/components/layout/Footer.astro` — adds the `🏁` trigger button and dispatches `lights-out:open` on click.
+- `src/components/layout/Footer.astro` — adds the `🏁` trigger button (centered in the bottom bar between the copyright and "Built with Astro + Tailwind") and dispatches `lights-out:open` on click. The bottom bar currently uses a 2-element `justify-between` flex; this becomes a 3-element layout with the flag in the middle. On the small breakpoint where the bar wraps to a column, the flag should still sit between the two text elements vertically.
 - `src/layouts/BaseLayout.astro` — mounts `<LightsOut />` once, after the main content, so it's available on every page.
 
 ### Communication
