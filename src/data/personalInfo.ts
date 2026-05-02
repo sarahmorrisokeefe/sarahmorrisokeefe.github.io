@@ -32,7 +32,7 @@ export const personalInfo: PersonalInfo = {
   name: "Sarah O'Keefe",
   firstName: 'Sarah',
   lastName: "O'Keefe",
-  tagline: 'Software Engineer. Classically trained pianist. Perpetual learner.',
+  tagline: 'Engineer by trade, writer by habit, learner by default.',
   title: 'Front-End Software Engineer',
   location: 'Charlotte, NC',
   email: 'hello@okeefesarah.com',
