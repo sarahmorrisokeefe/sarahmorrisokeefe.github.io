@@ -50,7 +50,10 @@ describe('lights-out state machine', () => {
   });
 
   it('result with new best updates bestMs and flags isNewBest', () => {
-    let ctx = reduce(initialContext({ bestMs: 500 }), { type: 'INPUT', timestamp: 0 });
+    let ctx = reduce(initialContext({ bestMs: 500 }), {
+      type: 'INPUT',
+      timestamp: 0,
+    });
     ctx = reduce(ctx, { type: 'LIGHTS_ARMED' });
     ctx = reduce(ctx, { type: 'LIGHTS_OUT', timestamp: 0 });
     ctx = reduce(ctx, { type: 'INPUT', timestamp: 287 });
@@ -60,7 +63,10 @@ describe('lights-out state machine', () => {
   });
 
   it('result with non-best keeps existing bestMs and clears isNewBest', () => {
-    let ctx = reduce(initialContext({ bestMs: 200 }), { type: 'INPUT', timestamp: 0 });
+    let ctx = reduce(initialContext({ bestMs: 200 }), {
+      type: 'INPUT',
+      timestamp: 0,
+    });
     ctx = reduce(ctx, { type: 'LIGHTS_ARMED' });
     ctx = reduce(ctx, { type: 'LIGHTS_OUT', timestamp: 0 });
     ctx = reduce(ctx, { type: 'INPUT', timestamp: 287 });
@@ -69,7 +75,10 @@ describe('lights-out state machine', () => {
   });
 
   it('result with no prior best treats first time as a new best', () => {
-    let ctx = reduce(initialContext({ bestMs: null }), { type: 'INPUT', timestamp: 0 });
+    let ctx = reduce(initialContext({ bestMs: null }), {
+      type: 'INPUT',
+      timestamp: 0,
+    });
     ctx = reduce(ctx, { type: 'LIGHTS_ARMED' });
     ctx = reduce(ctx, { type: 'LIGHTS_OUT', timestamp: 0 });
     ctx = reduce(ctx, { type: 'INPUT', timestamp: 287 });
@@ -78,7 +87,10 @@ describe('lights-out state machine', () => {
   });
 
   it('result + RACE_AGAIN transitions to arming, clears transient fields, and preserves bestMs', () => {
-    let ctx = reduce(initialContext({ bestMs: 200 }), { type: 'INPUT', timestamp: 0 });
+    let ctx = reduce(initialContext({ bestMs: 200 }), {
+      type: 'INPUT',
+      timestamp: 0,
+    });
     ctx = reduce(ctx, { type: 'LIGHTS_ARMED' });
     ctx = reduce(ctx, { type: 'LIGHTS_OUT', timestamp: 0 });
     ctx = reduce(ctx, { type: 'INPUT', timestamp: 287 });
@@ -99,7 +111,10 @@ describe('lights-out state machine', () => {
   });
 
   it('OPEN resets the context to idle while preserving bestMs', () => {
-    let ctx = reduce(initialContext({ bestMs: 250 }), { type: 'INPUT', timestamp: 0 });
+    let ctx = reduce(initialContext({ bestMs: 250 }), {
+      type: 'INPUT',
+      timestamp: 0,
+    });
     ctx = reduce(ctx, { type: 'OPEN' });
     expect(ctx.state).toBe('idle');
     expect(ctx.bestMs).toBe(250);

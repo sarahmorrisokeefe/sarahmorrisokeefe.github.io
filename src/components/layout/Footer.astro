@@ -46,7 +46,10 @@ const currentYear = new Date().getFullYear();
     <div
       class="mt-10 pt-6 border-t border-cream/10 flex flex-col sm:flex-row sm:justify-between items-center gap-2 text-cream/30 text-xs"
     >
-      <p class="order-1">© {currentYear} {personalInfo.name}. All rights reserved.</p>
+      <p class="order-1">
+        © {currentYear}
+        {personalInfo.name}. All rights reserved.
+      </p>
 
       <button
         type="button"
@@ -63,11 +66,13 @@ const currentYear = new Date().getFullYear();
 </footer>
 
 <script>
-  document.querySelectorAll<HTMLButtonElement>('.lights-out-trigger').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      window.dispatchEvent(
-        new CustomEvent('lights-out:open', { detail: { trigger: btn } }),
-      );
+  document
+    .querySelectorAll<HTMLButtonElement>('.lights-out-trigger')
+    .forEach((btn) => {
+      btn.addEventListener('click', () => {
+        window.dispatchEvent(
+          new CustomEvent('lights-out:open', { detail: { trigger: btn } }),
+        );
+      });
     });
-  });
 </script>

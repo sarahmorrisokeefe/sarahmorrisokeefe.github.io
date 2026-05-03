@@ -41,7 +41,10 @@ class InMemoryStorage implements Storage {
 }
 
 // Only replace if the native implementation is broken (missing .clear).
-if (typeof localStorage === 'undefined' || typeof localStorage.clear !== 'function') {
+if (
+  typeof localStorage === 'undefined' ||
+  typeof localStorage.clear !== 'function'
+) {
   Object.defineProperty(globalThis, 'localStorage', {
     value: new InMemoryStorage(),
     writable: true,

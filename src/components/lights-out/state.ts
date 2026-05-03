@@ -83,7 +83,13 @@ export function reduce(ctx: Context, event: GameEvent): Context {
 
     case 'RACE_AGAIN':
       if (ctx.state === 'result' || ctx.state === 'idle') {
-        return { ...ctx, state: 'arming', reactionMs: null, liveStartTime: null, isNewBest: false };
+        return {
+          ...ctx,
+          state: 'arming',
+          reactionMs: null,
+          liveStartTime: null,
+          isNewBest: false,
+        };
       }
       return ctx;
   }

@@ -1,5 +1,10 @@
 import { initialContext, reduce, type Context, type GameEvent } from './state';
-import { readBestMs, writeBestMs, readSoundEnabled, writeSoundEnabled } from './storage';
+import {
+  readBestMs,
+  writeBestMs,
+  readSoundEnabled,
+  writeSoundEnabled,
+} from './storage';
 import { playLightOn, playLightsOut, resumeAudio } from './sound';
 
 const PIXEL_BLOCK_PX = 28;
@@ -93,7 +98,8 @@ function collectRefs(root: HTMLElement): Refs {
 
 function attachListeners(rt: Runtime): void {
   window.addEventListener('lights-out:open', (event) => {
-    const trigger = (event as CustomEvent<{ trigger?: HTMLElement }>).detail?.trigger ?? null;
+    const trigger =
+      (event as CustomEvent<{ trigger?: HTMLElement }>).detail?.trigger ?? null;
     open(rt, trigger);
   });
 
@@ -194,7 +200,10 @@ function open(rt: Runtime, trigger: HTMLElement | null): void {
 function close(rt: Runtime): void {
   // Re-entry guard: if a close is already in flight, ignore subsequent calls.
   // Without this, a click during the 650ms close transition can compound timers and animations.
-  if (rt.refs.root.dataset.state === 'closing' || rt.refs.root.dataset.state === 'closed') {
+  if (
+    rt.refs.root.dataset.state === 'closing' ||
+    rt.refs.root.dataset.state === 'closed'
+  ) {
     return;
   }
   clearAllTimers(rt);

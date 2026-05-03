@@ -9,8 +9,7 @@ interface Props {
 
 const {
   title = "Sarah O'Keefe — Front-End Engineer",
-  description =
-    "Front-end software engineer based in Charlotte, NC. Building things with React and TypeScript at iHeartRadio.",
+  description = 'Front-end software engineer based in Charlotte, NC. Building things with React and TypeScript at iHeartRadio.',
 } = Astro.props;
 ---
 
@@ -32,7 +31,9 @@ const {
     <script is:inline>
       (function () {
         const stored = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const prefersDark = window.matchMedia(
+          '(prefers-color-scheme: dark)',
+        ).matches;
         const theme = stored ?? (prefersDark ? 'dark' : 'light');
         document.documentElement.classList.toggle('dark', theme === 'dark');
       })();

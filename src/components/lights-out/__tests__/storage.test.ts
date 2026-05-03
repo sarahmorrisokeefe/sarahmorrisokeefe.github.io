@@ -1,5 +1,10 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { readBestMs, writeBestMs, readSoundEnabled, writeSoundEnabled } from '../storage';
+import {
+  readBestMs,
+  writeBestMs,
+  readSoundEnabled,
+  writeSoundEnabled,
+} from '../storage';
 
 describe('lights-out storage', () => {
   beforeEach(() => {
