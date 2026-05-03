@@ -32,6 +32,8 @@ type Runtime = {
   armingTimers: number[];
   holdTimer: number | null;
   jumpStartTimer: number | null;
+  focusTimer: number | null;
+  cleanupTimer: number | null;
 };
 
 let runtime: Runtime | null = null;
@@ -55,6 +57,8 @@ export function mount(): void {
     armingTimers: [],
     holdTimer: null,
     jumpStartTimer: null,
+    focusTimer: null,
+    cleanupTimer: null,
   };
 
   attachListeners(runtime);
@@ -180,10 +184,19 @@ function open(rt: Runtime, trigger: HTMLElement | null): void {
   dispatch(rt, { type: 'OPEN' });
 
   // Move focus into the overlay (close button is a safe initial target).
-  setTimeout(() => rt.refs.closeBtn.focus(), 50);
+  // Tracked on runtime so close() can cancel it if the user closes within 50ms.
+  rt.focusTimer = window.setTimeout(() => {
+    rt.focusTimer = null;
+    rt.refs.closeBtn.focus();
+  }, 50);
 }
 
 function close(rt: Runtime): void {
+  // Re-entry guard: if a close is already in flight, ignore subsequent calls.
+  // Without this, a click during the 650ms close transition can compound timers and animations.
+  if (rt.refs.root.dataset.state === 'closing' || rt.refs.root.dataset.state === 'closed') {
+    return;
+  }
   clearAllTimers(rt);
   rt.refs.root.dataset.state = 'closing';
 
@@ -196,7 +209,8 @@ function close(rt: Runtime): void {
   void rt.refs.root.offsetWidth;
   rt.refs.root.dataset.state = 'closed';
 
-  setTimeout(() => {
+  rt.cleanupTimer = window.setTimeout(() => {
+    rt.cleanupTimer = null;
     rt.refs.root.hidden = true;
     rt.refs.root.setAttribute('aria-hidden', 'true');
     rt.refs.pixels.replaceChildren();
@@ -342,5 +356,13 @@ function clearAllTimers(rt: Runtime): void {
   if (rt.jumpStartTimer !== null) {
     clearTimeout(rt.jumpStartTimer);
     rt.jumpStartTimer = null;
+  }
+  if (rt.focusTimer !== null) {
+    clearTimeout(rt.focusTimer);
+    rt.focusTimer = null;
+  }
+  if (rt.cleanupTimer !== null) {
+    clearTimeout(rt.cleanupTimer);
+    rt.cleanupTimer = null;
   }
 }
