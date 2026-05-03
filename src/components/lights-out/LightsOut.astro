@@ -1,0 +1,287 @@
+---
+// Overlay for the F1 lights-out easter egg.
+// Mounted once globally in BaseLayout.astro. Hidden until the
+// 'lights-out:open' custom event is dispatched on `window`.
+---
+
+<div
+  class="lights-out"
+  data-state="closed"
+  role="dialog"
+  aria-modal="true"
+  aria-label="F1 lights-out reaction game"
+  aria-hidden="true"
+  hidden
+>
+  <!-- Pixel takeover columns are populated by the controller -->
+  <div class="lights-out__pixels" data-pixels></div>
+
+  <!-- Game UI sits above the pixel takeover -->
+  <div class="lights-out__ui">
+    <div class="lights-out__top-bar">
+      <button
+        type="button"
+        class="lights-out__icon-btn"
+        data-sound-toggle
+        aria-label="Toggle sound">🔇</button
+      >
+      <button
+        type="button"
+        class="lights-out__icon-btn"
+        data-close
+        aria-label="Exit game">✕</button
+      >
+    </div>
+
+    <div class="lights-out__gantry" data-gantry>
+      <span class="lights-out__bulb" data-bulb="0"></span>
+      <span class="lights-out__bulb" data-bulb="1"></span>
+      <span class="lights-out__bulb" data-bulb="2"></span>
+      <span class="lights-out__bulb" data-bulb="3"></span>
+      <span class="lights-out__bulb" data-bulb="4"></span>
+    </div>
+
+    <div class="lights-out__message" data-message aria-live="polite">
+      PRESS SPACE OR CLICK TO START
+    </div>
+
+    <div class="lights-out__result" data-result hidden>
+      <div class="lights-out__time" data-time>0 MS</div>
+      <div class="lights-out__best" data-best></div>
+      <div class="lights-out__buttons">
+        <button type="button" class="lights-out__btn" data-race-again
+          >RACE AGAIN</button
+        >
+        <button type="button" class="lights-out__btn" data-exit>EXIT</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { mount } from './controller';
+  mount();
+</script>
+
+<style is:global>
+  .lights-out {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    font-family: 'Press Start 2P', system-ui, monospace;
+    color: #fefcf6;
+  }
+
+  .lights-out[data-state='open'],
+  .lights-out[data-state='opening'],
+  .lights-out[data-state='closing'] {
+    pointer-events: auto;
+  }
+
+  /* The pixel-block takeover layer */
+  .lights-out__pixels {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .lights-out__pixel-col {
+    position: absolute;
+    bottom: 0;
+    width: var(--col-width, 28px);
+    height: var(--col-height, 120vh);
+    background: #000;
+    transform: translateY(100%);
+    transition: transform var(--rise-duration, 1500ms)
+      cubic-bezier(0.4, 0, 0.6, 1) var(--rise-delay, 0ms);
+  }
+
+  .lights-out[data-state='open'] .lights-out__pixel-col,
+  .lights-out[data-state='opening'] .lights-out__pixel-col {
+    transform: translateY(var(--col-rest-offset, 0));
+  }
+
+  /* Subtle scanlines over the takeover */
+  .lights-out__pixels::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.02) 0,
+      rgba(255, 255, 255, 0.02) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events: none;
+  }
+
+  /* UI layer — transparent to clicks except on its actual content,
+     so clicks pass through empty UI areas to the pixel/gap layer below.
+     Without this, the full-bleed UI container would absorb every click. */
+  .lights-out__ui {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    opacity: 0;
+    transition: opacity 250ms ease 800ms;
+    pointer-events: none;
+  }
+
+  .lights-out__top-bar,
+  .lights-out__gantry,
+  .lights-out__message,
+  .lights-out__result {
+    pointer-events: auto;
+  }
+
+  .lights-out[data-state='open'] .lights-out__ui {
+    opacity: 1;
+  }
+
+  .lights-out__top-bar {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .lights-out__icon-btn {
+    background: #000;
+    color: #fefcf6;
+    border: 2px solid #fefcf6;
+    width: 44px;
+    height: 44px;
+    font-size: 1.25rem;
+    cursor: pointer;
+    image-rendering: pixelated;
+  }
+
+  .lights-out__icon-btn:focus-visible {
+    outline: 2px solid #ff1f1f;
+    outline-offset: 2px;
+  }
+
+  .lights-out__gantry {
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  .lights-out__bulb {
+    width: 56px;
+    height: 56px;
+    border: 4px solid #2a0606;
+    background: #1a0303;
+    box-shadow: inset 0 0 0 4px #000;
+    image-rendering: pixelated;
+  }
+
+  .lights-out__bulb[data-on='true'] {
+    background: #ff1f1f;
+    border-color: #ff5555;
+    box-shadow:
+      inset 0 0 0 4px #b71010,
+      0 0 24px rgba(255, 31, 31, 0.7);
+  }
+
+  .lights-out__message {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-align: center;
+    padding: 0 1rem;
+  }
+
+  .lights-out__result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .lights-out__time {
+    font-size: 2.5rem;
+  }
+
+  .lights-out__time[data-new-best='true'] {
+    color: #ff1f1f;
+  }
+
+  .lights-out__best {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: rgba(254, 252, 246, 0.6);
+    min-height: 1em;
+  }
+
+  .lights-out__buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .lights-out__btn {
+    background: #000;
+    color: #fefcf6;
+    border: 4px solid #fefcf6;
+    padding: 0.75rem 1.25rem;
+    font-family: inherit;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    image-rendering: pixelated;
+  }
+
+  .lights-out__btn:hover,
+  .lights-out__btn:focus-visible {
+    background: #fefcf6;
+    color: #000;
+    outline: none;
+  }
+
+  /* Jump-start flash */
+  .lights-out__pixels[data-jump-start='true']::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 31, 31, 0.45);
+    animation: lights-out-flash 150ms ease-out;
+  }
+
+  @keyframes lights-out-flash {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  /* Reduced motion: snap takeover in instantly */
+  @media (prefers-reduced-motion: reduce) {
+    .lights-out__pixel-col {
+      transition: none !important;
+    }
+    .lights-out__ui {
+      transition: none !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .lights-out__bulb {
+      width: 40px;
+      height: 40px;
+    }
+    .lights-out__gantry {
+      gap: 0.75rem;
+    }
+    .lights-out__time {
+      font-size: 1.75rem;
+    }
+  }
+</style>
