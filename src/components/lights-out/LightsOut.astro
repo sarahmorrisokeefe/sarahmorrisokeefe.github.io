@@ -124,12 +124,14 @@
   }
 
   /* The pixel-block takeover layer.
-     Inset on all sides so the portfolio frames the takeover —
-     plus jagged column heights expose more of it through the top. */
+     Inset on all sides so the portfolio frames the takeover.
+     `overflow: hidden` plus `border-radius` clips the rising columns
+     to a rounded-corner rectangle. */
   .lights-out__pixels {
     position: absolute;
     inset: 7%;
     overflow: hidden;
+    border-radius: 16px;
   }
 
   .lights-out__pixel-col {

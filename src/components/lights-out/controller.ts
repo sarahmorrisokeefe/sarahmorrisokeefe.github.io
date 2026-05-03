@@ -232,7 +232,6 @@ function close(rt: Runtime): void {
     rt.refs.root.hidden = true;
     rt.refs.root.setAttribute('aria-hidden', 'true');
     rt.refs.pixels.replaceChildren();
-    rt.refs.pixels.style.clipPath = '';
     document.body.style.overflow = '';
     if (rt.triggerEl) rt.triggerEl.focus();
   }, 650);
@@ -240,16 +239,9 @@ function close(rt: Runtime): void {
 
 function buildPixels(rt: Runtime): void {
   rt.refs.pixels.replaceChildren();
-  // Use the pixels container's actual dimensions (which is now inset from the viewport)
+  // Use the pixels container's actual width (which is inset from the viewport)
   // so columns fill exactly the takeover area, not the whole window.
   const containerWidth = rt.refs.pixels.clientWidth;
-  const containerHeight = rt.refs.pixels.clientHeight;
-
-  rt.refs.pixels.style.clipPath = buildJaggedClipPath(
-    containerWidth,
-    containerHeight,
-  );
-
   const colCount = Math.ceil(containerWidth / PIXEL_BLOCK_PX) + 1;
   const center = (colCount - 1) / 2;
   const maxDistance = center || 1;
@@ -268,32 +260,6 @@ function buildPixels(rt: Runtime): void {
     frag.appendChild(col);
   }
   rt.refs.pixels.appendChild(frag);
-}
-
-function buildJaggedClipPath(width: number, height: number): string {
-  const step = PIXEL_BLOCK_PX;
-  const points: string[] = [];
-  const jitter = (max: number): number =>
-    Math.floor(Math.random() * (max + 1)) * step;
-
-  // Top edge: left → right (inward jitter pushes the edge DOWN)
-  for (let x = 0; x <= width; x += step) {
-    points.push(`${x}px ${jitter(3)}px`);
-  }
-  // Right edge: top → bottom (inward jitter pushes the edge LEFT)
-  for (let y = step; y < height; y += step) {
-    points.push(`${width - jitter(2)}px ${y}px`);
-  }
-  // Bottom edge: right → left (inward jitter pushes the edge UP)
-  for (let x = width; x >= 0; x -= step) {
-    points.push(`${x}px ${height - jitter(2)}px`);
-  }
-  // Left edge: bottom → top (inward jitter pushes the edge RIGHT)
-  for (let y = height - step; y > 0; y -= step) {
-    points.push(`${jitter(2)}px ${y}px`);
-  }
-
-  return `polygon(${points.join(', ')})`;
 }
 
 function dispatch(rt: Runtime, event: GameEvent): void {
