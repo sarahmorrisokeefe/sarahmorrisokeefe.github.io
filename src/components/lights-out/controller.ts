@@ -24,12 +24,10 @@ type Refs = {
   pixels: HTMLElement;
   bulbs: HTMLElement[];
   message: HTMLElement;
-  hint: HTMLElement;
   result: HTMLElement;
   time: HTMLElement;
   best: HTMLElement;
   raceAgain: HTMLButtonElement;
-  exit: HTMLButtonElement;
   closeBtn: HTMLButtonElement;
   soundToggle: HTMLButtonElement;
 };
@@ -92,12 +90,10 @@ function collectRefs(root: HTMLElement): Refs {
     pixels: q('[data-pixels]'),
     bulbs,
     message: q('[data-message]'),
-    hint: q('[data-hint]'),
     result: q('[data-result]'),
     time: q('[data-time]'),
     best: q('[data-best]'),
     raceAgain: q<HTMLButtonElement>('[data-race-again]'),
-    exit: q<HTMLButtonElement>('[data-exit]'),
     closeBtn: q<HTMLButtonElement>('[data-close]'),
     soundToggle: q<HTMLButtonElement>('[data-sound-toggle]'),
   };
@@ -111,7 +107,6 @@ function attachListeners(rt: Runtime): void {
   });
 
   rt.refs.closeBtn.addEventListener('click', () => close(rt));
-  rt.refs.exit.addEventListener('click', () => close(rt));
   rt.refs.raceAgain.addEventListener('click', () => {
     dispatch(rt, { type: 'RACE_AGAIN' });
   });
@@ -175,12 +170,11 @@ function attachListeners(rt: Runtime): void {
 function getFocusable(rt: Runtime): HTMLElement[] {
   // Returns the overlay's currently visible interactive elements, in tab order.
   // `offsetParent === null` means the element (or an ancestor) is hidden,
-  // which correctly excludes RACE AGAIN / EXIT while the result panel is hidden.
+  // which correctly excludes RACE AGAIN while the result panel is hidden.
   const candidates: HTMLElement[] = [
     rt.refs.soundToggle,
     rt.refs.closeBtn,
     rt.refs.raceAgain,
-    rt.refs.exit,
   ];
   return candidates.filter((el) => el.offsetParent !== null);
 }
@@ -234,7 +228,6 @@ function close(rt: Runtime): void {
     rt.refs.root.hidden = true;
     rt.refs.root.setAttribute('aria-hidden', 'true');
     rt.refs.pixels.replaceChildren();
-    rt.refs.pixels.style.clipPath = '';
     document.body.style.overflow = '';
     if (rt.triggerEl) rt.triggerEl.focus();
   }, 650);
@@ -242,16 +235,9 @@ function close(rt: Runtime): void {
 
 function buildPixels(rt: Runtime): void {
   rt.refs.pixels.replaceChildren();
-  // Use the pixels container's actual dimensions (which is now inset from the viewport)
+  // Use the pixels container's actual width (which is inset from the viewport)
   // so columns fill exactly the takeover area, not the whole window.
   const containerWidth = rt.refs.pixels.clientWidth;
-  const containerHeight = rt.refs.pixels.clientHeight;
-
-  rt.refs.pixels.style.clipPath = buildJaggedClipPath(
-    containerWidth,
-    containerHeight,
-  );
-
   const colCount = Math.ceil(containerWidth / PIXEL_BLOCK_PX) + 1;
   const center = (colCount - 1) / 2;
   const maxDistance = center || 1;
@@ -272,32 +258,6 @@ function buildPixels(rt: Runtime): void {
   rt.refs.pixels.appendChild(frag);
 }
 
-function buildJaggedClipPath(width: number, height: number): string {
-  const step = PIXEL_BLOCK_PX;
-  const points: string[] = [];
-  const jitter = (max: number): number =>
-    Math.floor(Math.random() * (max + 1)) * step;
-
-  // Top edge: left → right (inward jitter pushes the edge DOWN)
-  for (let x = 0; x <= width; x += step) {
-    points.push(`${x}px ${jitter(3)}px`);
-  }
-  // Right edge: top → bottom (inward jitter pushes the edge LEFT)
-  for (let y = step; y < height; y += step) {
-    points.push(`${width - jitter(2)}px ${y}px`);
-  }
-  // Bottom edge: right → left (inward jitter pushes the edge UP)
-  for (let x = width; x >= 0; x -= step) {
-    points.push(`${x}px ${height - jitter(2)}px`);
-  }
-  // Left edge: bottom → top (inward jitter pushes the edge RIGHT)
-  for (let y = height - step; y > 0; y -= step) {
-    points.push(`${jitter(2)}px ${y}px`);
-  }
-
-  return `polygon(${points.join(', ')})`;
-}
-
 function dispatch(rt: Runtime, event: GameEvent): void {
   const prev = rt.ctx;
   rt.ctx = reduce(rt.ctx, event);
@@ -314,7 +274,6 @@ function applyState(rt: Runtime): void {
       refs.bulbs.forEach((b) => (b.dataset.on = 'false'));
       refs.message.textContent = 'PRESS SPACE OR CLICK TO START';
       refs.message.hidden = false;
-      refs.hint.hidden = false;
       refs.result.hidden = true;
       refs.pixels.dataset.jumpStart = 'false';
       break;
@@ -322,7 +281,6 @@ function applyState(rt: Runtime): void {
     case 'arming':
       refs.message.textContent = 'GET READY';
       refs.message.hidden = false;
-      refs.hint.hidden = false;
       refs.result.hidden = true;
       refs.time.textContent = '0 MS';
       refs.time.dataset.newBest = 'false';
@@ -392,7 +350,6 @@ function showResult(rt: Runtime): void {
   if (ctx.reactionMs === null) return;
 
   refs.message.hidden = true;
-  refs.hint.hidden = true;
   refs.result.hidden = false;
   refs.time.textContent = `${Math.round(ctx.reactionMs)} MS`;
   refs.time.dataset.newBest = ctx.isNewBest ? 'true' : 'false';

@@ -85,10 +85,6 @@
       PRESS SPACE OR CLICK TO START
     </div>
 
-    <div class="lights-out__hint" data-hint>
-      Tap, click, or press SPACE to react · ESC to exit
-    </div>
-
     <div class="lights-out__result" data-result hidden>
       <div class="lights-out__time" data-time>0 MS</div>
       <div class="lights-out__best" data-best></div>
@@ -96,7 +92,9 @@
         <button type="button" class="lights-out__btn" data-race-again
           >RACE AGAIN</button
         >
-        <button type="button" class="lights-out__btn" data-exit>EXIT</button>
+      </div>
+      <div class="lights-out__hint">
+        Tap, click, or press SPACE to react · ESC to exit
       </div>
     </div>
   </div>
@@ -124,12 +122,14 @@
   }
 
   /* The pixel-block takeover layer.
-     Inset on all sides so the portfolio frames the takeover —
-     plus jagged column heights expose more of it through the top. */
+     Inset on all sides so the portfolio frames the takeover.
+     `overflow: hidden` plus `border-radius` clips the rising columns
+     to a rounded-corner rectangle. */
   .lights-out__pixels {
     position: absolute;
     inset: 7%;
     overflow: hidden;
+    border-radius: 24px;
   }
 
   .lights-out__pixel-col {
@@ -190,7 +190,6 @@
   .lights-out__top-bar,
   .lights-out__gantry,
   .lights-out__message,
-  .lights-out__hint,
   .lights-out__result {
     pointer-events: auto;
   }
@@ -261,10 +260,10 @@
     font-size: 0.55rem;
     letter-spacing: 0.06em;
     text-align: center;
-    padding: 0 1rem;
+    padding: 0 3rem;
     line-height: 1.6;
     color: rgba(254, 252, 246, 0.5);
-    margin-top: -1.75rem;
+    margin-top: 0.5rem;
   }
 
   .lights-out__result {
