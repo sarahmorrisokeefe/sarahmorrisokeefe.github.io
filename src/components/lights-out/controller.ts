@@ -1,3 +1,4 @@
+import { track } from '@vercel/analytics';
 import { initialContext, reduce, type Context, type GameEvent } from './state';
 import {
   readBestMs,
@@ -189,6 +190,7 @@ function open(rt: Runtime, trigger: HTMLElement | null): void {
   rt.refs.root.hidden = false;
   rt.refs.root.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
+  track('lights_out_opened');
 
   buildPixels(rt);
   // Force the browser to compute the initial 'closed' state before we change to 'open',
@@ -347,6 +349,7 @@ function applyState(rt: Runtime): void {
       refs.bulbs.forEach((b) => (b.dataset.on = 'false'));
       refs.message.textContent = '🚨 JUMP START 🚨';
       refs.result.hidden = true;
+      track('lights_out_jump_start');
       clearAllTimers(rt);
       rt.jumpStartTimer = window.setTimeout(() => {
         refs.pixels.dataset.jumpStart = 'false';
@@ -397,12 +400,14 @@ function showResult(rt: Runtime): void {
   if (ctx.isNewBest) {
     refs.best.textContent = 'NEW PERSONAL BEST!';
     if (ctx.bestMs !== null) writeBestMs(Math.round(ctx.bestMs));
+    track('lights_out_new_best', { reactionMs: Math.round(ctx.reactionMs) });
   } else if (ctx.bestMs !== null) {
     refs.best.textContent = `BEST: ${Math.round(ctx.bestMs)} MS`;
   } else {
     refs.best.textContent = '';
   }
 
+  track('lights_out_completed', { reactionMs: Math.round(ctx.reactionMs) });
   refs.raceAgain.focus();
 }
 
