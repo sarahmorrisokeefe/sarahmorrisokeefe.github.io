@@ -77,14 +77,17 @@ describe('lights-out state machine', () => {
     expect(ctx.isNewBest).toBe(true);
   });
 
-  it('result + RACE_AGAIN transitions to arming and clears reactionMs', () => {
-    let ctx = reduce(initialContext({ bestMs: null }), { type: 'INPUT', timestamp: 0 });
+  it('result + RACE_AGAIN transitions to arming, clears transient fields, and preserves bestMs', () => {
+    let ctx = reduce(initialContext({ bestMs: 200 }), { type: 'INPUT', timestamp: 0 });
     ctx = reduce(ctx, { type: 'LIGHTS_ARMED' });
     ctx = reduce(ctx, { type: 'LIGHTS_OUT', timestamp: 0 });
     ctx = reduce(ctx, { type: 'INPUT', timestamp: 287 });
     ctx = reduce(ctx, { type: 'RACE_AGAIN' });
     expect(ctx.state).toBe('arming');
     expect(ctx.reactionMs).toBe(null);
+    expect(ctx.liveStartTime).toBe(null);
+    expect(ctx.isNewBest).toBe(false);
+    expect(ctx.bestMs).toBe(200);
   });
 
   it('jumpStart + JUMP_START_RECOVERED returns to idle', () => {
