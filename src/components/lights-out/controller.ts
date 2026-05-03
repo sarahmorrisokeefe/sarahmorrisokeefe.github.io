@@ -23,12 +23,10 @@ type Refs = {
   pixels: HTMLElement;
   bulbs: HTMLElement[];
   message: HTMLElement;
-  hint: HTMLElement;
   result: HTMLElement;
   time: HTMLElement;
   best: HTMLElement;
   raceAgain: HTMLButtonElement;
-  exit: HTMLButtonElement;
   closeBtn: HTMLButtonElement;
   soundToggle: HTMLButtonElement;
 };
@@ -91,12 +89,10 @@ function collectRefs(root: HTMLElement): Refs {
     pixels: q('[data-pixels]'),
     bulbs,
     message: q('[data-message]'),
-    hint: q('[data-hint]'),
     result: q('[data-result]'),
     time: q('[data-time]'),
     best: q('[data-best]'),
     raceAgain: q<HTMLButtonElement>('[data-race-again]'),
-    exit: q<HTMLButtonElement>('[data-exit]'),
     closeBtn: q<HTMLButtonElement>('[data-close]'),
     soundToggle: q<HTMLButtonElement>('[data-sound-toggle]'),
   };
@@ -110,7 +106,6 @@ function attachListeners(rt: Runtime): void {
   });
 
   rt.refs.closeBtn.addEventListener('click', () => close(rt));
-  rt.refs.exit.addEventListener('click', () => close(rt));
   rt.refs.raceAgain.addEventListener('click', () => {
     dispatch(rt, { type: 'RACE_AGAIN' });
   });
@@ -174,12 +169,11 @@ function attachListeners(rt: Runtime): void {
 function getFocusable(rt: Runtime): HTMLElement[] {
   // Returns the overlay's currently visible interactive elements, in tab order.
   // `offsetParent === null` means the element (or an ancestor) is hidden,
-  // which correctly excludes RACE AGAIN / EXIT while the result panel is hidden.
+  // which correctly excludes RACE AGAIN while the result panel is hidden.
   const candidates: HTMLElement[] = [
     rt.refs.soundToggle,
     rt.refs.closeBtn,
     rt.refs.raceAgain,
-    rt.refs.exit,
   ];
   return candidates.filter((el) => el.offsetParent !== null);
 }
@@ -278,7 +272,6 @@ function applyState(rt: Runtime): void {
       refs.bulbs.forEach((b) => (b.dataset.on = 'false'));
       refs.message.textContent = 'PRESS SPACE OR CLICK TO START';
       refs.message.hidden = false;
-      refs.hint.hidden = false;
       refs.result.hidden = true;
       refs.pixels.dataset.jumpStart = 'false';
       break;
@@ -286,7 +279,6 @@ function applyState(rt: Runtime): void {
     case 'arming':
       refs.message.textContent = 'GET READY';
       refs.message.hidden = false;
-      refs.hint.hidden = false;
       refs.result.hidden = true;
       refs.time.textContent = '0 MS';
       refs.time.dataset.newBest = 'false';
@@ -355,7 +347,6 @@ function showResult(rt: Runtime): void {
   if (ctx.reactionMs === null) return;
 
   refs.message.hidden = true;
-  refs.hint.hidden = true;
   refs.result.hidden = false;
   refs.time.textContent = `${Math.round(ctx.reactionMs)} MS`;
   refs.time.dataset.newBest = ctx.isNewBest ? 'true' : 'false';
