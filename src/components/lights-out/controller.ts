@@ -23,6 +23,7 @@ type Refs = {
   pixels: HTMLElement;
   bulbs: HTMLElement[];
   message: HTMLElement;
+  hint: HTMLElement;
   result: HTMLElement;
   time: HTMLElement;
   best: HTMLElement;
@@ -90,6 +91,7 @@ function collectRefs(root: HTMLElement): Refs {
     pixels: q('[data-pixels]'),
     bulbs,
     message: q('[data-message]'),
+    hint: q('[data-hint]'),
     result: q('[data-result]'),
     time: q('[data-time]'),
     best: q('[data-best]'),
@@ -309,12 +311,15 @@ function applyState(rt: Runtime): void {
       refs.bulbs.forEach((b) => (b.dataset.on = 'false'));
       refs.message.textContent = 'PRESS SPACE OR CLICK TO START';
       refs.message.hidden = false;
+      refs.hint.hidden = false;
       refs.result.hidden = true;
       refs.pixels.dataset.jumpStart = 'false';
       break;
 
     case 'arming':
       refs.message.textContent = 'GET READY';
+      refs.message.hidden = false;
+      refs.hint.hidden = false;
       refs.result.hidden = true;
       refs.time.textContent = '0 MS';
       refs.time.dataset.newBest = 'false';
@@ -383,6 +388,7 @@ function showResult(rt: Runtime): void {
   if (ctx.reactionMs === null) return;
 
   refs.message.hidden = true;
+  refs.hint.hidden = true;
   refs.result.hidden = false;
   refs.time.textContent = `${Math.round(ctx.reactionMs)} MS`;
   refs.time.dataset.newBest = ctx.isNewBest ? 'true' : 'false';

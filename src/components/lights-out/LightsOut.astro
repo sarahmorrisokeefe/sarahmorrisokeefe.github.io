@@ -85,6 +85,10 @@
       PRESS SPACE OR CLICK TO START
     </div>
 
+    <div class="lights-out__hint" data-hint>
+      Tap, click, or press SPACE to react · ESC to exit
+    </div>
+
     <div class="lights-out__result" data-result hidden>
       <div class="lights-out__time" data-time>0 MS</div>
       <div class="lights-out__best" data-best></div>
@@ -252,6 +256,16 @@
     padding: 0 1rem;
   }
 
+  .lights-out__hint {
+    font-size: 0.55rem;
+    letter-spacing: 0.06em;
+    text-align: center;
+    padding: 0 1rem;
+    line-height: 1.6;
+    color: rgba(254, 252, 246, 0.5);
+    margin-top: -1.75rem;
+  }
+
   .lights-out__result {
     display: flex;
     flex-direction: column;
@@ -340,6 +354,9 @@
     }
     .lights-out__time {
       font-size: 1.75rem;
+    }
+    .lights-out__hint {
+      font-size: 0.5rem;
     }
   }
 </style>
