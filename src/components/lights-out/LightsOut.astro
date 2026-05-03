@@ -33,7 +33,7 @@
       >
     </div>
 
-    <div class="lights-out__gantry" data-gantry>
+    <div class="lights-out__gantry">
       <span class="lights-out__bulb" data-bulb="0"></span>
       <span class="lights-out__bulb" data-bulb="1"></span>
       <span class="lights-out__bulb" data-bulb="2"></span>
@@ -250,7 +250,7 @@
     position: absolute;
     inset: 0;
     background: rgba(255, 31, 31, 0.45);
-    animation: lights-out-flash 150ms ease-out;
+    animation: lights-out-flash 150ms ease-out forwards;
   }
 
   @keyframes lights-out-flash {
@@ -269,6 +269,10 @@
     }
     .lights-out__ui {
       transition: none !important;
+    }
+    .lights-out__pixels[data-jump-start='true']::before {
+      animation: none;
+      opacity: 0;
     }
   }
 
