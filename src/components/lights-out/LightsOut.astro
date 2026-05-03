@@ -79,10 +79,12 @@
     pointer-events: auto;
   }
 
-  /* The pixel-block takeover layer */
+  /* The pixel-block takeover layer.
+     Inset on all sides so the portfolio frames the takeover —
+     plus jagged column heights expose more of it through the top. */
   .lights-out__pixels {
     position: absolute;
-    inset: 0;
+    inset: 7%;
     overflow: hidden;
   }
 
@@ -90,16 +92,15 @@
     position: absolute;
     bottom: 0;
     width: var(--col-width, 28px);
-    height: var(--col-height, 120vh);
+    height: var(--col-height, 100%);
     background: #000;
     transform: translateY(100%);
     transition: transform var(--rise-duration, 1500ms)
       cubic-bezier(0.4, 0, 0.6, 1) var(--rise-delay, 0ms);
   }
 
-  .lights-out[data-state='open'] .lights-out__pixel-col,
-  .lights-out[data-state='opening'] .lights-out__pixel-col {
-    transform: translateY(var(--col-rest-offset, 0));
+  .lights-out[data-state='open'] .lights-out__pixel-col {
+    transform: translateY(0);
   }
 
   /* Subtle scanlines over the takeover */
@@ -129,7 +130,7 @@
     justify-content: center;
     gap: 2.5rem;
     opacity: 0;
-    transition: opacity 250ms ease 800ms;
+    transition: opacity 250ms ease;
     pointer-events: none;
   }
 
@@ -142,6 +143,7 @@
 
   .lights-out[data-state='open'] .lights-out__ui {
     opacity: 1;
+    transition-delay: 800ms;
   }
 
   .lights-out__top-bar {
@@ -161,7 +163,9 @@
     border: 2px solid #fefcf6;
     width: 44px;
     height: 44px;
+    padding: 0;
     font-size: 1.25rem;
+    line-height: 1;
     cursor: pointer;
   }
 

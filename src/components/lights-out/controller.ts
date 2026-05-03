@@ -230,9 +230,12 @@ function close(rt: Runtime): void {
 
 function buildPixels(rt: Runtime): void {
   rt.refs.pixels.replaceChildren();
-  const colCount = Math.ceil(window.innerWidth / PIXEL_BLOCK_PX) + 1;
+  // Use the pixels container's actual width (which is now inset from the viewport)
+  // so columns fill exactly the takeover area, not the whole window.
+  const containerWidth = rt.refs.pixels.clientWidth;
+  const colCount = Math.ceil(containerWidth / PIXEL_BLOCK_PX) + 1;
   const center = (colCount - 1) / 2;
-  const maxDistance = center;
+  const maxDistance = center || 1;
 
   const frag = document.createDocumentFragment();
   for (let i = 0; i < colCount; i++) {
@@ -241,13 +244,14 @@ function buildPixels(rt: Runtime): void {
     const distance = Math.abs(i - center) / maxDistance; // 0 in middle, 1 at edges
     const delay = Math.round(distance * 600); // 0–600ms
     const duration = Math.round(900 + distance * 600); // 900–1500ms
-    // Vary column rest position by 0-3 blocks so the top edge is visibly jagged
-    // and the portfolio shows through the gaps.
-    const restOffset = -(Math.floor(Math.random() * 4) * PIXEL_BLOCK_PX); // 0, -28, -56, -84 px
+    // Vary column height by 0-3 blocks so the top edge is visibly jagged
+    // and the portfolio shows through the gaps above shorter columns.
+    const heightShortageBlocks = Math.floor(Math.random() * 4);
+    const heightShortagePx = heightShortageBlocks * PIXEL_BLOCK_PX;
     col.style.setProperty('--col-width', `${PIXEL_BLOCK_PX}px`);
+    col.style.setProperty('--col-height', `calc(100% - ${heightShortagePx}px)`);
     col.style.setProperty('--rise-delay', `${delay}ms`);
     col.style.setProperty('--rise-duration', `${duration}ms`);
-    col.style.setProperty('--col-rest-offset', `${restOffset}px`);
     col.style.left = `${i * PIXEL_BLOCK_PX}px`;
     frag.appendChild(col);
   }
