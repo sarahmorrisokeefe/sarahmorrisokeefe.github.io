@@ -133,6 +133,7 @@ function attachListeners(rt: Runtime): void {
       e.target.closest('.lights-out__pixel-col') ||
       e.target.closest('.lights-out__gantry') ||
       e.target.closest('.lights-out__message') ||
+      e.target.closest('.lights-out__hint') ||
       e.target.closest('.lights-out__result')
     ) {
       dispatch(rt, { type: 'INPUT', timestamp: performance.now() });
