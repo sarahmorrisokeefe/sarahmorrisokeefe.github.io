@@ -182,8 +182,8 @@ function open(rt: Runtime, trigger: HTMLElement | null): void {
   document.body.style.overflow = 'hidden';
 
   buildPixels(rt);
-  rt.refs.root.dataset.state = 'opening';
-  // Force a reflow so the transition runs from the initial position.
+  // Force the browser to compute the initial 'closed' state before we change to 'open',
+  // so the column transition runs from translateY(100%) to the rest position.
   void rt.refs.root.offsetWidth;
   rt.refs.root.dataset.state = 'open';
 
@@ -241,7 +241,9 @@ function buildPixels(rt: Runtime): void {
     const distance = Math.abs(i - center) / maxDistance; // 0 in middle, 1 at edges
     const delay = Math.round(distance * 600); // 0–600ms
     const duration = Math.round(900 + distance * 600); // 900–1500ms
-    const restOffset = -(Math.floor(Math.random() * 4) * 6); // 0, -6, -12, -18 px
+    // Vary column rest position by 0-3 blocks so the top edge is visibly jagged
+    // and the portfolio shows through the gaps.
+    const restOffset = -(Math.floor(Math.random() * 4) * PIXEL_BLOCK_PX); // 0, -28, -56, -84 px
     col.style.setProperty('--col-width', `${PIXEL_BLOCK_PX}px`);
     col.style.setProperty('--rise-delay', `${delay}ms`);
     col.style.setProperty('--rise-duration', `${duration}ms`);
@@ -275,6 +277,9 @@ function applyState(rt: Runtime): void {
     case 'arming':
       refs.message.textContent = 'GET READY';
       refs.result.hidden = true;
+      refs.time.textContent = '0 MS';
+      refs.time.dataset.newBest = 'false';
+      refs.best.textContent = '';
       refs.bulbs.forEach((b) => (b.dataset.on = 'false'));
       runArming(rt);
       break;
