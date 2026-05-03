@@ -23,14 +23,54 @@
         type="button"
         class="lights-out__icon-btn"
         data-sound-toggle
-        aria-label="Toggle sound">🔇</button
+        aria-label="Toggle sound"
       >
+        <svg
+          viewBox="0 0 16 16"
+          width="20"
+          height="20"
+          fill="currentColor"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M2 6 H4 L7 3 V13 L4 10 H2 Z"></path>
+          <line
+            x1="9"
+            y1="6"
+            x2="13"
+            y2="10"
+            stroke="currentColor"
+            stroke-width="1.5"></line>
+          <line
+            x1="13"
+            y1="6"
+            x2="9"
+            y2="10"
+            stroke="currentColor"
+            stroke-width="1.5"></line>
+        </svg>
+      </button>
       <button
         type="button"
         class="lights-out__icon-btn"
         data-close
-        aria-label="Exit game">✕</button
+        aria-label="Exit game"
       >
+        <svg
+          viewBox="0 0 16 16"
+          width="20"
+          height="20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <line x1="4" y1="4" x2="12" y2="12"></line>
+          <line x1="12" y1="4" x2="4" y2="12"></line>
+        </svg>
+      </button>
     </div>
 
     <div class="lights-out__gantry">
@@ -92,7 +132,7 @@
     position: absolute;
     bottom: 0;
     width: var(--col-width, 28px);
-    height: var(--col-height, 100%);
+    height: 100%;
     background: #000;
     transform: translateY(100%);
     transition: transform var(--rise-duration, 1500ms)
@@ -103,7 +143,9 @@
     transform: translateY(0);
   }
 
-  /* Subtle scanlines over the takeover */
+  /* Subtle scanlines over the takeover. Opacity is tied to the open state so
+     they fade out alongside the UI on close, instead of lingering as a
+     "ghost square" after the columns animate away. */
   .lights-out__pixels::after {
     content: '';
     position: absolute;
@@ -116,6 +158,13 @@
       transparent 3px
     );
     pointer-events: none;
+    opacity: 0;
+    transition: opacity 250ms ease;
+  }
+
+  .lights-out[data-state='open'] .lights-out__pixels::after {
+    opacity: 1;
+    transition-delay: 800ms;
   }
 
   /* UI layer — transparent to clicks except on its actual content,
