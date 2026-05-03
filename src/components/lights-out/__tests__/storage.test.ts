@@ -35,6 +35,16 @@ describe('lights-out storage', () => {
       writeBestMs(241);
       expect(readBestMs()).toBe(241);
     });
+
+    it('writeBestMs ignores negative input', () => {
+      writeBestMs(-1);
+      expect(readBestMs()).toBe(null);
+    });
+
+    it('writeBestMs ignores non-finite input', () => {
+      writeBestMs(Infinity);
+      expect(readBestMs()).toBe(null);
+    });
   });
 
   describe('soundEnabled', () => {
