@@ -12,6 +12,22 @@ export interface Post {
 // To hide a post while keeping it for reference: set draft: true.
 export const posts: Post[] = [
   {
+    title: 'Next.js + React + Sanity: The Bugs Nobody Warned Me About',
+    description:
+      'A field report from building on React 19, Next.js 16, and Sanity v5 before the ecosystem caught up.',
+    url: 'https://levelup.gitconnected.com/next-js-react-sanity-the-bugs-nobody-warned-me-about-96c912cacfdb',
+    pubDate: '2026-05-22',
+    platform: 'medium',
+  },
+  {
+    title: 'I Stopped Setting Up Git Worktrees for Parallel Claude Code',
+    description:
+      'The Mac app does it automatically. Here’s the workflow that replaced my old terminal setup.',
+    url: 'https://levelup.gitconnected.com/i-stopped-setting-up-git-worktrees-for-parallel-claude-code-07023ca5cd1c',
+    pubDate: '2026-05-06',
+    platform: 'medium',
+  },
+  {
     title: 'How to Render Music Notation in React Without Breaking on Mobile',
     description:
       "I built a music theory app with VexFlow and Capacitor. Here's what only works on desktop by default - and how to fix it.",
@@ -26,6 +42,15 @@ export const posts: Post[] = [
     url: 'https://open.substack.com/pub/chartposition/p/the-mercedes-garage?r=9tgt6&utm_campaign=post-expanded-share&utm_medium=post%20viewer',
     pubDate: '2026-04-23',
     platform: 'substack',
+  },
+  {
+    title:
+      "Supabase Free Tier Will Pause Your App. Here's the GitHub Actions Fix.",
+    description:
+      "You don't need a paid plan. You need a cron job and about ten minutes.",
+    url: 'https://levelup.gitconnected.com/supabase-free-tier-will-pause-your-app-heres-the-github-actions-fix-8c1fd35b49ca',
+    pubDate: '2026-04-22',
+    platform: 'medium',
   },
   {
     title:
@@ -46,11 +71,36 @@ export const posts: Post[] = [
   },
   {
     title:
+      'What I Thought Having a Baby Would Do to My Career (And What Actually Happened)',
+    description:
+      'The gold star didn’t disappear. It just stopped being the point.',
+    url: 'https://medium.com/womenintechnology/what-i-thought-having-a-baby-would-do-to-my-career-and-what-actually-happened-53192100c0ad',
+    pubDate: '2026-04-11',
+    platform: 'medium',
+  },
+  {
+    title: 'Claude Has Many Surfaces. Here’s How I Actually Use Each One.',
+    description:
+      "A practical breakdown of Claude's Chat, Code, and Cowork modes for engineers who are tired of guessing.",
+    url: 'https://pub.towardsai.net/claude-has-many-surfaces-heres-how-i-actually-use-each-one-df1f9ddfdae5',
+    pubDate: '2026-04-05',
+    platform: 'medium',
+  },
+  {
+    title:
       '5 Front-End Accessibility Patterns Worth Getting Right the First Time',
     description:
       "These five patterns are not exotic. They're not edge cases. They're the things that make a real difference for real users.",
     url: 'https://levelup.gitconnected.com/5-front-end-accessibility-patterns-worth-getting-right-the-first-time-12af156c9297',
     pubDate: '2026-03-30',
+    platform: 'medium',
+  },
+  {
+    title: 'I Use AI Every Day and I’m Still Not Sure What It’s Good At',
+    description:
+      'What is AI actually reliable for — and how are you supposed to calibrate a tool that doesn’t tell you when it’s guessing?',
+    url: 'https://levelup.gitconnected.com/i-use-ai-every-day-and-im-still-not-sure-what-it-s-good-at-896b700d5ad5',
+    pubDate: '2026-03-24',
     platform: 'medium',
   },
   {
