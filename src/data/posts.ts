@@ -24,32 +24,13 @@ export function getPosts(): Post[] {
 }
 
 /**
- * Select `count` teasers favouring recency, but guarantee every platform that
- * exists in the data is represented (so the dev/writing mix never collapses to
- * a single platform). Assumes `posts` is already sorted newest-first.
+ * The most recent `limit` posts from a single platform, preserving the
+ * newest-first order of the input.
  */
-export function pickFeatured(posts: Post[], count: number): Post[] {
-  if (posts.length <= count) return posts;
-  const result = posts.slice(0, count);
-  for (const platform of new Set(posts.map((p) => p.platform))) {
-    if (result.some((p) => p.platform === platform)) continue;
-    const candidate = posts.find((p) => p.platform === platform);
-    if (!candidate) continue;
-    // Evict the lowest-priority item whose platform is over-represented.
-    for (let i = result.length - 1; i >= 0; i--) {
-      const overrepresented =
-        result.filter((p) => p.platform === result[i].platform).length > 1;
-      if (overrepresented) {
-        result[i] = candidate;
-        break;
-      }
-    }
-  }
-  return [...result].sort((a, b) =>
-    a.pubDate < b.pubDate ? 1 : a.pubDate > b.pubDate ? -1 : 0,
-  );
-}
-
-export function getFeaturedPosts(count = 3): Post[] {
-  return pickFeatured(getPosts(), count);
+export function selectByPlatform(
+  posts: Post[],
+  platform: Post['platform'],
+  limit: number,
+): Post[] {
+  return posts.filter((post) => post.platform === platform).slice(0, limit);
 }
