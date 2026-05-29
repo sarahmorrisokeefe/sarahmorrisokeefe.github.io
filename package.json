@@ -11,7 +11,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "posts:refresh": "tsx scripts/fetch-posts.ts"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.15",
@@ -23,9 +24,11 @@
   "author": "Sarah O'Keefe",
   "license": "ISC",
   "devDependencies": {
+    "fast-xml-parser": "^5.8.0",
     "jsdom": "^25.0.1",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
+    "tsx": "^4.22.3",
     "vitest": "^2.1.9"
   }
 }
