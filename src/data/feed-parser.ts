@@ -1,3 +1,5 @@
+import { XMLParser } from 'fast-xml-parser';
+
 export interface Post {
   title: string;
   description: string;
@@ -54,4 +56,48 @@ export function truncateTeaser(text: string, max = TEASER_MAX): string {
 
 export function toIsoDate(rfc822: string): string {
   return new Date(rfc822).toISOString().slice(0, 10);
+}
+
+interface RawItem {
+  title?: unknown;
+  link?: unknown;
+  pubDate?: unknown;
+  description?: unknown;
+  'content:encoded'?: unknown;
+}
+
+function asText(value: unknown): string {
+  if (value == null) return '';
+  if (typeof value === 'object' && '#text' in (value as Record<string, unknown>)) {
+    return String((value as Record<string, unknown>)['#text'] ?? '');
+  }
+  return String(value);
+}
+
+const parser = new XMLParser({
+  ignoreAttributes: true,
+  parseTagValue: false,
+  processEntities: true,
+});
+
+export function parseFeed(xml: string, platform: 'medium' | 'substack'): Post[] {
+  const doc = parser.parse(xml) as {
+    rss?: { channel?: { item?: RawItem | RawItem[] } };
+  };
+  const rawItems = doc?.rss?.channel?.item ?? [];
+  const items = Array.isArray(rawItems) ? rawItems : [rawItems];
+
+  return items.map((item): Post => {
+    const sourceHtml =
+      platform === 'substack'
+        ? asText(item.description)
+        : asText(item['content:encoded']);
+    return {
+      title: htmlToText(asText(item.title)),
+      description: truncateTeaser(htmlToText(sourceHtml)),
+      url: stripTrackingParams(asText(item.link)),
+      pubDate: toIsoDate(asText(item.pubDate)),
+      platform,
+    };
+  });
 }

@@ -63,3 +63,69 @@ describe('toIsoDate', () => {
     expect(toIsoDate('Fri, 22 May 2026 15:14:50 GMT')).toBe('2026-05-22');
   });
 });
+
+import { parseFeed } from '../feed-parser';
+
+const MEDIUM_RSS = `<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+<channel>
+<item>
+<title><![CDATA[Next.js + React + Sanity: The Bugs Nobody Warned Me About]]></title>
+<link>https://levelup.gitconnected.com/next-js-react-sanity-96c912cacfdb?source=rss-9fa5f33ee186------2</link>
+<pubDate>Fri, 22 May 2026 15:14:50 GMT</pubDate>
+<content:encoded><![CDATA[<p>A field report from building on React 19, Next.js 16, and Sanity v5 before the ecosystem caught up. There is much more body text here that runs well past the truncation boundary to prove the teaser is built from the content body.</p>]]></content:encoded>
+</item>
+</channel>
+</rss>`;
+
+const SUBSTACK_RSS = `<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+<channel>
+<item>
+<title><![CDATA[Neptune Did What Neptune Does]]></title>
+<link>https://chartposition.substack.com/p/neptune-did-what-neptune-does</link>
+<pubDate>Mon, 25 May 2026 13:03:45 GMT</pubDate>
+<description><![CDATA[ROUND 5 RECAP: CANADIAN GRAND PRIX. A short clean summary.]]></description>
+<content:encoded><![CDATA[<p>The full article body that we deliberately do NOT use for Substack teasers.</p>]]></content:encoded>
+</item>
+<item>
+<title><![CDATA[The Out Lap: May 25-31]]></title>
+<link>https://chartposition.substack.com/p/the-out-lap-may-25-31</link>
+<pubDate>Mon, 25 May 2026 12:02:25 GMT</pubDate>
+<description><![CDATA[Mars meets Pluto at 5 degrees Taurus.]]></description>
+</item>
+</channel>
+</rss>`;
+
+describe('parseFeed', () => {
+  it('parses a Medium item, building the teaser from content:encoded', () => {
+    const posts = parseFeed(MEDIUM_RSS, 'medium');
+    expect(posts).toHaveLength(1);
+    expect(posts[0]).toMatchObject({
+      title: 'Next.js + React + Sanity: The Bugs Nobody Warned Me About',
+      url: 'https://levelup.gitconnected.com/next-js-react-sanity-96c912cacfdb',
+      pubDate: '2026-05-22',
+      platform: 'medium',
+    });
+    expect(posts[0].description.startsWith('A field report from building on React 19')).toBe(true);
+    expect(posts[0].description).not.toContain('<');
+  });
+
+  it('parses Substack items, building the teaser from description', () => {
+    const posts = parseFeed(SUBSTACK_RSS, 'substack');
+    expect(posts).toHaveLength(2);
+    expect(posts[0]).toMatchObject({
+      title: 'Neptune Did What Neptune Does',
+      url: 'https://chartposition.substack.com/p/neptune-did-what-neptune-does',
+      pubDate: '2026-05-25',
+      platform: 'substack',
+      description: 'ROUND 5 RECAP: CANADIAN GRAND PRIX. A short clean summary.',
+    });
+    expect(posts[1].title).toBe('The Out Lap: May 25-31');
+  });
+
+  it('handles a single-item feed (object, not array)', () => {
+    const single = MEDIUM_RSS; // one <item>
+    expect(parseFeed(single, 'medium')).toHaveLength(1);
+  });
+});
