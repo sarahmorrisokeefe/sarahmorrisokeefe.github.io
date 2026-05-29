@@ -3,35 +3,35 @@ import type { Post } from '../../data/posts';
 
 interface Props {
   post: Post;
+  class?: string;
 }
 
-const { post } = Astro.props;
+const { post, class: className = '' } = Astro.props;
 
 const formattedDate = new Date(post.pubDate).toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 });
-
-const platformLabel = post.platform.charAt(0).toUpperCase() + post.platform.slice(1);
 ---
 
 <article
-  class="group p-6 rounded-xl border border-cream-alt dark:border-ink/30 bg-cream dark:bg-ink-dark hover:shadow-md dark:hover:shadow-ink-darker/50 hover:-translate-y-0.5 transition-all duration-300 flex flex-col"
+  class:list={[
+    'group p-6 rounded-xl border border-cream-alt dark:border-ink/30 bg-cream dark:bg-ink-dark hover:shadow-md dark:hover:shadow-ink-darker/50 hover:-translate-y-0.5 transition-all duration-300 flex flex-col',
+    className,
+  ]}
 >
   <div
     class="flex items-center gap-2 text-xs text-ink/40 dark:text-cream/30 mb-3 font-medium tracking-wide uppercase"
   >
     <time datetime={post.pubDate}>{formattedDate}</time>
-    <span aria-hidden="true">·</span>
-    <span>{platformLabel}</span>
   </div>
 
-  <h3
+  <h4
     class="font-serif text-lg text-ink-dark dark:text-cream group-hover:text-sage dark:group-hover:text-sage-light transition-colors duration-200 mb-3 leading-snug"
   >
     {post.title}
-  </h3>
+  </h4>
 
   <p class="text-sm leading-relaxed text-ink dark:text-cream/60 mb-5 flex-1">
     {post.description}
@@ -52,7 +52,10 @@ const platformLabel = post.platform.charAt(0).toUpperCase() + post.platform.slic
       stroke-width="1.5"
       aria-hidden="true"
     >
-      <path d="M2 6h8M7 3l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path
+        d="M2 6h8M7 3l3 3-3 3"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
     </svg>
   </a>
 </article>
