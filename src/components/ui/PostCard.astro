@@ -30,7 +30,14 @@ const formattedDate = new Date(post.pubDate).toLocaleDateString('en-US', {
   <h4
     class="font-serif text-lg text-ink-dark dark:text-cream group-hover:text-sage dark:group-hover:text-sage-light transition-colors duration-200 mb-3 leading-snug"
   >
-    {post.title}
+    <a
+      href={post.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="hover:underline underline-offset-2 focus-visible:underline"
+    >
+      {post.title}
+    </a>
   </h4>
 
   <p class="text-sm leading-relaxed text-ink dark:text-cream/60 mb-5 flex-1">

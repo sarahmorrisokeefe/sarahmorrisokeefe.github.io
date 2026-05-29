@@ -6,6 +6,8 @@ export interface Project {
   // 2-3 sentences — conversational, not a job description
   description: string;
   githubUrl?: string;
+  // Optional label for the GitHub link (defaults to "GitHub")
+  githubLabel?: string;
   liveUrl?: string;
   codepenUrl?: string;
   // featured: true = shown in the large top card slot
@@ -27,6 +29,19 @@ export const projects: Project[] = [
     technologies: ['React', 'TypeScript', 'Tailwind CSS'],
     year: '2026',
     category: 'project',
+  },
+  {
+    id: 'avalora',
+    name: 'Avalora',
+    description:
+      'A live band website built on a reusable Next.js + Sanity platform I designed so any band can run their own site — shows, releases, press — and edit everything themselves through an embedded CMS, no code required. Avalora is the first client on it: the template repo is open source, while each band’s own site and content stay private.',
+    githubUrl: 'https://github.com/sarahmorrisokeefe/band-site-template',
+    githubLabel: 'Template on GitHub',
+    liveUrl: 'https://www.avaloraband.com',
+    featured: false,
+    technologies: ['Next.js', 'Sanity', 'TypeScript', 'Tailwind CSS'],
+    year: '2026',
+    category: 'work',
   },
   {
     id: 'formula-one-data-vis',
