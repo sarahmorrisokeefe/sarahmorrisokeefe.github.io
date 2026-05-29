@@ -88,6 +88,44 @@ const parser = new XMLParser({
   processEntities: true,
 });
 
+export interface FeedSource {
+  url: string;
+  platform: 'medium' | 'substack';
+}
+
+export function mergeAndSort(...lists: Post[][]): Post[] {
+  return lists.flat().sort((a, b) => {
+    if (a.pubDate < b.pubDate) return 1;
+    if (a.pubDate > b.pubDate) return -1;
+    return 0;
+  });
+}
+
+export async function buildPosts(
+  sources: FeedSource[],
+  existing: Post[],
+  fetchImpl: typeof fetch = fetch,
+): Promise<Post[]> {
+  const results = await Promise.allSettled(
+    sources.map(async (source) => {
+      const res = await fetchImpl(source.url);
+      if (!res.ok) throw new Error(`${source.platform} feed responded ${res.status}`);
+      return parseFeed(await res.text(), source.platform);
+    }),
+  );
+
+  const perPlatform = sources.map((source, i) => {
+    const result = results[i];
+    if (result.status === 'fulfilled' && result.value.length > 0) {
+      return result.value;
+    }
+    console.warn(`[feed-parser] ${source.platform} feed unavailable; keeping previous slice`);
+    return existing.filter((p) => p.platform === source.platform);
+  });
+
+  return mergeAndSort(...perPlatform);
+}
+
 export function parseFeed(xml: string, platform: 'medium' | 'substack'): Post[] {
   const doc = parser.parse(xml) as {
     rss?: { channel?: { item?: RawItem | RawItem[] } };

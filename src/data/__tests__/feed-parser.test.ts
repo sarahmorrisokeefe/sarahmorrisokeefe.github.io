@@ -159,3 +159,64 @@ describe('parseFeed', () => {
     expect(posts[0].title).toBe('Good Post');
   });
 });
+
+import { mergeAndSort, buildPosts, type Post, type FeedSource } from '../feed-parser';
+
+const SOURCES: FeedSource[] = [
+  { url: 'https://medium.test/feed', platform: 'medium' },
+  { url: 'https://substack.test/feed', platform: 'substack' },
+];
+
+const EXISTING: Post[] = [
+  { title: 'Old Medium', description: 'old', url: 'https://m/old', pubDate: '2026-01-01', platform: 'medium' },
+  { title: 'Old Substack', description: 'old', url: 'https://s/old', pubDate: '2026-01-02', platform: 'substack' },
+];
+
+function ok(xml: string): Response {
+  return { ok: true, status: 200, text: async () => xml } as unknown as Response;
+}
+function fail(): Response {
+  return { ok: false, status: 503, text: async () => '' } as unknown as Response;
+}
+
+describe('mergeAndSort', () => {
+  it('orders posts across platforms by pubDate descending', () => {
+    const a: Post[] = [{ title: 'A', description: '', url: 'a', pubDate: '2026-05-01', platform: 'medium' }];
+    const b: Post[] = [{ title: 'B', description: '', url: 'b', pubDate: '2026-05-10', platform: 'substack' }];
+    expect(mergeAndSort(a, b).map((p) => p.title)).toEqual(['B', 'A']);
+  });
+});
+
+describe('buildPosts', () => {
+  it('merges fresh results from both feeds when both succeed', async () => {
+    const fetchImpl = async (url: string | URL | Request) =>
+      String(url).includes('medium')
+        ? ok(MEDIUM_RSS)
+        : ok(SUBSTACK_RSS);
+    const posts = await buildPosts(SOURCES, EXISTING, fetchImpl as typeof fetch);
+    expect(posts.some((p) => p.platform === 'medium')).toBe(true);
+    expect(posts.some((p) => p.platform === 'substack')).toBe(true);
+    // none of the EXISTING fallback posts should appear
+    expect(posts.find((p) => p.url === 'https://m/old')).toBeUndefined();
+    // sorted descending
+    const dates = posts.map((p) => p.pubDate);
+    expect([...dates].sort().reverse()).toEqual(dates);
+  });
+
+  it('falls back to the existing slice for a feed that fails', async () => {
+    const fetchImpl = async (url: string | URL | Request) =>
+      String(url).includes('medium') ? fail() : ok(SUBSTACK_RSS);
+    const posts = await buildPosts(SOURCES, EXISTING, fetchImpl as typeof fetch);
+    // medium falls back to existing
+    expect(posts.find((p) => p.url === 'https://m/old')).toBeDefined();
+    // substack is fresh (from SUBSTACK_RSS), not the existing old one
+    expect(posts.find((p) => p.url === 'https://s/old')).toBeUndefined();
+    expect(posts.some((p) => p.platform === 'substack')).toBe(true);
+  });
+
+  it('returns the existing set unchanged when both feeds fail', async () => {
+    const fetchImpl = async () => fail();
+    const posts = await buildPosts(SOURCES, EXISTING, fetchImpl as typeof fetch);
+    expect(posts.map((p) => p.url).sort()).toEqual(['https://m/old', 'https://s/old']);
+  });
+});
