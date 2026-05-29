@@ -11,7 +11,13 @@ export interface Post {
 const TEASER_MAX = 160;
 
 export function stripTrackingParams(url: string): string {
-  const u = new URL(url);
+  if (!url) return '';
+  let u: URL;
+  try {
+    u = new URL(url);
+  } catch {
+    return url;
+  }
   for (const key of [...u.searchParams.keys()]) {
     if (key === 'source' || key === 'r' || key.startsWith('utm_')) {
       u.searchParams.delete(key);
@@ -55,7 +61,9 @@ export function truncateTeaser(text: string, max = TEASER_MAX): string {
 }
 
 export function toIsoDate(rfc822: string): string {
-  return new Date(rfc822).toISOString().slice(0, 10);
+  const date = new Date(rfc822);
+  if (Number.isNaN(date.getTime())) return '';
+  return date.toISOString().slice(0, 10);
 }
 
 interface RawItem {
@@ -87,17 +95,19 @@ export function parseFeed(xml: string, platform: 'medium' | 'substack'): Post[] 
   const rawItems = doc?.rss?.channel?.item ?? [];
   const items = Array.isArray(rawItems) ? rawItems : [rawItems];
 
-  return items.map((item): Post => {
-    const sourceHtml =
-      platform === 'substack'
-        ? asText(item.description)
-        : asText(item['content:encoded']);
-    return {
-      title: htmlToText(asText(item.title)),
-      description: truncateTeaser(htmlToText(sourceHtml)),
-      url: stripTrackingParams(asText(item.link)),
-      pubDate: toIsoDate(asText(item.pubDate)),
-      platform,
-    };
-  });
+  return items
+    .map((item): Post => {
+      const sourceHtml =
+        platform === 'substack'
+          ? asText(item.description)
+          : asText(item['content:encoded']);
+      return {
+        title: htmlToText(asText(item.title)),
+        description: truncateTeaser(htmlToText(sourceHtml)),
+        url: stripTrackingParams(asText(item.link)),
+        pubDate: toIsoDate(asText(item.pubDate)),
+        platform,
+      };
+    })
+    .filter((post) => post.url !== '' && post.pubDate !== '');
 }

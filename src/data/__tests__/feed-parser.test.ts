@@ -28,6 +28,10 @@ describe('stripTrackingParams', () => {
       'https://chartposition.substack.com/p/neptune',
     );
   });
+
+  it('returns an empty string for an empty url rather than throwing', () => {
+    expect(stripTrackingParams('')).toBe('');
+  });
 });
 
 describe('htmlToText', () => {
@@ -61,6 +65,11 @@ describe('truncateTeaser', () => {
 describe('toIsoDate', () => {
   it('converts RFC-822 to YYYY-MM-DD', () => {
     expect(toIsoDate('Fri, 22 May 2026 15:14:50 GMT')).toBe('2026-05-22');
+  });
+
+  it('returns an empty string for an empty or invalid date rather than throwing', () => {
+    expect(toIsoDate('')).toBe('');
+    expect(toIsoDate('not a date')).toBe('');
   });
 });
 
@@ -127,5 +136,26 @@ describe('parseFeed', () => {
   it('handles a single-item feed (object, not array)', () => {
     const single = MEDIUM_RSS; // one <item>
     expect(parseFeed(single, 'medium')).toHaveLength(1);
+  });
+
+  it('skips items missing a link or pubDate instead of crashing the whole feed', () => {
+    const withMalformed = `<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+<channel>
+<item>
+<title><![CDATA[Good Post]]></title>
+<link>https://chartposition.substack.com/p/good</link>
+<pubDate>Mon, 25 May 2026 12:02:25 GMT</pubDate>
+<description><![CDATA[fine]]></description>
+</item>
+<item>
+<title><![CDATA[Missing link and date]]></title>
+<description><![CDATA[no link, no date]]></description>
+</item>
+</channel>
+</rss>`;
+    const posts = parseFeed(withMalformed, 'substack');
+    expect(posts).toHaveLength(1);
+    expect(posts[0].title).toBe('Good Post');
   });
 });
