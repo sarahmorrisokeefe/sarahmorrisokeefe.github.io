@@ -1,10 +1,9 @@
 ---
 import SectionHeading from '../ui/SectionHeading.astro';
 import PostCard from '../ui/PostCard.astro';
-import { posts } from '../../data/posts';
+import { getPosts } from '../../data/posts';
 
-// Only show non-draft posts
-const visiblePosts = posts.filter((p) => !p.draft).slice(0, 3);
+const visiblePosts = getPosts().slice(0, 3);
 
 // TODO: update this URL to your blog once you have real posts ready
 const blogUrl = 'http://blog.okeefesarah.com';
