@@ -1,7 +1,11 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildPosts, type FeedSource, type Post } from '../src/data/feed-parser';
+import {
+  buildPosts,
+  type FeedSource,
+  type Post,
+} from '../src/data/feed-parser';
 
 const SOURCES: FeedSource[] = [
   { url: 'https://sarahmorrisokeefe.medium.com/feed', platform: 'medium' },
@@ -24,13 +28,17 @@ async function main(): Promise<void> {
   const posts = await buildPosts(SOURCES, existing);
 
   if (posts.length === 0) {
-    console.warn('[fetch-posts] no posts from any source; leaving file unchanged');
+    console.warn(
+      '[fetch-posts] no posts from any source; leaving file unchanged',
+    );
     return;
   }
 
   // Stable formatting so unchanged data produces a byte-identical file (no spurious diffs).
   writeFileSync(OUT_PATH, JSON.stringify(posts, null, 2) + '\n');
-  console.log(`[fetch-posts] wrote ${posts.length} posts to posts.generated.json`);
+  console.log(
+    `[fetch-posts] wrote ${posts.length} posts to posts.generated.json`,
+  );
 }
 
 main().catch((error) => {

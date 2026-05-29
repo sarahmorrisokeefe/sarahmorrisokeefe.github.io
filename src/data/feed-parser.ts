@@ -30,7 +30,9 @@ export function stripTrackingParams(url: string): string {
 
 function decodeEntities(s: string): string {
   return s
-    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) =>
+      String.fromCodePoint(parseInt(h, 16)),
+    )
     .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
     .replace(/&nbsp;/g, ' ')
     .replace(/&hellip;/g, '…')
@@ -69,14 +71,20 @@ export function toIsoDate(rfc822: string): string {
 // Both platforms carry the teaser in <description>. Substack's is a clean
 // summary; Medium wraps it in <p class="medium-feed-snippet">, next to a feed
 // image and a "Continue reading on … »" link that must be excluded.
-function extractTeaser(descriptionHtml: string, platform: 'medium' | 'substack'): string {
+function extractTeaser(
+  descriptionHtml: string,
+  platform: 'medium' | 'substack',
+): string {
   if (platform === 'medium') {
     const snippet = descriptionHtml.match(
       /<p[^>]*class="medium-feed-snippet"[^>]*>([\s\S]*?)<\/p>/i,
     );
     const html = snippet
       ? snippet[1]
-      : descriptionHtml.replace(/<p[^>]*class="medium-feed-link"[^>]*>[\s\S]*?<\/p>/i, '');
+      : descriptionHtml.replace(
+          /<p[^>]*class="medium-feed-link"[^>]*>[\s\S]*?<\/p>/i,
+          '',
+        );
     return truncateTeaser(htmlToText(html));
   }
   return truncateTeaser(htmlToText(descriptionHtml));
@@ -91,7 +99,10 @@ interface RawItem {
 
 function asText(value: unknown): string {
   if (value == null) return '';
-  if (typeof value === 'object' && '#text' in (value as Record<string, unknown>)) {
+  if (
+    typeof value === 'object' &&
+    '#text' in (value as Record<string, unknown>)
+  ) {
     return String((value as Record<string, unknown>)['#text'] ?? '');
   }
   return String(value);
@@ -124,7 +135,8 @@ export async function buildPosts(
   const results = await Promise.allSettled(
     sources.map(async (source) => {
       const res = await fetchImpl(source.url);
-      if (!res.ok) throw new Error(`${source.platform} feed responded ${res.status}`);
+      if (!res.ok)
+        throw new Error(`${source.platform} feed responded ${res.status}`);
       return parseFeed(await res.text(), source.platform);
     }),
   );
@@ -134,14 +146,19 @@ export async function buildPosts(
     if (result.status === 'fulfilled' && result.value.length > 0) {
       return result.value;
     }
-    console.warn(`[feed-parser] ${source.platform} feed unavailable; keeping previous slice`);
+    console.warn(
+      `[feed-parser] ${source.platform} feed unavailable; keeping previous slice`,
+    );
     return existing.filter((p) => p.platform === source.platform);
   });
 
   return mergeAndSort(...perPlatform);
 }
 
-export function parseFeed(xml: string, platform: 'medium' | 'substack'): Post[] {
+export function parseFeed(
+  xml: string,
+  platform: 'medium' | 'substack',
+): Post[] {
   const doc = parser.parse(xml) as {
     rss?: { channel?: { item?: RawItem | RawItem[] } };
   };

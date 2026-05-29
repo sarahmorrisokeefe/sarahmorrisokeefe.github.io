@@ -4,6 +4,11 @@ import {
   htmlToText,
   truncateTeaser,
   toIsoDate,
+  parseFeed,
+  mergeAndSort,
+  buildPosts,
+  type Post,
+  type FeedSource,
 } from '../feed-parser';
 
 describe('stripTrackingParams', () => {
@@ -24,9 +29,9 @@ describe('stripTrackingParams', () => {
   });
 
   it('leaves a clean url untouched', () => {
-    expect(stripTrackingParams('https://chartposition.substack.com/p/neptune')).toBe(
-      'https://chartposition.substack.com/p/neptune',
-    );
+    expect(
+      stripTrackingParams('https://chartposition.substack.com/p/neptune'),
+    ).toBe('https://chartposition.substack.com/p/neptune');
   });
 
   it('returns an empty string for an empty url rather than throwing', () => {
@@ -36,13 +41,15 @@ describe('stripTrackingParams', () => {
 
 describe('htmlToText', () => {
   it('strips tags and collapses whitespace', () => {
-    expect(htmlToText('<p>Hello   <strong>there</strong></p>\n<p>world</p>')).toBe(
-      'Hello there world',
-    );
+    expect(
+      htmlToText('<p>Hello   <strong>there</strong></p>\n<p>world</p>'),
+    ).toBe('Hello there world');
   });
 
   it('decodes common entities', () => {
-    expect(htmlToText('Tom &amp; Jerry &#8217;s &hellip;')).toBe('Tom & Jerry ’s …');
+    expect(htmlToText('Tom &amp; Jerry &#8217;s &hellip;')).toBe(
+      'Tom & Jerry ’s …',
+    );
   });
 });
 
@@ -72,8 +79,6 @@ describe('toIsoDate', () => {
     expect(toIsoDate('not a date')).toBe('');
   });
 });
-
-import { parseFeed } from '../feed-parser';
 
 const MEDIUM_RSS = `<?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
@@ -162,29 +167,63 @@ describe('parseFeed', () => {
   });
 });
 
-import { mergeAndSort, buildPosts, type Post, type FeedSource } from '../feed-parser';
-
 const SOURCES: FeedSource[] = [
   { url: 'https://medium.test/feed', platform: 'medium' },
   { url: 'https://substack.test/feed', platform: 'substack' },
 ];
 
 const EXISTING: Post[] = [
-  { title: 'Old Medium', description: 'old', url: 'https://m/old', pubDate: '2026-01-01', platform: 'medium' },
-  { title: 'Old Substack', description: 'old', url: 'https://s/old', pubDate: '2026-01-02', platform: 'substack' },
+  {
+    title: 'Old Medium',
+    description: 'old',
+    url: 'https://m/old',
+    pubDate: '2026-01-01',
+    platform: 'medium',
+  },
+  {
+    title: 'Old Substack',
+    description: 'old',
+    url: 'https://s/old',
+    pubDate: '2026-01-02',
+    platform: 'substack',
+  },
 ];
 
 function ok(xml: string): Response {
-  return { ok: true, status: 200, text: async () => xml } as unknown as Response;
+  return {
+    ok: true,
+    status: 200,
+    text: async () => xml,
+  } as unknown as Response;
 }
 function fail(): Response {
-  return { ok: false, status: 503, text: async () => '' } as unknown as Response;
+  return {
+    ok: false,
+    status: 503,
+    text: async () => '',
+  } as unknown as Response;
 }
 
 describe('mergeAndSort', () => {
   it('orders posts across platforms by pubDate descending', () => {
-    const a: Post[] = [{ title: 'A', description: '', url: 'a', pubDate: '2026-05-01', platform: 'medium' }];
-    const b: Post[] = [{ title: 'B', description: '', url: 'b', pubDate: '2026-05-10', platform: 'substack' }];
+    const a: Post[] = [
+      {
+        title: 'A',
+        description: '',
+        url: 'a',
+        pubDate: '2026-05-01',
+        platform: 'medium',
+      },
+    ];
+    const b: Post[] = [
+      {
+        title: 'B',
+        description: '',
+        url: 'b',
+        pubDate: '2026-05-10',
+        platform: 'substack',
+      },
+    ];
     expect(mergeAndSort(a, b).map((p) => p.title)).toEqual(['B', 'A']);
   });
 });
@@ -192,10 +231,12 @@ describe('mergeAndSort', () => {
 describe('buildPosts', () => {
   it('merges fresh results from both feeds when both succeed', async () => {
     const fetchImpl = async (url: string | URL | Request) =>
-      String(url).includes('medium')
-        ? ok(MEDIUM_RSS)
-        : ok(SUBSTACK_RSS);
-    const posts = await buildPosts(SOURCES, EXISTING, fetchImpl as typeof fetch);
+      String(url).includes('medium') ? ok(MEDIUM_RSS) : ok(SUBSTACK_RSS);
+    const posts = await buildPosts(
+      SOURCES,
+      EXISTING,
+      fetchImpl as typeof fetch,
+    );
     expect(posts.some((p) => p.platform === 'medium')).toBe(true);
     expect(posts.some((p) => p.platform === 'substack')).toBe(true);
     // none of the EXISTING fallback posts should appear
@@ -208,7 +249,11 @@ describe('buildPosts', () => {
   it('falls back to the existing slice for a feed that fails', async () => {
     const fetchImpl = async (url: string | URL | Request) =>
       String(url).includes('medium') ? fail() : ok(SUBSTACK_RSS);
-    const posts = await buildPosts(SOURCES, EXISTING, fetchImpl as typeof fetch);
+    const posts = await buildPosts(
+      SOURCES,
+      EXISTING,
+      fetchImpl as typeof fetch,
+    );
     // medium falls back to existing
     expect(posts.find((p) => p.url === 'https://m/old')).toBeDefined();
     // substack is fresh (from SUBSTACK_RSS), not the existing old one
@@ -218,7 +263,14 @@ describe('buildPosts', () => {
 
   it('returns the existing set unchanged when both feeds fail', async () => {
     const fetchImpl = async () => fail();
-    const posts = await buildPosts(SOURCES, EXISTING, fetchImpl as typeof fetch);
-    expect(posts.map((p) => p.url).sort()).toEqual(['https://m/old', 'https://s/old']);
+    const posts = await buildPosts(
+      SOURCES,
+      EXISTING,
+      fetchImpl as typeof fetch,
+    );
+    expect(posts.map((p) => p.url).sort()).toEqual([
+      'https://m/old',
+      'https://s/old',
+    ]);
   });
 });
