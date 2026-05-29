@@ -52,9 +52,20 @@ const { project, featured = false } = Astro.props;
           rel="noopener noreferrer"
           class="inline-flex items-center gap-1 text-xs font-medium text-sage dark:text-sage-light hover:text-ink-dark dark:hover:text-cream border border-sage/25 dark:border-sage-light/20 hover:border-ink-dark/30 dark:hover:border-cream/30 px-3 py-1.5 rounded-full transition-all duration-200"
         >
-          GitHub
-          <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <path d="M2 10L10 2M10 2H4M10 2v6" stroke-linecap="round" stroke-linejoin="round"/>
+          {project.githubLabel ?? 'GitHub'}
+          <svg
+            class="w-3 h-3"
+            viewBox="0 0 12 12"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            aria-hidden="true"
+          >
+            <path
+              d="M2 10L10 2M10 2H4M10 2v6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </a>
       )
@@ -68,8 +79,19 @@ const { project, featured = false } = Astro.props;
           class="inline-flex items-center gap-1 text-xs font-medium text-sage dark:text-sage-light hover:text-ink-dark dark:hover:text-cream border border-sage/25 dark:border-sage-light/20 hover:border-ink-dark/30 dark:hover:border-cream/30 px-3 py-1.5 rounded-full transition-all duration-200"
         >
           Live demo
-          <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <path d="M2 10L10 2M10 2H4M10 2v6" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg
+            class="w-3 h-3"
+            viewBox="0 0 12 12"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            aria-hidden="true"
+          >
+            <path
+              d="M2 10L10 2M10 2H4M10 2v6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </a>
       )
@@ -83,8 +105,19 @@ const { project, featured = false } = Astro.props;
           class="inline-flex items-center gap-1 text-xs font-medium text-sage dark:text-sage-light hover:text-ink-dark dark:hover:text-cream border border-sage/25 dark:border-sage-light/20 hover:border-ink-dark/30 dark:hover:border-cream/30 px-3 py-1.5 rounded-full transition-all duration-200"
         >
           CodePen
-          <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <path d="M2 10L10 2M10 2H4M10 2v6" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg
+            class="w-3 h-3"
+            viewBox="0 0 12 12"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            aria-hidden="true"
+          >
+            <path
+              d="M2 10L10 2M10 2H4M10 2v6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </a>
       )
