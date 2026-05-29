@@ -82,7 +82,7 @@ const MEDIUM_RSS = `<?xml version="1.0" encoding="UTF-8"?>
 <title><![CDATA[Next.js + React + Sanity: The Bugs Nobody Warned Me About]]></title>
 <link>https://levelup.gitconnected.com/next-js-react-sanity-96c912cacfdb?source=rss-9fa5f33ee186------2</link>
 <pubDate>Fri, 22 May 2026 15:14:50 GMT</pubDate>
-<content:encoded><![CDATA[<p>A field report from building on React 19, Next.js 16, and Sanity v5 before the ecosystem caught up. There is much more body text here that runs well past the truncation boundary to prove the teaser is built from the content body.</p>]]></content:encoded>
+<description><![CDATA[<div class="medium-feed-item"><p class="medium-feed-image"><a href="https://levelup.gitconnected.com/next-js-react-sanity-96c912cacfdb?source=rss-9fa5f33ee186------2"><img src="https://cdn-images-1.medium.com/max/2600/0.jpg" width="5081"></a></p><p class="medium-feed-snippet">A field report from building on React 19, Next.js 16, and Sanity v5 before the ecosystem caught up.</p><p class="medium-feed-link"><a href="https://levelup.gitconnected.com/next-js-react-sanity-96c912cacfdb?source=rss-9fa5f33ee186------2">Continue reading on Level Up Coding »</a></p></div>]]></description>
 </item>
 </channel>
 </rss>`;
@@ -107,7 +107,7 @@ const SUBSTACK_RSS = `<?xml version="1.0" encoding="UTF-8"?>
 </rss>`;
 
 describe('parseFeed', () => {
-  it('parses a Medium item, building the teaser from content:encoded', () => {
+  it('parses a Medium item, building the teaser from the description snippet', () => {
     const posts = parseFeed(MEDIUM_RSS, 'medium');
     expect(posts).toHaveLength(1);
     expect(posts[0]).toMatchObject({
@@ -115,8 +115,10 @@ describe('parseFeed', () => {
       url: 'https://levelup.gitconnected.com/next-js-react-sanity-96c912cacfdb',
       pubDate: '2026-05-22',
       platform: 'medium',
+      description:
+        'A field report from building on React 19, Next.js 16, and Sanity v5 before the ecosystem caught up.',
     });
-    expect(posts[0].description.startsWith('A field report from building on React 19')).toBe(true);
+    expect(posts[0].description).not.toContain('Continue reading');
     expect(posts[0].description).not.toContain('<');
   });
 

@@ -66,12 +66,27 @@ export function toIsoDate(rfc822: string): string {
   return date.toISOString().slice(0, 10);
 }
 
+// Both platforms carry the teaser in <description>. Substack's is a clean
+// summary; Medium wraps it in <p class="medium-feed-snippet">, next to a feed
+// image and a "Continue reading on … »" link that must be excluded.
+function extractTeaser(descriptionHtml: string, platform: 'medium' | 'substack'): string {
+  if (platform === 'medium') {
+    const snippet = descriptionHtml.match(
+      /<p[^>]*class="medium-feed-snippet"[^>]*>([\s\S]*?)<\/p>/i,
+    );
+    const html = snippet
+      ? snippet[1]
+      : descriptionHtml.replace(/<p[^>]*class="medium-feed-link"[^>]*>[\s\S]*?<\/p>/i, '');
+    return truncateTeaser(htmlToText(html));
+  }
+  return truncateTeaser(htmlToText(descriptionHtml));
+}
+
 interface RawItem {
   title?: unknown;
   link?: unknown;
   pubDate?: unknown;
   description?: unknown;
-  'content:encoded'?: unknown;
 }
 
 function asText(value: unknown): string {
@@ -135,13 +150,9 @@ export function parseFeed(xml: string, platform: 'medium' | 'substack'): Post[] 
 
   return items
     .map((item): Post => {
-      const sourceHtml =
-        platform === 'substack'
-          ? asText(item.description)
-          : asText(item['content:encoded']);
       return {
         title: htmlToText(asText(item.title)),
-        description: truncateTeaser(htmlToText(sourceHtml)),
+        description: extractTeaser(asText(item.description), platform),
         url: stripTrackingParams(asText(item.link)),
         pubDate: toIsoDate(asText(item.pubDate)),
         platform,
