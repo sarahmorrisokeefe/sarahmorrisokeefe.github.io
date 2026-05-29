@@ -38,7 +38,7 @@ describe('htmlToText', () => {
   });
 
   it('decodes common entities', () => {
-    expect(htmlToText('Tom &amp; Jerry &#8217;s &hellip;')).toBe("Tom & Jerry 's …");
+    expect(htmlToText('Tom &amp; Jerry &#8217;s &hellip;')).toBe('Tom & Jerry ’s …');
   });
 });
 

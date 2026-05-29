@@ -22,29 +22,21 @@ export function stripTrackingParams(url: string): string {
 
 function decodeEntities(s: string): string {
   return s
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
     .replace(/&nbsp;/g, ' ')
     .replace(/&hellip;/g, '…')
     .replace(/&mdash;/g, '—')
     .replace(/&ndash;/g, '–')
-    .replace(/&(?:rsquo|lsquo);/g, "'")
-    .replace(/&(?:ldquo|rdquo);/g, '"')
+    .replace(/&rsquo;/g, '’')
+    .replace(/&lsquo;/g, '‘')
+    .replace(/&rdquo;/g, '”')
+    .replace(/&ldquo;/g, '“')
     .replace(/&quot;/g, '"')
     .replace(/&apos;/g, "'")
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
-    .replace(/&amp;/g, '&')
-    .replace(/&#x([0-9a-f]+);/gi, (_, h) => {
-      const cp = parseInt(h, 16);
-      if (cp === 0x2018 || cp === 0x2019) return "'";
-      if (cp === 0x201c || cp === 0x201d) return '"';
-      return String.fromCodePoint(cp);
-    })
-    .replace(/&#(\d+);/g, (_, n) => {
-      const cp = Number(n);
-      if (cp === 8216 || cp === 8217) return "'";
-      if (cp === 8220 || cp === 8221) return '"';
-      return String.fromCodePoint(cp);
-    });
+    .replace(/&amp;/g, '&');
 }
 
 export function htmlToText(html: string): string {

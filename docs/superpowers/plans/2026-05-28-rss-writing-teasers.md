@@ -114,7 +114,7 @@ describe('htmlToText', () => {
   });
 
   it('decodes common entities', () => {
-    expect(htmlToText('Tom &amp; Jerry &#8217;s &hellip;')).toBe("Tom & Jerry 's …");
+    expect(htmlToText('Tom &amp; Jerry &#8217;s &hellip;')).toBe('Tom & Jerry ’s …');
   });
 });
 
@@ -180,8 +180,10 @@ function decodeEntities(s: string): string {
     .replace(/&hellip;/g, '…')
     .replace(/&mdash;/g, '—')
     .replace(/&ndash;/g, '–')
-    .replace(/&(?:rsquo|lsquo);/g, "'")
-    .replace(/&(?:ldquo|rdquo);/g, '"')
+    .replace(/&rsquo;/g, '’')
+    .replace(/&lsquo;/g, '‘')
+    .replace(/&rdquo;/g, '”')
+    .replace(/&ldquo;/g, '“')
     .replace(/&quot;/g, '"')
     .replace(/&apos;/g, "'")
     .replace(/&lt;/g, '<')
