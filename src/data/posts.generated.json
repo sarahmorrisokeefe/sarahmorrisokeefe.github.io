@@ -1,5 +1,12 @@
 [
   {
+    "title": "One Resend Integration, Two Email Flows: Transactional and Marketing Email in a Next.js Template",
+    "description": "How a pluggable delivery layer kept the email architecture clean, and what the real implementation revealed about the decisions worth…",
+    "url": "https://sarahmorrisokeefe.medium.com/one-resend-integration-two-email-flows-transactional-and-marketing-email-in-a-next-js-template-8158c472c558",
+    "pubDate": "2026-06-01",
+    "platform": "medium"
+  },
+  {
     "title": "What Canada Reveals Every Time: The Circuit That Breaks Hearts on Purpose",
     "description": "The Circuit Gilles Villeneuve has a pattern. George Russell just became the newest entry in a very long ledger.",
     "url": "https://chartposition.substack.com/p/what-canada-reveals-every-time-the",
@@ -201,12 +208,5 @@
     "url": "https://chartposition.substack.com/p/the-safety-car-was-always-coming",
     "pubDate": "2026-03-30",
     "platform": "substack"
-  },
-  {
-    "title": "I Use AI Every Day and I’m Still Not Sure What It’s Good At",
-    "description": "What is AI actually reliable for — and how are you supposed to calibrate a tool that doesn’t tell you when it’s guessing?",
-    "url": "https://levelup.gitconnected.com/i-use-ai-every-day-and-im-still-not-sure-what-it-s-good-at-896b700d5ad5",
-    "pubDate": "2026-03-24",
-    "platform": "medium"
   }
 ]
