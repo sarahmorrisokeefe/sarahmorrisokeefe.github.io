@@ -1,5 +1,12 @@
 [
   {
+    "title": "D3 vs Recharts: I Used Both in One Project and Drew a Clear Line",
+    "description": "Eight pages of Recharts, three custom D3 components, and one heatmap that needed neither.",
+    "url": "https://medium.com/womenintechnology/d3-vs-recharts-i-used-both-in-one-project-and-drew-a-clear-line-47173433f277",
+    "pubDate": "2026-06-13",
+    "platform": "medium"
+  },
+  {
     "title": "One Resend Integration, Two Email Flows: Transactional and Marketing Email in a Next.js Template",
     "description": "How a pluggable delivery layer kept the email architecture clean, and what the real implementation revealed about the decisions worth…",
     "url": "https://medium.com/womenintechnology/one-resend-integration-two-email-flows-transactional-and-marketing-email-in-a-next-js-template-8158c472c558",
@@ -194,13 +201,6 @@
     "url": "https://chartposition.substack.com/p/two-stelliums-one-seat",
     "pubDate": "2026-04-02",
     "platform": "substack"
-  },
-  {
-    "title": "5 Front-End Accessibility Patterns Worth Getting Right the First Time",
-    "description": "These five patterns are not exotic. They’re not edge cases. They’re the things that make a real difference for real users.",
-    "url": "https://levelup.gitconnected.com/5-front-end-accessibility-patterns-worth-getting-right-the-first-time-12af156c9297",
-    "pubDate": "2026-03-30",
-    "platform": "medium"
   },
   {
     "title": "The Safety Car Was Always Coming",
