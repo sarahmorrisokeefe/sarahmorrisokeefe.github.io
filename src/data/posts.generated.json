@@ -1,5 +1,12 @@
 [
   {
+    "title": "Designing Sanity Schemas (For Real People)",
+    "description": "Singletons, custom Portable Text marks, and a color picker built from scratch. Because a schema isn’t just a data model.",
+    "url": "https://levelup.gitconnected.com/designing-sanity-schemas-for-real-people-ca5950a4d3ce",
+    "pubDate": "2026-06-15",
+    "platform": "medium"
+  },
+  {
     "title": "D3 vs Recharts: I Used Both in One Project and Drew a Clear Line",
     "description": "Eight pages of Recharts, three custom D3 components, and one heatmap that needed neither.",
     "url": "https://medium.com/womenintechnology/d3-vs-recharts-i-used-both-in-one-project-and-drew-a-clear-line-47173433f277",
@@ -187,13 +194,6 @@
     "url": "https://chartposition.substack.com/p/the-out-lap-april-612",
     "pubDate": "2026-04-06",
     "platform": "substack"
-  },
-  {
-    "title": "Claude has many surfaces. Here’s how I actually use each one.",
-    "description": "A practical breakdown of Claude’s Chat, Code, and Cowork modes for engineers who are tired of guessing.",
-    "url": "https://pub.towardsai.net/claude-has-many-surfaces-heres-how-i-actually-use-each-one-df1f9ddfdae5",
-    "pubDate": "2026-04-05",
-    "platform": "medium"
   },
   {
     "title": "Two Stelliums, One Seat",
