@@ -127,6 +127,16 @@ export function mergeAndSort(...lists: Post[][]): Post[] {
   });
 }
 
+// Substack sits behind Cloudflare, which rejects the default Node fetch
+// User-Agent (the request fails outright). Sending a real UA — and an RSS
+// Accept header — keeps the feed reachable. Medium is unaffected but gets the
+// same headers for consistency.
+const FEED_HEADERS = {
+  'User-Agent':
+    'Mozilla/5.0 (compatible; okeefesarah-feed-fetcher/1.0; +https://www.okeefesarah.com)',
+  Accept: 'application/rss+xml, application/xml;q=0.9, */*;q=0.8',
+};
+
 export async function buildPosts(
   sources: FeedSource[],
   existing: Post[],
@@ -134,7 +144,7 @@ export async function buildPosts(
 ): Promise<Post[]> {
   const results = await Promise.allSettled(
     sources.map(async (source) => {
-      const res = await fetchImpl(source.url);
+      const res = await fetchImpl(source.url, { headers: FEED_HEADERS });
       if (!res.ok)
         throw new Error(`${source.platform} feed responded ${res.status}`);
       return parseFeed(await res.text(), source.platform);

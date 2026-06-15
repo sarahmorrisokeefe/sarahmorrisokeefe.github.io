@@ -261,6 +261,23 @@ describe('buildPosts', () => {
     expect(posts.some((p) => p.platform === 'substack')).toBe(true);
   });
 
+  it('sends a User-Agent header so Substack/Cloudflare does not reject the request', async () => {
+    const seen: Array<RequestInit | undefined> = [];
+    const fetchImpl = async (
+      url: string | URL | Request,
+      init?: RequestInit,
+    ) => {
+      seen.push(init);
+      return String(url).includes('medium') ? ok(MEDIUM_RSS) : ok(SUBSTACK_RSS);
+    };
+    await buildPosts(SOURCES, EXISTING, fetchImpl as typeof fetch);
+    expect(seen).toHaveLength(2);
+    for (const init of seen) {
+      const headers = (init?.headers ?? {}) as Record<string, string>;
+      expect(headers['User-Agent']).toBeTruthy();
+    }
+  });
+
   it('returns the existing set unchanged when both feeds fail', async () => {
     const fetchImpl = async () => fail();
     const posts = await buildPosts(
