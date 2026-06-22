@@ -1,9 +1,10 @@
 ---
-const navLinks = [
+const navLinks: { href: string; label: string; external?: boolean }[] = [
   { href: '#about', label: 'About' },
   { href: '#projects', label: 'Projects' },
   { href: '#writing', label: 'Writing' },
   { href: '#contact', label: 'Contact' },
+  { href: 'http://dx.okeefesarah.com/', label: 'Consulting ↗', external: true },
 ];
 ---
 
@@ -26,6 +27,8 @@ const navLinks = [
         navLinks.map((link) => (
           <a
             href={link.href}
+            target={link.external ? '_blank' : undefined}
+            rel={link.external ? 'noopener noreferrer' : undefined}
             class="text-sm font-medium text-ink dark:text-cream/70 hover:text-ink-dark dark:hover:text-cream transition-colors duration-200 relative group"
           >
             {link.label}
@@ -173,6 +176,8 @@ const navLinks = [
         navLinks.map((link) => (
           <a
             href={link.href}
+            target={link.external ? '_blank' : undefined}
+            rel={link.external ? 'noopener noreferrer' : undefined}
             class="mobile-nav-link text-sm font-medium text-ink dark:text-cream/70 hover:text-sage transition-colors py-1"
           >
             {link.label}
