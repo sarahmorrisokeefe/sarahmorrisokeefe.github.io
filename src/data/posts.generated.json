@@ -1,5 +1,12 @@
 [
   {
+    "title": "The Developer Experience Checklist Nobody Actually Publishes",
+    "description": "",
+    "url": "https://sarahmorrisokeefe.medium.com/the-developer-experience-checklist-nobody-actually-publishes-9d357308ede7",
+    "pubDate": "2026-06-23",
+    "platform": "medium"
+  },
+  {
     "title": "Designing Sanity Schemas (For Real People)",
     "description": "Singletons, custom Portable Text marks, and a color picker built from scratch. Because a schema isn’t just a data model.",
     "url": "https://levelup.gitconnected.com/designing-sanity-schemas-for-real-people-ca5950a4d3ce",
@@ -200,13 +207,6 @@
     "description": "How Capacitor gets your existing React app into the App Store without a rewrite",
     "url": "https://levelup.gitconnected.com/your-existing-web-app-is-closer-to-a-mobile-app-than-you-think-c47fd3d51742",
     "pubDate": "2026-04-15",
-    "platform": "medium"
-  },
-  {
-    "title": "What I Thought Having a Baby Would Do to My Career (And What Actually Happened)",
-    "description": "The gold star didn’t disappear. It just stopped being the point.",
-    "url": "https://medium.com/womenintechnology/what-i-thought-having-a-baby-would-do-to-my-career-and-what-actually-happened-53192100c0ad",
-    "pubDate": "2026-04-11",
     "platform": "medium"
   }
 ]
