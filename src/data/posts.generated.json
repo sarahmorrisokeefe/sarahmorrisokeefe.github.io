@@ -1,5 +1,12 @@
 [
   {
+    "title": "I Built Dozens of Custom AI Skills. Here Are the 3 I Use Every Week.",
+    "description": "Most of them sit untouched. These three replaced the one-off prompts I used to rewrite from scratch every single time — and saved me real…",
+    "url": "https://levelup.gitconnected.com/i-built-dozens-of-custom-ai-skills-here-are-the-3-i-use-every-week-0608f8eb5f7a",
+    "pubDate": "2026-06-24",
+    "platform": "medium"
+  },
+  {
     "title": "The Developer Experience Checklist Nobody Actually Publishes",
     "description": "",
     "url": "https://sarahmorrisokeefe.medium.com/the-developer-experience-checklist-nobody-actually-publishes-9d357308ede7",
@@ -200,13 +207,6 @@
     "description": "On the quiet cost of replacing collaboration with AI, and what I did about it.",
     "url": "https://medium.com/womenintechnology/claude-is-making-our-jobs-lonelier-heres-what-i-m-doing-about-it-c4e5adec7118",
     "pubDate": "2026-04-17",
-    "platform": "medium"
-  },
-  {
-    "title": "Your Existing Web App Is Closer to a Mobile App Than You Think",
-    "description": "How Capacitor gets your existing React app into the App Store without a rewrite",
-    "url": "https://levelup.gitconnected.com/your-existing-web-app-is-closer-to-a-mobile-app-than-you-think-c47fd3d51742",
-    "pubDate": "2026-04-15",
     "platform": "medium"
   }
 ]
