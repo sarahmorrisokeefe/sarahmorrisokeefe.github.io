@@ -1,5 +1,12 @@
 [
   {
+    "title": "Developers Think AI Makes Them 20% Faster. The Data Still Can’t Prove It.",
+    "description": "METR ran a gold-standard trial in 2025, a follow-up in 2026, and a survey after that. The speed question is still open. The perception gap…",
+    "url": "https://levelup.gitconnected.com/developers-think-ai-makes-them-20-faster-the-data-still-cant-prove-it-2ae835e55805",
+    "pubDate": "2026-07-08",
+    "platform": "medium"
+  },
+  {
     "title": "I Built Dozens of Custom AI Skills. Here Are the 3 I Use Every Week.",
     "description": "Most of them sit untouched. These three replaced the one-off prompts I used to rewrite from scratch every single time — and saved me real…",
     "url": "https://levelup.gitconnected.com/i-built-dozens-of-custom-ai-skills-here-are-the-3-i-use-every-week-0608f8eb5f7a",
@@ -200,13 +207,6 @@
     "description": "You don’t need a paid plan. You need a cron job and about ten minutes.",
     "url": "https://levelup.gitconnected.com/supabase-free-tier-will-pause-your-app-heres-the-github-actions-fix-8c1fd35b49ca",
     "pubDate": "2026-04-22",
-    "platform": "medium"
-  },
-  {
-    "title": "Claude Is Making Our Jobs Lonelier. Here’s What I’m Doing About It.",
-    "description": "On the quiet cost of replacing collaboration with AI, and what I did about it.",
-    "url": "https://medium.com/womenintechnology/claude-is-making-our-jobs-lonelier-heres-what-i-m-doing-about-it-c4e5adec7118",
-    "pubDate": "2026-04-17",
     "platform": "medium"
   }
 ]
