@@ -1,5 +1,12 @@
 [
   {
+    "title": "2,000 Founders Said AI Solved the Hard Part of Shipping. Then Burnout Took Its Place",
+    "description": "Supabase surveyed over 2,000 builders. Their biggest challenge used to be technical complexity. In one year, that fear got cut in half and…",
+    "url": "https://levelup.gitconnected.com/2-000-founders-said-ai-solved-the-hard-part-of-shipping-then-burnout-took-its-place-4cae2e18fd40",
+    "pubDate": "2026-07-13",
+    "platform": "medium"
+  },
+  {
     "title": "Developers Think AI Makes Them 20% Faster. The Data Still Can’t Prove It.",
     "description": "METR ran a gold-standard trial in 2025, a follow-up in 2026, and a survey after that. The speed question is still open. The perception gap…",
     "url": "https://levelup.gitconnected.com/developers-think-ai-makes-them-20-faster-the-data-still-cant-prove-it-2ae835e55805",
@@ -201,12 +208,5 @@
     "url": "https://chartposition.substack.com/p/the-mercedes-garage",
     "pubDate": "2026-04-23",
     "platform": "substack"
-  },
-  {
-    "title": "Supabase Free Tier Will Pause Your App. Here’s the GitHub Actions Fix.",
-    "description": "You don’t need a paid plan. You need a cron job and about ten minutes.",
-    "url": "https://levelup.gitconnected.com/supabase-free-tier-will-pause-your-app-heres-the-github-actions-fix-8c1fd35b49ca",
-    "pubDate": "2026-04-22",
-    "platform": "medium"
   }
 ]
