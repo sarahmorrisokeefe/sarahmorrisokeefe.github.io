@@ -1,0 +1,494 @@
+---
+const packages = [
+  {
+    num: "01",
+    name: "The Storefront",
+    desc: "A clean, professional presence for a business that mainly needs to be found, trusted, and easy to reach.",
+    price: "$4,000",
+    featured: false,
+    includes: [
+      "Up to 5 custom pages",
+      "Mobile-first, fast-loading build",
+      "Contact form and map",
+      "Basic SEO setup",
+      "Accessibility built in from the start",
+    ],
+  },
+  {
+    num: "02",
+    name: "The Custom Build",
+    desc: "A fuller site with real design work, room to grow, and the features a working business actually uses day to day.",
+    price: "$6,500",
+    featured: true,
+    tag: "Most chosen",
+    includes: [
+      "Up to 10 custom pages",
+      "Custom design in your brand",
+      "A CMS so you can edit it yourself",
+      "Booking, menus, or galleries",
+      "Analytics and SEO setup",
+    ],
+  },
+  {
+    num: "03",
+    name: "The Shopfront",
+    desc: "For businesses selling online. Product pages, checkout, and a setup you can run without a developer on call.",
+    price: "$9,000",
+    featured: false,
+    includes: [
+      "Everything in The Custom Build",
+      "Online store and checkout",
+      "Product and inventory setup",
+      "Payment integration",
+      "Training so you can manage it",
+    ],
+  },
+];
+
+const plans = [
+  {
+    name: "Essential",
+    rate: "From $150",
+    unit: "/ month",
+    desc: "Hosting, security updates, backups, and uptime monitoring. The peace-of-mind tier.",
+  },
+  {
+    name: "Growth",
+    rate: "From $300",
+    unit: "/ month",
+    desc: "Everything in Essential, plus a set block of content and design changes each month.",
+  },
+  {
+    name: "Partner",
+    rate: "Let's talk",
+    unit: "",
+    desc: "Priority support and ongoing development for businesses treating the site as a core channel.",
+  },
+];
+
+const steps = [
+  {
+    num: "STEP 01",
+    title: "Discovery call",
+    desc: "We talk through your business, your goals, and what the site needs to do. Free, and no pressure to commit.",
+  },
+  {
+    num: "STEP 02",
+    title: "Proposal and deposit",
+    desc: "You get a clear scope, timeline, and price in writing. A deposit reserves your spot and I get started.",
+  },
+  {
+    num: "STEP 03",
+    title: "Design and build",
+    desc: "I build in stages and share progress as we go, with two rounds of revisions along the way.",
+  },
+  {
+    num: "STEP 04",
+    title: "Launch and care",
+    desc: "We go live together. From there, a care plan keeps everything updated and running smoothly.",
+  },
+];
+
+const contactEmail = "hello@okeefesarah.com";
+---
+
+<section class="webdev">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Web Development · Charlotte, NC</p>
+      <h1>Websites that actually work for the businesses behind them.</h1>
+      <p class="lede">
+        I'm a front-end engineer with six years building production software.
+        These days I also build fast, accessible, genuinely good websites for
+        small businesses. <em>No template you have to fight, no jargon, and no
+        disappearing after launch.</em>
+      </p>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="wrap intro">
+    <p>
+      Most small business sites are one of two things: a cheap builder the owner
+      is stuck babysitting, or an overpriced agency build that took six months
+      and still loads slowly on a phone.
+    </p>
+    <p>
+      I sit in the middle. <strong>Custom-built, hand-coded, made to load fast
+      and read clearly on every screen.</strong> You get one person who knows
+      your project start to finish, and sticks around to keep it running.
+    </p>
+  </div>
+
+  <!-- PACKAGES -->
+  <div class="wrap section-head">
+    <p class="eyebrow">Packages</p>
+    <h2>Three ways to work together</h2>
+    <p>
+      Every project starts with a short discovery call, so the scope fits your
+      business. The prices below are starting points, not ceilings.
+    </p>
+  </div>
+
+  <div class="wrap packages">
+    {packages.map((p) => (
+      <div class={`card${p.featured ? " featured" : ""}`}>
+        {p.featured && <span class="tag">{p.tag}</span>}
+        <p class="num">{p.num}</p>
+        <h3>{p.name}</h3>
+        <p class="desc">{p.desc}</p>
+        <p class="price"><span>Starting at</span><strong>{p.price}</strong></p>
+        <ul>
+          {p.includes.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    ))}
+  </div>
+
+  <!-- CARE PLANS -->
+  <div class="care">
+    <div class="wrap">
+      <div class="care-intro">
+        <p class="eyebrow">Care Plans</p>
+        <h2>Keep it running after launch</h2>
+        <p>
+          A website is a living thing. Care plans cover the updates, security,
+          and small changes that keep it fast and current, so you never have to
+          think about it. Cancel anytime.
+        </p>
+      </div>
+      <div class="plans">
+        {plans.map((plan) => (
+          <div class="plan">
+            <h4>{plan.name}</h4>
+            <p class="rate"><b>{plan.rate}</b>{plan.unit && <span> {plan.unit}</span>}</p>
+            <p>{plan.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESS -->
+  <div class="wrap process">
+    <div class="section-head">
+      <p class="eyebrow">How It Works</p>
+      <h2>What working together looks like</h2>
+    </div>
+    <div class="steps">
+      {steps.map((step) => (
+        <div class="step">
+          <span class="step-num">{step.num}</span>
+          <h4>{step.title}</h4>
+          <p>{step.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div id="cta" class="cta scroll-mt-20">
+    <div class="wrap">
+      <p class="eyebrow">Let's Build</p>
+      <h2>Have a project in mind?</h2>
+      <p>
+        Tell me a little about your business and what you're after. I'll come
+        back with honest thoughts and a real starting point.
+      </p>
+      <a class="btn" href={`mailto:${contactEmail}?subject=Website%20project`}>
+        Book a discovery call
+      </a>
+    </div>
+  </div>
+
+  <footer class="note">
+    <div class="wrap">Based in Charlotte, working with businesses near and far.</div>
+  </footer>
+</section>
+
+<style>
+  .webdev {
+    --sage: theme('colors.sage.DEFAULT');
+    --near-white: theme('colors.cream.DEFAULT');
+    --cream: theme('colors.cream.alt');
+    --gray: theme('colors.ink.DEFAULT');
+    --teal: theme('colors.ink.dark');
+    --light-sage: theme('colors.sage.light');
+    --line: rgba(22, 42, 44, 0.12);
+
+    background: var(--near-white);
+    color: var(--teal);
+    font-family: theme('fontFamily.sans');
+    line-height: 1.6;
+  }
+
+  .webdev * { box-sizing: border-box; }
+
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 28px; }
+
+  .eyebrow {
+    font-family: theme('fontFamily.sans');
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--sage);
+    margin: 0;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 88px 0 64px;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero .eyebrow { margin-bottom: 22px; }
+  .hero h1 {
+    font-size: clamp(2.4rem, 5.5vw, 4rem);
+    line-height: 1.08;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    max-width: 18ch;
+    margin: 0 0 26px;
+  }
+  .hero .lede {
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    color: var(--gray);
+    max-width: 56ch;
+    margin: 0;
+  }
+  .hero .lede em { color: var(--teal); font-style: italic; }
+
+  /* INTRO */
+  .intro {
+    padding: 52px 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    border-bottom: 1px solid var(--line);
+  }
+  .intro p { font-size: 1.05rem; color: var(--gray); margin: 0; }
+  .intro p strong { color: var(--teal); font-weight: 700; }
+
+  /* SECTION HEAD */
+  .section-head { padding: 64px 28px 8px; }
+  .section-head .eyebrow { margin-bottom: 14px; }
+  .section-head h2 {
+    font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .section-head p {
+    margin: 12px 0 0;
+    color: var(--gray);
+    max-width: 54ch;
+  }
+
+  /* PACKAGES */
+  .packages {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 36px 28px 8px;
+  }
+  .card {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .card .num {
+    font-family: theme('fontFamily.sans');
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    color: var(--light-sage);
+    font-weight: 600;
+    margin: 0 0 20px;
+  }
+  .card h3 { font-size: 1.5rem; font-weight: 400; margin: 0 0 10px; }
+  .card .desc { color: var(--gray); font-size: 0.98rem; margin: 0 0 22px; }
+  .card .price {
+    font-size: 1.02rem;
+    color: var(--teal);
+    margin: 0 0 22px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+  }
+  .card .price span {
+    display: block;
+    font-family: theme('fontFamily.sans');
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--light-sage);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .card .price strong { font-weight: 700; font-size: 1.35rem; }
+  .card ul { list-style: none; margin: auto 0 0; padding: 0; }
+  .card li {
+    font-size: 0.95rem;
+    color: var(--gray);
+    padding: 7px 0 7px 22px;
+    position: relative;
+  }
+  .card li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid var(--sage);
+    border-right: none;
+    border-top: none;
+    transform: rotate(-45deg);
+  }
+
+  .card.featured { background: var(--teal); border-color: var(--teal); }
+  .card.featured .num { color: var(--light-sage); }
+  .card.featured h3,
+  .card.featured .price,
+  .card.featured .price strong { color: var(--near-white); }
+  .card.featured .desc { color: rgba(254, 252, 246, 0.75); }
+  .card.featured .price { border-bottom-color: rgba(254, 252, 246, 0.2); }
+  .card.featured li { color: rgba(254, 252, 246, 0.82); }
+  .card.featured li::before { border-color: var(--light-sage); }
+  .card.featured .tag {
+    position: absolute;
+    top: 28px;
+    right: 28px;
+    font-family: theme('fontFamily.sans');
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    background: var(--light-sage);
+    padding: 4px 9px;
+    border-radius: 2px;
+    font-weight: 700;
+  }
+
+  /* CARE PLANS */
+  .care {
+    background: var(--cream);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin-top: 72px;
+    padding: 64px 0;
+  }
+  .care-intro { max-width: 54ch; margin-bottom: 36px; }
+  .care-intro .eyebrow { margin-bottom: 14px; }
+  .care-intro h2 {
+    font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .care-intro p { color: var(--gray); margin: 12px 0 0; }
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .plan {
+    background: var(--near-white);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 26px 24px;
+  }
+  .plan h4 { font-size: 1.2rem; font-weight: 400; margin: 0 0 8px; }
+  .plan .rate {
+    font-family: theme('fontFamily.sans');
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sage);
+    font-weight: 700;
+    margin: 0 0 18px;
+  }
+  .plan .rate b { font-size: 1.35rem; letter-spacing: normal; }
+  .plan p { font-size: 0.94rem; color: var(--gray); margin: 0; }
+
+  /* PROCESS */
+  .process { padding-bottom: 24px; }
+  .steps {
+    padding: 36px 28px 8px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+  }
+  .step .step-num {
+    font-family: theme('fontFamily.sans');
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    color: var(--light-sage);
+    font-weight: 600;
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--sage);
+    display: inline-block;
+  }
+  .step h4 { font-size: 1.15rem; font-weight: 400; margin: 0 0 8px; }
+  .step p { font-size: 0.94rem; color: var(--gray); margin: 0; }
+
+  /* CTA */
+  .cta {
+    background: var(--teal);
+    color: var(--near-white);
+    margin-top: 72px;
+    padding: 80px 0;
+    text-align: center;
+  }
+  .cta .eyebrow { color: var(--light-sage); margin-bottom: 18px; }
+  .cta h2 {
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    font-weight: 400;
+    max-width: 20ch;
+    margin: 0 auto 20px;
+    line-height: 1.12;
+  }
+  .cta p {
+    color: rgba(254, 252, 246, 0.78);
+    max-width: 48ch;
+    margin: 0 auto 34px;
+    font-size: 1.05rem;
+  }
+  .btn {
+    display: inline-block;
+    background: var(--light-sage);
+    color: var(--teal);
+    text-decoration: none;
+    font-family: theme('fontFamily.sans');
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    font-size: 0.95rem;
+    padding: 16px 36px;
+    border-radius: 3px;
+    transition: background 0.2s ease;
+  }
+  .btn:hover { background: var(--near-white); }
+  .btn:focus-visible { outline: 3px solid var(--near-white); outline-offset: 3px; }
+
+  .note {
+    text-align: center;
+    padding: 40px 0 60px;
+    color: var(--gray);
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 860px) {
+    .packages { grid-template-columns: 1fr; }
+    .plans { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 720px) {
+    .intro { grid-template-columns: 1fr; gap: 24px; }
+    .steps { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn { transition: none; }
+  }
+</style>
