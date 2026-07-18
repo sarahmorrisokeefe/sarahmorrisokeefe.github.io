@@ -1,9 +1,16 @@
 ---
+interface Props {
+  simple?: boolean;
+}
+
+const { simple = false } = Astro.props;
+
 const navLinks: { href: string; label: string; external?: boolean }[] = [
   { href: '#about', label: 'About' },
   { href: '#projects', label: 'Projects' },
   { href: '#writing', label: 'Writing' },
   { href: '#contact', label: 'Contact' },
+  { href: '/web-dev', label: 'Web Dev' },
   { href: 'http://dx.okeefesarah.com/', label: 'Consulting ↗', external: true },
 ];
 ---
@@ -24,17 +31,26 @@ const navLinks: { href: string; label: string; external?: boolean }[] = [
     <!-- Desktop navigation -->
     <div class="hidden md:flex items-center gap-8">
       {
-        navLinks.map((link) => (
+        simple ? (
           <a
-            href={link.href}
-            target={link.external ? '_blank' : undefined}
-            rel={link.external ? 'noopener noreferrer' : undefined}
-            class="text-sm font-medium text-ink dark:text-cream/70 hover:text-ink-dark dark:hover:text-cream transition-colors duration-200 relative group"
+            href="#cta"
+            class="text-sm font-medium bg-sage hover:bg-sage-light text-cream px-4 py-2 rounded-full transition-colors duration-200"
           >
-            {link.label}
-            <span class="absolute -bottom-0.5 left-0 w-0 h-px bg-sage group-hover:w-full transition-all duration-300" />
+            Get in Touch
           </a>
-        ))
+        ) : (
+          navLinks.map((link) => (
+            <a
+              href={link.href}
+              target={link.external ? '_blank' : undefined}
+              rel={link.external ? 'noopener noreferrer' : undefined}
+              class="text-sm font-medium text-ink dark:text-cream/70 hover:text-ink-dark dark:hover:text-cream transition-colors duration-200 relative group"
+            >
+              {link.label}
+              <span class="absolute -bottom-0.5 left-0 w-0 h-px bg-sage group-hover:w-full transition-all duration-300" />
+            </a>
+          ))
+        )
       }
 
       <!-- Dark mode toggle -->
@@ -125,67 +141,80 @@ const navLinks: { href: string; label: string; external?: boolean }[] = [
         </svg>
       </button>
 
-      <button
-        id="mobile-menu-btn"
-        aria-label="Open navigation menu"
-        aria-expanded="false"
-        class="p-2 text-ink dark:text-cream/70 hover:text-sage transition-colors"
-      >
-        <!-- Hamburger -->
-        <svg
-          id="icon-hamburger"
-          class="w-5 h-5 block"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          aria-hidden="true"
-        >
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-        <!-- Close X -->
-        <svg
-          id="icon-close"
-          class="w-5 h-5 hidden"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          aria-hidden="true"
-        >
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
+      {
+        simple ? (
+          <a
+            href="#cta"
+            class="text-sm font-medium bg-sage hover:bg-sage-light text-cream px-4 py-2 rounded-full transition-colors duration-200"
+          >
+            Get in Touch
+          </a>
+        ) : (
+          <button
+            id="mobile-menu-btn"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            class="p-2 text-ink dark:text-cream/70 hover:text-sage transition-colors"
+          >
+            <!-- Hamburger -->
+            <svg
+              id="icon-hamburger"
+              class="w-5 h-5 block"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+            <!-- Close X -->
+            <svg
+              id="icon-close"
+              class="w-5 h-5 hidden"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        )
+      }
     </div>
   </nav>
 
-  <!-- Mobile dropdown menu -->
-  <div
-    id="mobile-menu"
-    class="hidden md:hidden bg-cream dark:bg-ink-dark border-t border-cream-alt/80 dark:border-ink/20 px-6 py-5"
-  >
-    <div class="flex flex-col gap-5">
-      {
-        navLinks.map((link) => (
-          <a
-            href={link.href}
-            target={link.external ? '_blank' : undefined}
-            rel={link.external ? 'noopener noreferrer' : undefined}
-            class="mobile-nav-link text-sm font-medium text-ink dark:text-cream/70 hover:text-sage transition-colors py-1"
-          >
-            {link.label}
-          </a>
-        ))
-      }
-    </div>
-  </div>
+  {
+    !simple && (
+      <!-- Mobile dropdown menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-cream dark:bg-ink-dark border-t border-cream-alt/80 dark:border-ink/20 px-6 py-5"
+      >
+        <div class="flex flex-col gap-5">
+          {navLinks.map((link) => (
+            <a
+              href={link.href}
+              target={link.external ? '_blank' : undefined}
+              rel={link.external ? 'noopener noreferrer' : undefined}
+              class="mobile-nav-link text-sm font-medium text-ink dark:text-cream/70 hover:text-sage transition-colors py-1"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    )
+  }
 </header>
 
 <script>
