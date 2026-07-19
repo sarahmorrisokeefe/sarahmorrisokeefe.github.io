@@ -271,7 +271,7 @@ const contactEmail = "hello@okeefesarah.com";
   .intro p strong { color: var(--teal); font-weight: 700; }
 
   /* SECTION HEAD */
-  .section-head { padding: 64px 28px 8px; }
+  .section-head { padding: 64px 0 8px; }
   .section-head .eyebrow { margin-bottom: 14px; }
   .section-head h2 {
     font-size: clamp(1.7rem, 3.5vw, 2.4rem);
@@ -413,7 +413,7 @@ const contactEmail = "hello@okeefesarah.com";
   /* PROCESS */
   .process { padding-bottom: 24px; }
   .steps {
-    padding: 36px 28px 8px;
+    padding: 36px 0 8px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 28px;
@@ -486,6 +486,13 @@ const contactEmail = "hello@okeefesarah.com";
   @media (max-width: 720px) {
     .intro { grid-template-columns: 1fr; gap: 24px; }
     .steps { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+  }
+  @media (max-width: 520px) {
+    .wrap { padding: 0 20px; }
+    .hero { padding: 72px 0 48px; }
+    .steps { grid-template-columns: 1fr; gap: 28px; }
+    .care { padding: 48px 0; }
+    .cta { padding: 56px 0; }
   }
 
   @media (prefers-reduced-motion: reduce) {
