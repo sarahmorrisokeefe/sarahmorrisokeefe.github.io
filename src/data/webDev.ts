@@ -42,7 +42,7 @@ export const packages: Package[] = [
     num: '03',
     name: 'The Shopfront',
     desc: 'For businesses selling online. Product pages, checkout, and a setup you can run without a developer on call.',
-    price: '$8,000',
+    price: '$7,000',
     featured: false,
     includes: [
       'Everything in The Custom Build',
