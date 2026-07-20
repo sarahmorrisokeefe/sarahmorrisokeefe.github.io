@@ -13,7 +13,7 @@ export const packages: Package[] = [
     num: '01',
     name: 'The Storefront',
     desc: 'A clean, professional presence for a business that mainly needs to be found, trusted, and easy to reach.',
-    price: '$4,000',
+    price: '$2,000',
     featured: false,
     includes: [
       'Up to 5 custom pages',
@@ -27,7 +27,7 @@ export const packages: Package[] = [
     num: '02',
     name: 'The Custom Build',
     desc: 'A fuller site with real design work, room to grow, and the features a working business actually uses day to day.',
-    price: '$6,500',
+    price: '$4,500',
     featured: true,
     tag: 'Most chosen',
     includes: [
@@ -42,7 +42,7 @@ export const packages: Package[] = [
     num: '03',
     name: 'The Shopfront',
     desc: 'For businesses selling online. Product pages, checkout, and a setup you can run without a developer on call.',
-    price: '$9,000',
+    price: '$8,000',
     featured: false,
     includes: [
       'Everything in The Custom Build',
