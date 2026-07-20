@@ -86,6 +86,16 @@ const enableAnalytics = import.meta.env.PROD && gaId;
         </>
       )
     }
+
+    <!-- A little something for anyone curious enough to open dev tools -->
+    <script is:inline>
+      console.log(
+        "%cSarah O'Keefe%c — Front-End Software Engineer%c\n\nHey, nice of you to check under the hood. \u{1F440}\n\n\u{1F3C1} There's a little easter egg tucked in the footer — find the checkered flag and see how fast your reflexes are.\n\nIf you're hiring: I'm open to good opportunities. Either way, glad you stopped by.",
+        'color: #5E6C5B; font-weight: 700; font-size: 15px;',
+        'color: #849680; font-weight: 400; font-size: 13px;',
+        'font-weight: 400; font-size: 13px;',
+      );
+    </script>
   </head>
   <body>
     <slot />
