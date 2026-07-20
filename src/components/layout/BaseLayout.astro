@@ -12,6 +12,9 @@ const {
   title = "Sarah O'Keefe — Front-End Engineer",
   description = 'Front-end software engineer based in Charlotte, NC. Building things with React and TypeScript at iHeartRadio.',
 } = Astro.props;
+
+const gaId = import.meta.env.PUBLIC_GA_ID;
+const enableAnalytics = import.meta.env.PROD && gaId;
 ---
 
 <!doctype html>
@@ -62,6 +65,27 @@ const {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+
+    <!-- Google Analytics 4 (production only, gated by import.meta.env.PROD) -->
+    {
+      enableAnalytics && (
+        <>
+          <script
+            is:inline
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+          />
+          <script is:inline define:vars={{ gaId }}>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+              dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', gaId);
+          </script>
+        </>
+      )
+    }
   </head>
   <body>
     <slot />
