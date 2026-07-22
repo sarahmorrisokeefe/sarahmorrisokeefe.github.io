@@ -26,6 +26,9 @@ export default {
         serif: ['Lora', ...defaultTheme.fontFamily.serif],
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
       },
+      boxShadow: {
+        'card-hover': '0 12px 24px -8px rgba(22,42,44,.18)',
+      },
       typography: (theme) => ({
         DEFAULT: {
           css: {
