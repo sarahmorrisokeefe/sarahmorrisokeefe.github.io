@@ -101,5 +101,27 @@ const enableAnalytics = import.meta.env.PROD && gaId;
     <slot />
     <LightsOut />
     <Analytics />
+
+    <!--
+      Scroll-triggered fade-up animations.
+      Elements with class "fade-up" or "fade-up-stagger" animate into view once.
+    -->
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' },
+      );
+
+      document.querySelectorAll('.fade-up, .fade-up-stagger').forEach((el) => {
+        observer.observe(el);
+      });
+    </script>
   </body>
 </html>
