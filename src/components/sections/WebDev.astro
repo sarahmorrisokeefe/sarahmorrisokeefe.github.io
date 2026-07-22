@@ -274,28 +274,30 @@ import {
           What working together looks like
         </h2>
       </div>
-      <div
-        class="fade-up-stagger relative grid grid-cols-1 gap-8 md:grid-cols-4 md:gap-6"
-      >
+      <div class="relative">
         <div
           class="absolute left-[12.5%] right-[12.5%] top-[19px] hidden h-0.5 bg-ink-dark/10 dark:bg-cream/15 md:block"
         >
         </div>
-        {
-          processSteps.map((step, i) => (
-            <div class="relative text-center">
-              <div class="relative z-10 mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-sage font-serif text-base font-normal text-cream">
-                {i + 1}
+        <div
+          class="fade-up-stagger grid grid-cols-1 gap-8 md:grid-cols-4 md:gap-6"
+        >
+          {
+            processSteps.map((step, i) => (
+              <div class="relative text-center">
+                <div class="relative z-10 mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-sage font-serif text-base font-normal text-cream">
+                  {i + 1}
+                </div>
+                <h4 class="mb-2 font-serif text-lg font-normal text-ink-dark dark:text-cream">
+                  {step.title}
+                </h4>
+                <p class="text-sm leading-relaxed text-ink dark:text-cream/70">
+                  {step.desc}
+                </p>
               </div>
-              <h4 class="mb-2 font-serif text-lg font-normal text-ink-dark dark:text-cream">
-                {step.title}
-              </h4>
-              <p class="text-sm leading-relaxed text-ink dark:text-cream/70">
-                {step.desc}
-              </p>
-            </div>
-          ))
-        }
+            ))
+          }
+        </div>
       </div>
     </div>
   </section>
