@@ -9,7 +9,8 @@ const { variant, href, class: className = '' } = Astro.props;
 
 const variantClasses: Record<Props['variant'], string> = {
   primary: 'bg-sage text-cream hover:bg-sage-light',
-  secondary: 'bg-transparent text-sage border border-sage hover:bg-sage hover:text-cream',
+  secondary:
+    'bg-transparent text-sage border border-sage hover:bg-sage hover:text-cream',
   'inverse-solid': 'bg-cream text-ink-dark hover:bg-cream-alt',
 };
 ---
