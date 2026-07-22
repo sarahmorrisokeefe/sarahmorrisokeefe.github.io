@@ -3,7 +3,7 @@ import Button from '../ui/Button.astro';
 import { packages, carePlans, processSteps, contactEmail, packageMailtoHref } from '../../data/webDev';
 ---
 
-<section class="webdev">
+<>
   <!-- HERO -->
   <section class="relative overflow-hidden bg-ink-darker px-6 pt-[110px] pb-24 md:px-16">
     <div
@@ -186,110 +186,16 @@ import { packages, carePlans, processSteps, contactEmail, packageMailtoHref } fr
     </div>
   </section>
 
-  <!-- CTA -->
-  <div id="cta" class="cta scroll-mt-20">
-    <div class="wrap">
-      <p class="eyebrow">Let's Build</p>
-      <h2>Have a project in mind?</h2>
-      <p>
-        Tell me a little about your business and what you're after. I'll come
-        back with honest thoughts and a real starting point.
-      </p>
-      <a class="btn" href={`mailto:${contactEmail}?subject=Website%20project`}>
-        Book a discovery call
-      </a>
-    </div>
-  </div>
-
-  <footer class="note">
-    <div class="wrap">Based in Charlotte, working with businesses near and far.</div>
-  </footer>
-</section>
-
-<style>
-  .webdev {
-    --sage: theme('colors.sage.DEFAULT');
-    --near-white: theme('colors.cream.DEFAULT');
-    --cream: theme('colors.cream.alt');
-    --gray: theme('colors.ink.DEFAULT');
-    --teal: theme('colors.ink.dark');
-    --light-sage: theme('colors.sage.light');
-    --line: rgba(22, 42, 44, 0.12);
-
-    background: var(--near-white);
-    color: var(--teal);
-    font-family: theme('fontFamily.sans');
-    line-height: 1.6;
-  }
-
-  .webdev * { box-sizing: border-box; }
-
-  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 28px; }
-
-  .eyebrow {
-    font-family: theme('fontFamily.sans');
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: var(--sage);
-    margin: 0;
-  }
-
-  /* CTA */
-  .cta {
-    background: var(--teal);
-    color: var(--near-white);
-    margin-top: 72px;
-    padding: 80px 0;
-    text-align: center;
-  }
-  .cta .eyebrow { color: var(--light-sage); margin-bottom: 18px; }
-  .cta h2 {
-    font-size: clamp(1.9rem, 4vw, 2.8rem);
-    font-weight: 400;
-    max-width: 20ch;
-    margin: 0 auto 20px;
-    line-height: 1.12;
-  }
-  .cta p {
-    color: rgba(254, 252, 246, 0.78);
-    max-width: 48ch;
-    margin: 0 auto 34px;
-    font-size: 1.05rem;
-  }
-  .btn {
-    display: inline-block;
-    background: var(--light-sage);
-    color: var(--teal);
-    text-decoration: none;
-    font-family: theme('fontFamily.sans');
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    font-size: 0.95rem;
-    padding: 16px 36px;
-    border-radius: 3px;
-    transition: background 0.2s ease;
-  }
-  .btn:hover { background: var(--near-white); }
-  .btn:focus-visible { outline: 3px solid var(--near-white); outline-offset: 3px; }
-
-  .note {
-    text-align: center;
-    padding: 40px 0 60px;
-    color: var(--gray);
-    font-size: 0.9rem;
-    font-style: italic;
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 520px) {
-    .wrap { padding: 0 20px; }
-    .hero { padding: 72px 0 48px; }
-    .cta { padding: 56px 0; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .btn { transition: none; }
-  }
-</style>
+  <!-- CONTACT CTA -->
+  <section id="contact" class="scroll-mt-20 bg-ink-dark px-6 py-[88px] text-center md:px-16">
+    <h2 class="mb-4 font-serif text-4xl font-normal text-cream">Have a project in mind?</h2>
+    <p class="mx-auto mb-8 max-w-[560px] text-base leading-relaxed text-cream/[0.82]">
+      Tell me a little about your business and what you're after. I'll come
+      back with honest thoughts and a real starting point.
+    </p>
+    <Button variant="primary" href={`mailto:${contactEmail}?subject=Website%20project`}>
+      Book a discovery call
+    </Button>
+    <p class="mt-6 text-sm text-sage-light">Based in Charlotte, working with businesses near and far.</p>
+  </section>
+</>
