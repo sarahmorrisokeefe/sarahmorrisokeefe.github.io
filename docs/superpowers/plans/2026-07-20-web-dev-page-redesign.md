@@ -765,16 +765,16 @@ with:
   </section>
 ```
 
-- [ ] **Step 2: Remove the now-dead Process CSS and the shared `.eyebrow`/`.section-head`/`.wrap` rules**
+- [ ] **Step 2: Remove the now-dead Process CSS and the now-fully-dead `.section-head` rule**
 
-By this point, every section that used the shared `.eyebrow`, `.section-head`, and `.wrap` classes has been converted to Tailwind. Delete from the `<style>` block:
-- `.eyebrow` (the base rule)
+By this point, Process is the last section that used the shared `.section-head` class, so it's fully dead — delete it. `.eyebrow` and `.wrap`, however, are still used by the not-yet-converted CTA section (`<p class="eyebrow">Let's Build</p>`, two `<div class="wrap">` wrappers) and the trailing `<footer class="note">` block — do NOT delete those two yet; Task 9 removes them when it converts the CTA/footer (that task already deletes the entire `<style>` block wholesale, which covers this).
+
+Delete from the `<style>` block:
 - `.section-head` and its sub-rules
-- `.wrap`
 - `/* PROCESS */` rule group (`.process`, `.steps`, `.step .step-num`, `.step h4`, `.step p`)
 - The `.steps { grid-template-columns: 1fr 1fr; gap: 32px 24px; }` line in the `@media (max-width: 720px)` block and the `.steps { grid-template-columns: 1fr; gap: 28px; }` line in the `@media (max-width: 520px)` block
 
-Leave the CTA/footer rules and the `.webdev` root rule in place — Task 9 removes those.
+Leave `.eyebrow`, `.wrap`, the CTA/footer rules, and the `.webdev` root rule in place — Task 9 removes those.
 
 - [ ] **Step 3: Verify**
 
