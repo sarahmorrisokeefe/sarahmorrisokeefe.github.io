@@ -42,14 +42,16 @@ import { packages, carePlans, processSteps, contactEmail } from '../../data/webD
   </section>
 
   <!-- INTRO -->
-  <div class="wrap intro">
-    <p>
+  <div
+    class="fade-up mx-auto grid max-w-5xl grid-cols-1 gap-8 border-b border-ink-dark/10 bg-cream px-6 py-12 dark:border-cream/15 dark:bg-ink-dark md:grid-cols-2 md:gap-12 md:px-16"
+  >
+    <p class="text-base leading-relaxed text-ink dark:text-cream/70">
       Most small business sites are one of two things: a cheap builder the owner
       is stuck babysitting, or an overpriced agency build that took six months
       and still loads slowly on a phone.
     </p>
-    <p>
-      I sit in the middle. <strong>Custom-built, hand-coded, made to load fast
+    <p class="text-base leading-relaxed text-ink dark:text-cream/70">
+      I sit in the middle. <strong class="font-bold text-ink-dark dark:text-cream">Custom-built, hand-coded, made to load fast
       and read clearly on every screen.</strong> You get one person who knows
       your project start to finish, and sticks around to keep it running.
     </p>
@@ -170,17 +172,6 @@ import { packages, carePlans, processSteps, contactEmail } from '../../data/webD
     color: var(--sage);
     margin: 0;
   }
-
-  /* INTRO */
-  .intro {
-    padding: 52px 28px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-    border-bottom: 1px solid var(--line);
-  }
-  .intro p { font-size: 1.05rem; color: var(--gray); margin: 0; }
-  .intro p strong { color: var(--teal); font-weight: 700; }
 
   /* SECTION HEAD */
   .section-head { padding: 64px 0 8px; }
@@ -396,7 +387,6 @@ import { packages, carePlans, processSteps, contactEmail } from '../../data/webD
     .plans { grid-template-columns: 1fr; }
   }
   @media (max-width: 720px) {
-    .intro { grid-template-columns: 1fr; gap: 24px; }
     .steps { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
   }
   @media (max-width: 520px) {
