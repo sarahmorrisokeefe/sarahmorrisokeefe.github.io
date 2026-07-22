@@ -302,8 +302,7 @@ const { variant, href, class: className = '' } = Astro.props;
 
 const variantClasses: Record<Props['variant'], string> = {
   primary: 'bg-sage text-cream hover:bg-sage-light',
-  secondary:
-    'bg-transparent text-sage border border-sage hover:bg-sage hover:text-cream dark:text-sage-light dark:border-sage-light dark:hover:bg-sage-light dark:hover:text-ink-dark',
+  secondary: 'bg-transparent text-sage border border-sage hover:bg-sage hover:text-cream',
   'inverse-solid': 'bg-cream text-ink-dark hover:bg-cream-alt',
 };
 ---
@@ -319,6 +318,8 @@ const variantClasses: Record<Props['variant'], string> = {
   <slot />
 </a>
 ```
+
+**Why the `secondary` variant has no `dark:` classes baked in:** this component is reused both inside the Hero (fixed dark background, must render identically regardless of the toggle — see Global Constraints) and later inside the Packages section's outer cards (which do respond to the toggle). Baking `dark:` overrides into the variant itself would make the Hero's "See packages" button subtly shift color when the toggle flips, even though the Hero section around it never changes — a contradiction with the "fixed dark, ignore toggle" requirement. Instead, `Button` stays toggle-neutral, and any call site that needs a dark-mode contrast boost (Task 6's package cards) adds it explicitly via the `class` prop, which is appended last in the `class:list` above and so can extend or override the variant's defaults per call site.
 
 - [ ] **Step 2: Replace the Hero markup in `WebDev.astro`**
 
@@ -575,7 +576,11 @@ with:
                 </div>
               ))}
             </div>
-            <Button variant="secondary" href={packageMailtoHref(p)} class="w-full">
+            <Button
+              variant="secondary"
+              href={packageMailtoHref(p)}
+              class="w-full dark:border-sage-light dark:text-sage-light dark:hover:bg-sage-light dark:hover:text-ink-dark"
+            >
               Start here
             </Button>
           </div>
