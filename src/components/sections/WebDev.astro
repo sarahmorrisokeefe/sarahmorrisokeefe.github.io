@@ -1,6 +1,6 @@
 ---
 import Button from '../ui/Button.astro';
-import { packages, carePlans, processSteps, contactEmail } from '../../data/webDev';
+import { packages, carePlans, processSteps, contactEmail, packageMailtoHref } from '../../data/webDev';
 ---
 
 <section class="webdev">
@@ -58,29 +58,75 @@ import { packages, carePlans, processSteps, contactEmail } from '../../data/webD
   </div>
 
   <!-- PACKAGES -->
-  <div class="wrap section-head">
-    <p class="eyebrow">Packages</p>
-    <h2>Three ways to work together</h2>
-    <p>
-      Every project starts with a short discovery call, so the scope fits your
-      business. The prices below are starting points, not ceilings.
-    </p>
-  </div>
-
-  <div class="wrap packages">
-    {packages.map((p) => (
-      <div class={`card${p.featured ? " featured" : ""}`}>
-        {p.featured && <span class="tag">{p.tag}</span>}
-        <p class="num">{p.num}</p>
-        <h3>{p.name}</h3>
-        <p class="desc">{p.desc}</p>
-        <p class="price"><span>Starting at</span><strong>{p.price}</strong></p>
-        <ul>
-          {p.includes.map((item) => <li>{item}</li>)}
-        </ul>
-      </div>
-    ))}
-  </div>
+  <section id="packages" class="bg-cream px-6 py-[88px] dark:bg-ink-dark md:px-16">
+    <div class="fade-up mx-auto mb-12 max-w-[520px] text-center">
+      <p class="mb-2.5 text-xs font-semibold uppercase tracking-widest text-sage dark:text-sage-light">
+        Packages
+      </p>
+      <h2 class="mb-2 font-serif text-4xl font-normal text-ink-dark dark:text-cream">
+        Three ways to work together
+      </h2>
+      <p class="text-base leading-relaxed text-ink dark:text-cream/70">
+        Every project starts with a short discovery call. Prices are starting points, not ceilings.
+      </p>
+    </div>
+    <div class="fade-up-stagger mx-auto grid max-w-5xl grid-cols-1 items-stretch gap-6 md:grid-cols-3">
+      {packages.map((p) =>
+        p.featured ? (
+          <div class="relative flex -translate-y-2 flex-col rounded-xl bg-sage p-9 shadow-card-hover">
+            <span class="absolute -top-[11px] left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-ink-dark px-3.5 py-1 text-[10px] font-semibold uppercase tracking-[.12em] text-cream">
+              {p.tag}
+            </span>
+            <h3 class="mb-1 font-serif text-xl font-normal text-cream">{p.name}</h3>
+            <p class="mb-[18px] min-h-[66px] text-sm leading-relaxed text-cream/85">{p.desc}</p>
+            <div class="mb-5 text-sm text-cream/85">
+              Starting at{' '}
+              <span class="font-serif text-3xl font-normal text-cream">{p.price}</span>
+            </div>
+            <div class="mb-6 flex flex-1 flex-col gap-[11px]">
+              {p.includes.map((item) => (
+                <div class="flex items-start gap-2.5 text-sm text-cream">
+                  <svg width="15" height="15" viewBox="0 0 24 24" class="mt-0.5 shrink-0 text-cream" aria-hidden="true">
+                    <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  {item}
+                </div>
+              ))}
+            </div>
+            <Button variant="inverse-solid" href={packageMailtoHref(p)} class="w-full">
+              Start here
+            </Button>
+          </div>
+        ) : (
+          <div class="flex flex-col rounded-xl bg-cream-alt p-8 transition-all duration-300 motion-reduce:transition-none hover:-translate-y-1 hover:shadow-card-hover dark:bg-ink dark:hover:shadow-ink-darker/50">
+            <h3 class="mb-1 font-serif text-xl font-normal text-ink-dark dark:text-cream">{p.name}</h3>
+            <p class="mb-[18px] min-h-[66px] text-sm leading-relaxed text-ink dark:text-cream/70">{p.desc}</p>
+            <div class="mb-5 text-sm text-ink-dark dark:text-cream">
+              Starting at{' '}
+              <span class="font-serif text-3xl font-normal text-ink-dark dark:text-cream">{p.price}</span>
+            </div>
+            <div class="mb-6 flex flex-1 flex-col gap-[11px]">
+              {p.includes.map((item) => (
+                <div class="flex items-start gap-2.5 text-sm text-ink dark:text-cream/70">
+                  <svg width="15" height="15" viewBox="0 0 24 24" class="mt-0.5 shrink-0 text-sage dark:text-sage-light" aria-hidden="true">
+                    <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  {item}
+                </div>
+              ))}
+            </div>
+            <Button
+              variant="secondary"
+              href={packageMailtoHref(p)}
+              class="w-full dark:border-sage-light dark:text-sage-light dark:hover:bg-sage-light dark:hover:text-ink-dark"
+            >
+              Start here
+            </Button>
+          </div>
+        ),
+      )}
+    </div>
+  </section>
 
   <!-- CARE PLANS -->
   <div class="care">
@@ -186,94 +232,6 @@ import { packages, carePlans, processSteps, contactEmail } from '../../data/webD
     margin: 12px 0 0;
     color: var(--gray);
     max-width: 54ch;
-  }
-
-  /* PACKAGES */
-  .packages {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 36px 28px 8px;
-  }
-  .card {
-    background: var(--cream);
-    border: 1px solid var(--line);
-    border-radius: 3px;
-    padding: 32px 28px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-  }
-  .card .num {
-    font-family: theme('fontFamily.sans');
-    font-size: 0.72rem;
-    letter-spacing: 0.16em;
-    color: var(--light-sage);
-    font-weight: 600;
-    margin: 0 0 20px;
-  }
-  .card h3 { font-size: 1.5rem; font-weight: 400; margin: 0 0 10px; }
-  .card .desc { color: var(--gray); font-size: 0.98rem; margin: 0 0 22px; }
-  .card .price {
-    font-size: 1.02rem;
-    color: var(--teal);
-    margin: 0 0 22px;
-    padding-bottom: 22px;
-    border-bottom: 1px solid var(--line);
-  }
-  .card .price span {
-    display: block;
-    font-family: theme('fontFamily.sans');
-    font-size: 0.68rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--light-sage);
-    margin-bottom: 4px;
-    font-weight: 600;
-  }
-  .card .price strong { font-weight: 700; font-size: 1.35rem; }
-  .card ul { list-style: none; margin: auto 0 0; padding: 0; }
-  .card li {
-    font-size: 0.95rem;
-    color: var(--gray);
-    padding: 7px 0 7px 22px;
-    position: relative;
-  }
-  .card li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 14px;
-    width: 8px;
-    height: 8px;
-    border: 1.5px solid var(--sage);
-    border-right: none;
-    border-top: none;
-    transform: rotate(-45deg);
-  }
-
-  .card.featured { background: var(--teal); border-color: var(--teal); }
-  .card.featured .num { color: var(--light-sage); }
-  .card.featured h3,
-  .card.featured .price,
-  .card.featured .price strong { color: var(--near-white); }
-  .card.featured .desc { color: rgba(254, 252, 246, 0.75); }
-  .card.featured .price { border-bottom-color: rgba(254, 252, 246, 0.2); }
-  .card.featured li { color: rgba(254, 252, 246, 0.82); }
-  .card.featured li::before { border-color: var(--light-sage); }
-  .card.featured .tag {
-    position: absolute;
-    top: 28px;
-    right: 28px;
-    font-family: theme('fontFamily.sans');
-    font-size: 0.62rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--teal);
-    background: var(--light-sage);
-    padding: 4px 9px;
-    border-radius: 2px;
-    font-weight: 700;
   }
 
   /* CARE PLANS */
@@ -383,7 +341,6 @@ import { packages, carePlans, processSteps, contactEmail } from '../../data/webD
 
   /* RESPONSIVE */
   @media (max-width: 860px) {
-    .packages { grid-template-columns: 1fr; }
     .plans { grid-template-columns: 1fr; }
   }
   @media (max-width: 720px) {
