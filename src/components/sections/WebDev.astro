@@ -1,21 +1,45 @@
 ---
+import Button from '../ui/Button.astro';
 import { packages, carePlans, processSteps, contactEmail } from '../../data/webDev';
 ---
 
 <section class="webdev">
   <!-- HERO -->
-  <div class="hero">
-    <div class="wrap">
-      <p class="eyebrow">Web Development · Charlotte, NC</p>
-      <h1>Websites that actually work for the businesses behind them.</h1>
-      <p class="lede">
+  <section class="relative overflow-hidden bg-ink-darker px-6 pt-[110px] pb-24 md:px-16">
+    <div
+      class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_28%_22%,rgba(132,150,128,.16),transparent_60%),radial-gradient(ellipse_at_82%_82%,rgba(94,108,91,.14),transparent_55%)]"
+    >
+    </div>
+    <svg
+      class="pointer-events-none absolute inset-0 h-full w-full opacity-[0.08]"
+      viewBox="0 0 800 500"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path d="M0 420 Q 200 330 400 400 T 800 350" stroke="#849680" stroke-width="1" fill="none"></path>
+      <path d="M0 90 Q 300 160 500 80 T 800 130" stroke="#849680" stroke-width="1" fill="none"></path>
+    </svg>
+    <div class="relative mx-auto max-w-[760px] text-center">
+      <p class="mb-5 text-xs font-semibold uppercase tracking-widest text-sage-light">
+        Web Development · Charlotte, NC
+      </p>
+      <h1 class="mb-6 font-serif text-[clamp(2.6rem,3vw+1.6rem,3.6rem)] font-normal leading-[1.05] text-cream">
+        Websites that actually work for the businesses behind them.
+      </h1>
+      <p class="mx-auto mb-9 max-w-[600px] text-lg leading-relaxed text-cream/[0.82]">
         I'm a front-end engineer with six years building production software.
         These days I also build fast, accessible, genuinely good websites for
         small businesses. <em>No template you have to fight, no jargon, and no
         disappearing after launch.</em>
       </p>
+      <div class="flex justify-center gap-4">
+        <Button variant="primary" href={`mailto:${contactEmail}?subject=Website%20project`}>
+          Book a discovery call
+        </Button>
+        <Button variant="secondary" href="#packages">See packages</Button>
+      </div>
     </div>
-  </div>
+  </section>
 
   <!-- INTRO -->
   <div class="wrap intro">
@@ -146,28 +170,6 @@ import { packages, carePlans, processSteps, contactEmail } from '../../data/webD
     color: var(--sage);
     margin: 0;
   }
-
-  /* HERO */
-  .hero {
-    padding: 88px 0 64px;
-    border-bottom: 1px solid var(--line);
-  }
-  .hero .eyebrow { margin-bottom: 22px; }
-  .hero h1 {
-    font-size: clamp(2.4rem, 5.5vw, 4rem);
-    line-height: 1.08;
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    max-width: 18ch;
-    margin: 0 0 26px;
-  }
-  .hero .lede {
-    font-size: clamp(1.05rem, 2vw, 1.3rem);
-    color: var(--gray);
-    max-width: 56ch;
-    margin: 0;
-  }
-  .hero .lede em { color: var(--teal); font-style: italic; }
 
   /* INTRO */
   .intro {
