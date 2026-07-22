@@ -528,7 +528,8 @@ with:
         Three ways to work together
       </h2>
       <p class="text-base leading-relaxed text-ink dark:text-cream/70">
-        Every project starts with a short discovery call. Prices are starting points, not ceilings.
+        Every project starts with a short discovery call, so the scope fits your
+        business. The prices below are starting points, not ceilings.
       </p>
     </div>
     <div class="fade-up-stagger mx-auto grid max-w-5xl grid-cols-1 items-stretch gap-6 md:grid-cols-3">
