@@ -6,6 +6,7 @@ export interface Package {
   featured: boolean;
   tag?: string;
   includes: string[];
+  mailtoSubject: string;
 }
 
 export const packages: Package[] = [
@@ -15,6 +16,7 @@ export const packages: Package[] = [
     desc: 'A clean, professional presence for a business that mainly needs to be found, trusted, and easy to reach.',
     price: '$2,000',
     featured: false,
+    mailtoSubject: 'The Storefront',
     includes: [
       'Up to 5 custom pages',
       'Mobile-first, fast-loading build',
@@ -30,6 +32,7 @@ export const packages: Package[] = [
     price: '$4,500',
     featured: true,
     tag: 'Most chosen',
+    mailtoSubject: 'The Custom Build',
     includes: [
       'Up to 10 custom pages',
       'Custom design in your brand',
@@ -44,6 +47,7 @@ export const packages: Package[] = [
     desc: 'For businesses selling online. Product pages, checkout, and a setup you can run without a developer on call.',
     price: '$7,000',
     featured: false,
+    mailtoSubject: 'The Shopfront',
     includes: [
       'Everything in The Custom Build',
       'Online store and checkout',
@@ -112,3 +116,7 @@ export const processSteps: ProcessStep[] = [
 ];
 
 export const contactEmail = 'hello@okeefesarah.com';
+
+export function packageMailtoHref(pkg: Pick<Package, 'mailtoSubject'>): string {
+  return `mailto:${contactEmail}?subject=${encodeURIComponent(pkg.mailtoSubject)}`;
+}
