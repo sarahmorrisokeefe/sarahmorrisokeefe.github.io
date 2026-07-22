@@ -129,28 +129,36 @@ import { packages, carePlans, processSteps, contactEmail, packageMailtoHref } fr
   </section>
 
   <!-- CARE PLANS -->
-  <div class="care">
-    <div class="wrap">
-      <div class="care-intro">
-        <p class="eyebrow">Care Plans</p>
-        <h2>Keep it running after launch</h2>
-        <p>
+  <section id="care" class="bg-cream-alt px-6 py-[72px] dark:bg-ink md:px-16">
+    <div class="mx-auto max-w-5xl">
+      <div class="fade-up mb-9 flex flex-wrap items-baseline justify-between gap-4">
+        <div>
+          <p class="mb-2.5 text-xs font-semibold uppercase tracking-widest text-sage dark:text-sage-light">
+            Care Plans
+          </p>
+          <h2 class="font-serif text-3xl font-normal text-ink-dark dark:text-cream">
+            Keep it running after launch
+          </h2>
+        </div>
+        <p class="max-w-[360px] text-sm leading-relaxed text-ink dark:text-cream/70">
           A website is a living thing. Care plans cover the updates, security,
           and small changes that keep it fast and current, so you never have to
           think about it. Cancel anytime.
         </p>
       </div>
-      <div class="plans">
+      <div class="fade-up-stagger grid grid-cols-1 gap-5 md:grid-cols-3">
         {carePlans.map((plan) => (
-          <div class="plan">
-            <h4>{plan.name}</h4>
-            <p class="rate"><b>{plan.rate}</b>{plan.unit && <span> {plan.unit}</span>}</p>
-            <p>{plan.desc}</p>
+          <div class="rounded-xl border border-ink-dark/10 bg-cream p-[26px] dark:border-cream/15 dark:bg-ink-dark">
+            <h4 class="mb-1.5 font-serif text-lg font-normal text-ink-dark dark:text-cream">{plan.name}</h4>
+            <p class="mb-2.5 text-sm text-sage dark:text-sage-light">
+              <strong>{plan.rate}</strong>{plan.unit && <span> {plan.unit}</span>}
+            </p>
+            <p class="text-sm leading-relaxed text-ink dark:text-cream/70">{plan.desc}</p>
           </div>
         ))}
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- PROCESS -->
   <div class="wrap process">
@@ -234,43 +242,6 @@ import { packages, carePlans, processSteps, contactEmail, packageMailtoHref } fr
     max-width: 54ch;
   }
 
-  /* CARE PLANS */
-  .care {
-    background: var(--cream);
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    margin-top: 72px;
-    padding: 64px 0;
-  }
-  .care-intro { max-width: 54ch; margin-bottom: 36px; }
-  .care-intro .eyebrow { margin-bottom: 14px; }
-  .care-intro h2 {
-    font-size: clamp(1.7rem, 3.5vw, 2.4rem);
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    margin: 0;
-  }
-  .care-intro p { color: var(--gray); margin: 12px 0 0; }
-  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .plan {
-    background: var(--near-white);
-    border: 1px solid var(--line);
-    border-radius: 3px;
-    padding: 26px 24px;
-  }
-  .plan h4 { font-size: 1.2rem; font-weight: 400; margin: 0 0 8px; }
-  .plan .rate {
-    font-family: theme('fontFamily.sans');
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--sage);
-    font-weight: 700;
-    margin: 0 0 18px;
-  }
-  .plan .rate b { font-size: 1.35rem; letter-spacing: normal; }
-  .plan p { font-size: 0.94rem; color: var(--gray); margin: 0; }
-
   /* PROCESS */
   .process { padding-bottom: 24px; }
   .steps {
@@ -340,9 +311,6 @@ import { packages, carePlans, processSteps, contactEmail, packageMailtoHref } fr
   }
 
   /* RESPONSIVE */
-  @media (max-width: 860px) {
-    .plans { grid-template-columns: 1fr; }
-  }
   @media (max-width: 720px) {
     .steps { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
   }
@@ -350,7 +318,6 @@ import { packages, carePlans, processSteps, contactEmail, packageMailtoHref } fr
     .wrap { padding: 0 20px; }
     .hero { padding: 72px 0 48px; }
     .steps { grid-template-columns: 1fr; gap: 28px; }
-    .care { padding: 48px 0; }
     .cta { padding: 56px 0; }
   }
 
