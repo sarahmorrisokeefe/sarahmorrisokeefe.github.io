@@ -9,7 +9,14 @@ import {
 
 const SOURCES: FeedSource[] = [
   { url: 'https://sarahmorrisokeefe.medium.com/feed', platform: 'medium' },
-  { url: 'https://chartposition.substack.com/feed', platform: 'substack' },
+  // Routed through our own Vercel proxy (api/substack-feed.ts) rather than
+  // chartposition.substack.com directly — Cloudflare 403s every request from
+  // GitHub Actions' shared runner IPs, so fetching from GitHub Actions never
+  // actually reached Substack. See src/data/substack-proxy.ts.
+  {
+    url: 'https://www.okeefesarah.com/api/substack-feed',
+    platform: 'substack',
+  },
 ];
 
 const here = dirname(fileURLToPath(import.meta.url));

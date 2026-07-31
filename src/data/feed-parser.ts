@@ -127,10 +127,11 @@ export function mergeAndSort(...lists: Post[][]): Post[] {
   });
 }
 
-// Substack sits behind Cloudflare, which rejects the default Node fetch
-// User-Agent (the request fails outright). Sending a real UA — and an RSS
-// Accept header — keeps the feed reachable. Medium is unaffected but gets the
-// same headers for consistency.
+// A real UA and an RSS Accept header, sent on every request. Substack itself
+// is fetched via our own proxy (src/data/substack-proxy.ts), not through this
+// file, since Cloudflare 403s the request outright when it comes from GitHub
+// Actions regardless of headers. Medium is unaffected but gets the same
+// headers here for consistency.
 const FEED_HEADERS = {
   'User-Agent':
     'Mozilla/5.0 (compatible; okeefesarah-feed-fetcher/1.0; +https://www.okeefesarah.com)',
