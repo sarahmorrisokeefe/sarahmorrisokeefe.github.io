@@ -1,5 +1,12 @@
 [
   {
+    "title": "Why Your Coding Agent Keeps Confidently Shipping Broken Code",
+    "description": "The model is rarely why. The DevEx friction that was slowing your team down before agents arrived usually is.",
+    "url": "https://levelup.gitconnected.com/why-your-coding-agent-keeps-confidently-shipping-broken-code-7a5631eee192",
+    "pubDate": "2026-07-20",
+    "platform": "medium"
+  },
+  {
     "title": "2,000 Founders Said AI Solved the Hard Part of Shipping. Then Burnout Took Its Place",
     "description": "Supabase surveyed over 2,000 builders. Their biggest challenge used to be technical complexity. In one year, that fear got cut in half and…",
     "url": "https://levelup.gitconnected.com/2-000-founders-said-ai-solved-the-hard-part-of-shipping-then-burnout-took-its-place-4cae2e18fd40",
@@ -187,13 +194,6 @@
     "url": "https://chartposition.substack.com/p/sector-by-sector-astrological-weather-e2f",
     "pubDate": "2026-04-30",
     "platform": "substack"
-  },
-  {
-    "title": "How to Render Music Notation in React Without Breaking on Mobile",
-    "description": "I built a music theory app with VexFlow and Capacitor. Here’s what only works on desktop by default — and how to fix it.",
-    "url": "https://levelup.gitconnected.com/how-to-render-music-notation-in-react-without-breaking-on-mobile-9615f812a3ec",
-    "pubDate": "2026-04-29",
-    "platform": "medium"
   },
   {
     "title": "The Out Lap: April 27-May 3",
