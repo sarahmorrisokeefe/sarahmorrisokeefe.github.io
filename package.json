@@ -30,6 +30,6 @@
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
     "tsx": "^4.22.3",
-    "vitest": "^3.2.6"
+    "vitest": "^5.0.5"
   }
 }
