@@ -5,6 +5,7 @@
     { "source": "/contact",         "destination": "/#contact",  "permanent": true },
     { "source": "/beyond-the-code", "destination": "/#about",    "permanent": true },
     { "source": "/freelance",       "destination": "/#contact",  "permanent": true },
-    { "source": "/education",       "destination": "/#about",    "permanent": true }
+    { "source": "/education",       "destination": "/#about",    "permanent": true },
+    { "source": "/web-dev",         "destination": "/",          "permanent": true }
   ]
 }
