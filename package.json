@@ -24,7 +24,7 @@
   "author": "Sarah O'Keefe",
   "license": "ISC",
   "devDependencies": {
-    "@vercel/node": "^5.9.3",
+    "@vercel/node": "^5.10.2",
     "fast-xml-parser": "^5.8.0",
     "jsdom": "^25.0.1",
     "prettier": "^3.8.3",
