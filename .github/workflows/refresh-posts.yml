@@ -8,6 +8,11 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write
+
+concurrency:
+  group: refresh-posts
+  cancel-in-progress: false
 
 jobs:
   refresh:
@@ -33,18 +38,25 @@ jobs:
             exit 0
           fi
 
-          branch="posts-refresh/$(date +%Y%m%d%H%M%S)"
+          branch="posts-refresh"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -b "$branch"
+          git checkout -B "$branch"
           git add src/data/posts.generated.json
           git commit -m "chore: refresh post teasers from feeds"
-          git push origin "$branch"
+          git push --force origin "$branch"
 
-          gh pr create \
-            --title "chore: refresh post teasers from feeds" \
-            --body "Automated daily refresh of post teasers from Medium/Substack feeds." \
-            --base master \
-            --head "$branch"
+          existing_pr="$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')"
+          if [ -z "$existing_pr" ]; then
+            gh pr create \
+              --title "chore: refresh post teasers from feeds" \
+              --body "Automated daily refresh of post teasers from Medium/Substack feeds." \
+              --base master \
+              --head "$branch"
+          fi
 
           gh pr merge "$branch" --auto --squash
+
+          # Events from GITHUB_TOKEN don't trigger workflows, except workflow_dispatch,
+          # so start the CodeQL check that branch protection requires.
+          gh workflow run codeql-analysis.yml --ref "$branch"
